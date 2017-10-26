@@ -1,0 +1,3 @@
+CHANGED,/Users/zoraida/StudioProjects/ConversationalInterface/chapter8/Understand/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/conversandroid/MainActivity$2$override.class
+CHANGED,/Users/zoraida/StudioProjects/ConversationalInterface/chapter8/Understand/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/conversandroid/MainActivity$override.class
+CHANGED,/Users/zoraida/StudioProjects/ConversationalInterface/chapter8/Understand/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/android/tools/fd/runtime/AppPatchesLoaderImpl.class

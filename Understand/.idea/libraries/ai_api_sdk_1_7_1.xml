@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="ai.api:sdk-1.7.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sdk-1.7.1.aar/d291b0adde4b34a4214efcd02f6001e9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sdk-1.7.1.aar/d291b0adde4b34a4214efcd02f6001e9/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ai.api/sdk/1.7.1/943f214c60739d4f9319edbed39803d6b6bf77fb/sdk-1.7.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

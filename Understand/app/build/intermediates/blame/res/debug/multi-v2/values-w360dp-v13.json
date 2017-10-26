@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-w360dp-v13/values-w360dp-v13.xml",
+            "map": [
+                {
+                    "source": "/home/jlsuarezdiaz/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.0.1.aar/0cb9a19129b22a0e1cfbe7492505548d/res/values-w360dp/values-w360dp.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "4",
+                        "startOffsets": "283",
+                        "endColumns": "54",
+                        "endOffsets": "333"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "54",
+                        "endOffsets": "105"
+                    }
+                }
+            ]
+        }
+    ]
+}
