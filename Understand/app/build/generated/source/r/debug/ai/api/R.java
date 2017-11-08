@@ -37,10 +37,10 @@ public final class R {
         public static final int microphone_control = 0x7f060042;
     }
     public static final class id {
-        public static final int micButton = 0x7f07002e;
-        public static final int micContainer = 0x7f07002f;
-        public static final int partialResultsTextView = 0x7f070036;
-        public static final int titleTextView = 0x7f070059;
+        public static final int micButton = 0x7f07002f;
+        public static final int micContainer = 0x7f070030;
+        public static final int partialResultsTextView = 0x7f070037;
+        public static final int titleTextView = 0x7f07005a;
     }
     public static final class layout {
         public static final int aidialog = 0x7f090018;

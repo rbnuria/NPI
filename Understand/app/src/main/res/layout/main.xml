@@ -1,26 +1,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#ffffff"
     android:orientation="vertical"
     android:paddingBottom="5dp" >
-    
+
     <Button
         android:id="@+id/speech_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/speechbtn_default"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/dialogImageView"
+        android:layout_width="match_parent"
+        android:layout_height="306dp" />
 
     <TextView
+        android:id="@+id/resultTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/resultTextView"
-        android:textSize="20sp"
-        android:background="@drawable/megamandelbrot"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="20sp" />
 </LinearLayout>

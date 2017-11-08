@@ -23,9 +23,11 @@ package conversandroid;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -33,18 +35,21 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import ai.api.AIConfiguration;
 import ai.api.AIDataService;
 import ai.api.AIServiceException;
+import ai.api.model.AIOutputContext;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
 import ai.api.model.Result;
@@ -63,6 +68,7 @@ public class MainActivity extends VoiceActivity {
 
 	private static final String LOGTAG = "UNDERSTAND";
 	private TextView resultTextView;
+	private ImageView dialogImageView;
 	private AIDataService aiDataService=null;
 
 	//TODO: INSERT YOUR CLIENT ACCESS KEY
@@ -92,6 +98,7 @@ public class MainActivity extends VoiceActivity {
 
 		//Set up text view to display results
 		resultTextView = (TextView) findViewById(R.id.resultTextView);
+		dialogImageView = (ImageView) findViewById(R.id.dialogImageView);
 
 		//Api.ai configuration parameters (the subscriptionkey is not longer mandatory, so you
 		//can use the new constructor without that parameter or keep this one which accepts any
@@ -201,22 +208,31 @@ public class MainActivity extends VoiceActivity {
             switch (errorCode) {
                 case SpeechRecognizer.ERROR_AUDIO:
                     errorMsg = "Audio recording error";
+                    break;
                 case SpeechRecognizer.ERROR_CLIENT:
                     errorMsg = "Unknown client side error";
+                    break;
                 case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
                     errorMsg = "Insufficient permissions";
+                    break;
                 case SpeechRecognizer.ERROR_NETWORK:
                     errorMsg = "Network related error";
+                    break;
                 case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
                     errorMsg = "Network operation timed out";
+                    break;
                 case SpeechRecognizer.ERROR_NO_MATCH:
                     errorMsg = "No recognition result matched";
+                    break;
                 case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
                     errorMsg = "RecognitionService busy";
+                    break;
                 case SpeechRecognizer.ERROR_SERVER:
                     errorMsg = "Server sends error status";
+                    break;
                 case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
                     errorMsg = "No speech input";
+                    break;
                 default:
                     errorMsg = ""; //Another frequent error that is not really due to the ASR, we will ignore it
             }
@@ -310,15 +326,28 @@ public class MainActivity extends VoiceActivity {
 					}
 
                     Log.d(LOGTAG,parameterString);
+
+					//dialogImageView.setImageDrawable(getResources().getDrawable(getResources().getIdentifier("@drawable/megamandelbrot.png", null, getPackageName())));
+
 					// Show results in TextView.
 
+					List<AIOutputContext> contexts = result.getContexts();
+					String context_str = "";
+					for(AIOutputContext a : contexts){
+						context_str+= a.getName() + "\n";
+					}
 					resultTextView.setText("Query: " + result.getResolvedQuery() +
 							"\nAction: " + result.getAction() +
 							"\nParameters: " + parameterString +
-							"\nRespuesta¿?: " + result.getFulfillment().getSpeech()
+							"\nRespuesta¿?: " + result.getFulfillment().getSpeech() +
+							"\nContext size: " + contexts.size() +
+							"\nContextos¿?: " + context_str
 					);
 
-					String response = result.getFulfillment().getSpeech();
+
+					String response = result.getFulfillment().getSpeech() + ", PAYASO.";
+
+
 
 					try {
 						speak(response, "ES", ID_PROMPT_INFO);
