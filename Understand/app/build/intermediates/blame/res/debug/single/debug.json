@@ -12,6 +12,10 @@
         "source": "/home/jlsuarezdiaz/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.0.1.aar/0cb9a19129b22a0e1cfbe7492505548d/res/drawable-xxxhdpi/abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
+        "merged": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/debug/drawable-hdpi_fondo.jpg.flat",
+        "source": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/src/main/res/drawable-hdpi/fondo.jpg"
+    },
+    {
         "merged": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/debug/layout_abc_dialog_title_material.xml.flat",
         "source": "/home/jlsuarezdiaz/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.0.1.aar/0cb9a19129b22a0e1cfbe7492505548d/res/layout/abc_dialog_title_material.xml"
     },
@@ -358,6 +362,10 @@
     {
         "merged": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/debug/drawable-xhdpi_abc_tab_indicator_mtrl_alpha.9.png.flat",
         "source": "/home/jlsuarezdiaz/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.0.1.aar/0cb9a19129b22a0e1cfbe7492505548d/res/drawable-xhdpi/abc_tab_indicator_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/debug/drawable-hdpi_ic_mic_none_black_24dp.png.flat",
+        "source": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/src/main/res/drawable-hdpi/ic_mic_none_black_24dp.png"
     },
     {
         "merged": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/debug/color_mic_colors.xml.flat",
@@ -1002,6 +1010,10 @@
     {
         "merged": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/debug/layout_abc_popup_menu_item_layout.xml.flat",
         "source": "/home/jlsuarezdiaz/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.0.1.aar/0cb9a19129b22a0e1cfbe7492505548d/res/layout/abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/debug/drawable-hdpi_mic.jpg.flat",
+        "source": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/src/main/res/drawable-hdpi/mic.jpg"
     },
     {
         "merged": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/debug/drawable-ldrtl-xxxhdpi_abc_ic_menu_copy_mtrl_am_alpha.png.flat",

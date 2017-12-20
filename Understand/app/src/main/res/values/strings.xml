@@ -3,10 +3,10 @@
 
     <string name="app_name">NPI APP</string>
 
-    <string name="nomatch_prompt">Sorry, I don\'t know how to answer to that</string>
-    <string name="iderror_prompt">The app id, user key or bot name are invalid</string>
-    <string name="connectionerror_prompt">An error has occurred when trying to connect to Pandorabots</string>
-    <string name="parseerror_prompt">An error has occurred while parsing the bot response</string>
+    <string name="nomatch_prompt">Perdona, no sé cómo contestar a eso.<!--Sorry, I don\'t know how to answer to that--></string>
+    <string name="iderror_prompt">El id de la aplicación, la clave de usuario o el nombre del bot son inválidos.<!--The app id, user key or bot name are invalid--></string>
+    <string name="connectionerror_prompt">Ha ocurrido un error intentando conectar a Pandorabots.<!--An error has occurred when trying to connect to Pandorabots--></string>
+    <string name="parseerror_prompt">Ha ocurrido un error mientras se procesaba la respuesta del bot.<!--An error has occurred while parsing the bot response--></string>
 
 
 

@@ -35,6 +35,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -98,7 +99,7 @@ public class MainActivity extends VoiceActivity {
 
 		//Set up text view to display results
 		resultTextView = (TextView) findViewById(R.id.resultTextView);
-		dialogImageView = (ImageView) findViewById(R.id.dialogImageView);
+		//dialogImageView = (ImageView) findViewById(R.id.dialogImageView);
 
 		//Api.ai configuration parameters (the subscriptionkey is not longer mandatory, so you
 		//can use the new constructor without that parameter or keep this one which accepts any
@@ -116,7 +117,7 @@ public class MainActivity extends VoiceActivity {
 	private void setSpeakButton() {
 
 		// gain reference to speak button
-		Button speak = (Button) findViewById(R.id.speech_btn);
+		ImageButton speak = (ImageButton) findViewById(R.id.speech_btn);
 		speak.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -173,9 +174,9 @@ public class MainActivity extends VoiceActivity {
 	 *      * It synthesizes a voice message
 	 */
 	private void indicateListening() {
-		Button button = (Button) findViewById(R.id.speech_btn); //Obtains a reference to the button
-		button.setText(getResources().getString(R.string.speechbtn_listening)); //Changes the button's message to the text obtained from the resources folder
-        button.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.speechbtn_listening),PorterDuff.Mode.MULTIPLY);  //Changes the button's background to the color obtained from the resources folder
+		ImageButton button = (ImageButton) findViewById(R.id.speech_btn); //Obtains a reference to the button
+		//button.setText(getResources().getString(R.string.speechbtn_listening)); //Changes the button's message to the text obtained from the resources folder
+        //button.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.speechbtn_listening),PorterDuff.Mode.MULTIPLY);  //Changes the button's background to the color obtained from the resources folder
 	}
 
 	/**
@@ -183,9 +184,9 @@ public class MainActivity extends VoiceActivity {
 	 * 		* It changes the color and the message of the speech button
 	 */
 	private void changeButtonAppearanceToDefault(){
-		Button button = (Button) findViewById(R.id.speech_btn); //Obtains a reference to the button
-		button.setText(getResources().getString(R.string.speechbtn_default)); //Changes the button's message to the text obtained from the resources folder
-        button.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.speechbtn_default),PorterDuff.Mode.MULTIPLY); 	//Changes the button's background to the color obtained from the resources folder
+		ImageButton button = (ImageButton) findViewById(R.id.speech_btn); //Obtains a reference to the button
+		//button.setText(getResources().getString(R.string.speechbtn_default)); //Changes the button's message to the text obtained from the resources folder
+        //button.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.speechbtn_default),PorterDuff.Mode.MULTIPLY); 	//Changes the button's background to the color obtained from the resources folder
 	}
 
 	/**
@@ -207,31 +208,31 @@ public class MainActivity extends VoiceActivity {
             String errorMsg = "";
             switch (errorCode) {
                 case SpeechRecognizer.ERROR_AUDIO:
-                    errorMsg = "Audio recording error";
+                    errorMsg = "Error grabando audio";//"Audio recording error";
                     break;
                 case SpeechRecognizer.ERROR_CLIENT:
-                    errorMsg = "Unknown client side error";
+                    errorMsg = "Error desconocido en el lado del cliente";//"Unknown client side error";
                     break;
                 case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
-                    errorMsg = "Insufficient permissions";
+                    errorMsg = "Permisos insuficientes";//"Insufficient permissions";
                     break;
                 case SpeechRecognizer.ERROR_NETWORK:
-                    errorMsg = "Network related error";
+                    errorMsg = "Error de red.";//"Network related error";
                     break;
                 case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-                    errorMsg = "Network operation timed out";
+                    errorMsg = "Tiempo de conexión agotado.";//"Network operation timed out";
                     break;
                 case SpeechRecognizer.ERROR_NO_MATCH:
-                    errorMsg = "No recognition result matched";
+                    errorMsg = "No hay coincidencias ";//"No recognition result matched";
                     break;
                 case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
-                    errorMsg = "RecognitionService busy";
+                    errorMsg = "Servicio de reconocimiento ocupado";//"RecognitionService busy";
                     break;
                 case SpeechRecognizer.ERROR_SERVER:
-                    errorMsg = "Server sends error status";
+                    errorMsg = "Error del sevidor";//"Server sends error status";
                     break;
                 case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-                    errorMsg = "No speech input";
+                    errorMsg = "No se detectó ninguna entrada";//"No speech input";
                     break;
                 default:
                     errorMsg = ""; //Another frequent error that is not really due to the ASR, we will ignore it
@@ -336,16 +337,16 @@ public class MainActivity extends VoiceActivity {
 					for(AIOutputContext a : contexts){
 						context_str+= a.getName() + "\n";
 					}
-					resultTextView.setText("Query: " + result.getResolvedQuery() +
+				/*	resultTextView.setText("Query: " + result.getResolvedQuery() +
 							"\nAction: " + result.getAction() +
 							"\nParameters: " + parameterString +
 							"\nRespuesta¿?: " + result.getFulfillment().getSpeech() +
 							"\nContext size: " + contexts.size() +
 							"\nContextos¿?: " + context_str
-					);
+					);*/
 
 
-					String response = result.getFulfillment().getSpeech() + ", PAYASO.";
+					String response = result.getFulfillment().getSpeech();
 
 
 

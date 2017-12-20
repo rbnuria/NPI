@@ -442,7 +442,7 @@ public final class R {
         public static final int abc_textfield_search_activated_mtrl_alpha = 0x7f06003b;
         public static final int abc_textfield_search_default_mtrl_alpha = 0x7f06003c;
         public static final int abc_textfield_search_material = 0x7f06003d;
-        public static final int notification_template_icon_bg = 0x7f060043;
+        public static final int notification_template_icon_bg = 0x7f060046;
     }
     public static final class id {
         public static final int action0 = 0x7f070000;
@@ -474,17 +474,17 @@ public final class R {
         public static final int customPanel = 0x7f07001a;
         public static final int decor_content_parent = 0x7f07001b;
         public static final int default_activity_button = 0x7f07001c;
-        public static final int disableHome = 0x7f07001e;
-        public static final int edit_query = 0x7f07001f;
-        public static final int end = 0x7f070020;
-        public static final int end_padder = 0x7f070021;
-        public static final int expand_activities_button = 0x7f070022;
-        public static final int expanded_menu = 0x7f070023;
-        public static final int home = 0x7f070024;
-        public static final int homeAsUp = 0x7f070025;
-        public static final int icon = 0x7f070026;
-        public static final int ifRoom = 0x7f070027;
-        public static final int image = 0x7f070028;
+        public static final int disableHome = 0x7f07001d;
+        public static final int edit_query = 0x7f07001e;
+        public static final int end = 0x7f07001f;
+        public static final int end_padder = 0x7f070020;
+        public static final int expand_activities_button = 0x7f070021;
+        public static final int expanded_menu = 0x7f070022;
+        public static final int home = 0x7f070023;
+        public static final int homeAsUp = 0x7f070024;
+        public static final int icon = 0x7f070025;
+        public static final int ifRoom = 0x7f070026;
+        public static final int image = 0x7f070027;
         public static final int info = 0x7f070029;
         public static final int line1 = 0x7f07002a;
         public static final int line3 = 0x7f07002b;

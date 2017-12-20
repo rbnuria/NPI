@@ -33,8 +33,8 @@ public final class R {
     }
     public static final class drawable {
         public static final int cube = 0x7f06003f;
-        public static final int mic_control = 0x7f060041;
-        public static final int microphone_control = 0x7f060042;
+        public static final int mic_control = 0x7f060044;
+        public static final int microphone_control = 0x7f060045;
     }
     public static final class id {
         public static final int micButton = 0x7f07002f;

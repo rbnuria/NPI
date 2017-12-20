@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -6,17 +6,15 @@
     android:orientation="vertical"
     android:paddingBottom="5dp" >
 
-    <Button
+    <ImageButton
         android:id="@+id/speech_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/speechbtn_default"
-        android:textSize="20sp" />
-
-    <ImageView
-        android:id="@+id/dialogImageView"
-        android:layout_width="match_parent"
-        android:layout_height="306dp" />
+        android:layout_above="@+id/resultTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@null"
+        android:src="@drawable/mic" />
 
     <TextView
         android:id="@+id/resultTextView"
@@ -28,4 +26,13 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:textSize="20sp" />
-</LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/speech_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="54dp"
+        android:src="@drawable/fondo" />
+</RelativeLayout>

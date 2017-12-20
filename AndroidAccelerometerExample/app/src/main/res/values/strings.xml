@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AndroidAccelerometerExample</string>
+    <string name="title_activity_simple_pedometer">SimplePedometerActivity</string>
+</resources>

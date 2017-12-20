@@ -75,7 +75,7 @@ MERGED from [com.android.support:support-v4:23.0.1] /home/jlsuarezdiaz/.gradle/c
 	android:label
 		ADDED from /home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/src/main/AndroidManifest.xml:20:9-41
 	android:icon
-		ADDED from /home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/src/main/AndroidManifest.xml:19:9-48
+		ADDED from /home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/src/main/AndroidManifest.xml:19:9-39
 	android:allowBackup
 		ADDED from /home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/src/main/AndroidManifest.xml:18:9-35
 	android:theme
@@ -83,7 +83,7 @@ MERGED from [com.android.support:support-v4:23.0.1] /home/jlsuarezdiaz/.gradle/c
 activity#conversandroid.MainActivity
 ADDED from /home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/src/main/AndroidManifest.xml:22:9-29:20
 	android:label
-		ADDED from /home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/src/main/AndroidManifest.xml:24:13-39
+		ADDED from /home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/src/main/AndroidManifest.xml:24:13-36
 	android:name
 		ADDED from /home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/src/main/AndroidManifest.xml:23:13-55
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
