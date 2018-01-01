@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements  GestureDetector.OnGestureListener{
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements  GestureDetector.
 
     //Referencia al detector de gestos
     private GestureDetectorCompat gesturedetector = null;
+    private ScaleGestureDetector sgd;
+
 
     TextView text_giroscope = null;
     TextView text_proximidad = null;
@@ -143,12 +146,15 @@ public class MainActivity extends AppCompatActivity implements  GestureDetector.
         sensorManager.registerListener(mySensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
                 SensorManager.SENSOR_DELAY_NORMAL);
 
+        gesturedetector = new GestureDetectorCompat(this,this);
 
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return true;
+        this.gesturedetector.onTouchEvent(event);
+        // Be sure to call the superclass implementation
+        return super.onTouchEvent(event);
     }
 
     //Para poder extender la clase abstracta
@@ -192,16 +198,18 @@ public class MainActivity extends AppCompatActivity implements  GestureDetector.
             if (motionEvent.getX() - motionEvent1.getX() > SWIPE_MIN_DISTANCE
                     && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
 
-                    text_fling.setText("Han movido derecha -> izquierda");
+                    text_fling.setText("derecha -> izquierda");
 
             } else if (motionEvent1.getX() - motionEvent.getX() > SWIPE_MIN_DISTANCE
                     && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
 
-                    text_fling.setText("Han movido izquierda -> derecha");
+                    text_fling.setText("izquierda -> derecha");
             }
 
         } catch (Exception e) {}
         return false;
     }
+
+
 
 };

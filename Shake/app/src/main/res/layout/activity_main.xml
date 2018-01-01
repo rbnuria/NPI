@@ -28,9 +28,10 @@
         android:id="@+id/text_fling"
         android:layout_width="131dp"
         android:layout_height="16dp"
+        android:layout_marginEnd="126dp"
         android:layout_marginTop="64dp"
         android:text="Reconocimiento fling"
-        app:layout_constraintTop_toBottomOf="@+id/text_giroscope"
-        tools:layout_editor_absoluteX="127dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_giroscope" />
 
 </android.support.constraint.ConstraintLayout>
