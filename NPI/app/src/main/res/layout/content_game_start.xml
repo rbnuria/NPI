@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.jlsuarezdiaz.museocajagranada.GameStartActivity"
+    tools:showIn="@layout/app_bar_game_start">
+
+    <Button
+        android:id="@+id/btMultiplayer"
+        android:layout_width="231dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:background="@color/colorAccent"
+        android:text="JUGAR CON UN AMIGO"
+        android:textColor="@android:color/background_light"
+        android:onClick="playMultiplayer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btStartIndividual"
+        android:layout_width="226dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimary"
+        android:text="COMENZAR JUEGO"
+        android:textColor="@android:color/background_light"
+        android:onClick="startGame"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textColor="@android:color/background_light" />
+</android.support.constraint.ConstraintLayout>
