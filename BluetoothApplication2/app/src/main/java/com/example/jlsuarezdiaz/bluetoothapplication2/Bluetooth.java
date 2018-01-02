@@ -9,13 +9,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import java.util.Set;
 import java.util.UUID;
-
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
 
 /**
  * Created by jlsuarezdiaz on 19/12/17.
@@ -99,11 +95,11 @@ public class Bluetooth {
     }
 
     // Create a BroadcastReceiver for ACTION_FOUND
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+    private static final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             // When discovery finds a device
-            System.out.println("HE ENTRAO AQUI ILLO");
+            System.out.println("*****************************HE ENTRAO AQUI ILLO");
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 // Get the BluetoothDevice object from the Intent
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);

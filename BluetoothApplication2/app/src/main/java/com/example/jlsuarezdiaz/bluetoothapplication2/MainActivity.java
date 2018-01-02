@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
         BT = new Bluetooth(this);
         BT.turnOn();
+
         BT.scanDevices();
     }
 

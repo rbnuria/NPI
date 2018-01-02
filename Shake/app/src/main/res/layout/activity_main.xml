@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.npi.shake.MainActivity">
+
+    <TextView
+        android:id="@+id/text_proximidad"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:text="Sensor de proximidad"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_giroscope"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:text="Movimiento giroscopio"
+        tools:layout_editor_absoluteX="121dp"
+        tools:layout_editor_absoluteY="103dp" />
+
+    <TextView
+        android:id="@+id/text_fling"
+        android:layout_width="131dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="126dp"
+        android:layout_marginTop="64dp"
+        android:text="Reconocimiento fling"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_giroscope" />
+
+</android.support.constraint.ConstraintLayout>
