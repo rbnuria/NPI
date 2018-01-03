@@ -28,6 +28,13 @@
     <string name="discoverable">Make discoverable</string>
     <string name="title_activity_map">MapActivity</string>
 
+    <string name="question1">Pregunta 1: ¿Cómo de guapa es Nuria?</string>
+    <string name="q1_response1">Un poquillo namás</string>
+    <string name="q1_response2">Mucho muchísimo, no hay ninguna duda</string>
+    <string name="q1_response3">La más del mundo mundial.</string>
+    <string nmae="q1_resposne">3</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

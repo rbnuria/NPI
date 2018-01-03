@@ -26,6 +26,7 @@ public class MapActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
 
 
+
     // define the display assembly compass picture
     private ImageView image;
 

@@ -3,16 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:foregroundGravity="center"
+    android:layout_centerInParent="true"
     tools:context="com.example.jlsuarezdiaz.museocajagranada.GameModeFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
 
     <Button
-        android:id="@+id/btStartIndividual"
-        android:layout_width="226dp"
+        android:id="@+id/btMultiplayer"
+        android:layout_width="231dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginStart="70dp"
+        android:background="@color/colorAccent"
+        android:foregroundGravity="fill"
+        android:text="JUGAR CON UN AMIGO"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btStartIndividual"
+        android:layout_width="231dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="70dp"
         android:background="@color/colorPrimary"
         android:text="COMENZAR JUEGO"
         android:textColor="@android:color/background_light"
@@ -20,18 +38,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:textColor="@android:color/background_light" />
-
-    <Button
-        android:id="@+id/btMultiplayer"
-        android:layout_width="231dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:background="@color/colorAccent"
-        android:text="JUGAR CON UN AMIGO"
-        android:textColor="@android:color/background_light"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
 </FrameLayout>

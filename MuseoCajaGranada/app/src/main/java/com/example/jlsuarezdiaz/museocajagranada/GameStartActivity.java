@@ -2,25 +2,58 @@ package com.example.jlsuarezdiaz.museocajagranada;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 
 public class GameStartActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, GameModeFragment.OnFragmentInteractionListener,
-        CountDownGameStartFragment.OnFragmentInteractionListener, Question1Fragment.OnFragmentInteractionListener{
+        implements GestureDetector.OnGestureListener, NavigationView.OnNavigationItemSelectedListener, GameModeFragment.OnFragmentInteractionListener,
+        CountDownGameStartFragment.OnFragmentInteractionListener, Question1Fragment.OnFragmentInteractionListener, Question2Fragment.OnFragmentInteractionListener{
 
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
+    int question = 1;
+
+
+    //Variables necesarias para el uso de los sensores
+    private SensorManager sensorManager;
+
+    //Referencia al detector de gestos
+    private GestureDetectorCompat gesturedetector = null;
+    private ScaleGestureDetector sgd;
+
+    //CONSTANTES DEL RECONOCIMIENTO DE GESTO -> Stackoverflow
+    private static final int SWIPE_MIN_DISTANCE = 420;
+    private static final int SWIPE_MAX_OFF_PATH = 250;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 100;
+
+    private int limite_movimiento = 2;
+    private double limite_proximidad = 0.01;
+
+    //Variables para controlar el comportamiento del giroscopio.
+    boolean right = false;
+    boolean left = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +62,6 @@ public class GameStartActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -55,6 +80,108 @@ public class GameStartActivity extends AppCompatActivity
         transaction.addToBackStack(null);
 
         transaction.commit();
+
+        //Servicio del dectector de gestos
+        gesturedetector = new GestureDetectorCompat(this, this);
+
+        //////////////// FUNCIONALIDAD DE LOS SENSORES
+
+        //Obtenemos el servicio de sensores
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        //Definimos la funcionalidad de los sensores
+        final SensorEventListener mySensorEventListener = new SensorEventListener() {
+
+            @Override
+            public void onSensorChanged(SensorEvent sensorEvent) {
+
+                //////////////////////// GIROSCOPIO
+                if (sensorEvent.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
+                    //right nos indicará si el primer movimiento ha sido a la derecha
+                    //left nos indicará lo mismo pero a la izquierda
+                    //Si aun no hemos hecho un primer movimiento
+                    if(!right && !left){
+                        if (sensorEvent.values[2] <= - limite_movimiento) { // Podemos establecer límite en una v
+                            right = true;
+                            //hebra que se ejecutará en 0.5s. Esta hebra
+                            //hace que si en 0.5s no hemos hecho el movimiento
+                            //hacia la izquierda, right volverá a ser false
+
+                            Runnable isElapsed = new Runnable() {
+                                @Override
+                                public void run() {
+                                    right = false;
+                                }
+                            };
+
+                            Handler h = new Handler();
+                            h.postDelayed(isElapsed, 500);
+                        }
+
+
+                        //Mismo procedimiento para la izquierda
+                        if (sensorEvent.values[2] >= limite_movimiento) {
+                            left = true;
+                            //hebra que se ejecutará en 0.5s. Esta hebra
+                            //hace que si en 0.5s no hemos hecho el movimiento
+                            //hacia la izquierda, right volverá a ser false
+
+                            Runnable isElapsed = new Runnable() {
+                                @Override
+                                public void run() {
+                                    left = false;
+                                }
+                            };
+
+                            Handler h = new Handler();
+                            h.postDelayed(isElapsed, 500);
+                        }
+
+                    }else if(right) { //Si habíamos ido a la derecha
+                        //Y ahora vamos a la izquierda
+                        if (sensorEvent.values[2] >= limite_movimiento) {
+                            //A la derecha
+                            right = false;
+                            question = question +1;
+                            onFragmentInteraction();
+                        }
+                    }else if(left){ //Si habíamos ido a la izquierda
+                        //Y ahora vamos a la derecha
+                        if (sensorEvent.values[2] <= - limite_movimiento) {
+                            // A la izquierda -> se podría volver a la anterior (permitir?)
+                            left = false;
+                        }
+                    }
+
+                    //////////// SENSOR DE PROXIMIDAD
+                }else if(sensorEvent.sensor.getType() == Sensor.TYPE_PROXIMITY ) {
+
+                    /// Si algo está lo suficientemente cerca (en nuestro caso será la mano) -> minusvalías
+                    if (sensorEvent.values[0] >= -limite_proximidad && sensorEvent.values[0] <= limite_proximidad) {
+                        //Tapao
+                        question = question +1;
+                        onFragmentInteraction();
+                    }
+                }
+
+
+            }
+
+            //Necesario implementarlo por ser clase abstracta
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int i) {}
+
+
+        };
+
+
+        //Registramos el listener para los 2 sensores
+        sensorManager.registerListener(mySensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
+                sensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(mySensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
+                SensorManager.SENSOR_DELAY_NORMAL);
+
+        gesturedetector = new GestureDetectorCompat(this,this);
     }
 
     @Override
@@ -145,17 +272,97 @@ public class GameStartActivity extends AppCompatActivity
         }
     }
 
+
     @Override
     public void onFragmentInteraction() {
-        Fragment newFragment = new Question1Fragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
+        switch (question){
+            case 1: {
+                Fragment newFragment = new Question1Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
 
-        transaction.replace(R.id.fragment_placeholder,newFragment);
-        transaction.addToBackStack(null);
+                transaction.replace(R.id.fragment_placeholder, newFragment);
+                transaction.addToBackStack(null);
 
-        transaction.commit();
+                transaction.commit();
+
+                break;
+            }
+            case 2:{
+                Fragment newFragment = new Question2Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
+
+                transaction.replace(R.id.fragment_placeholder,newFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+
+                break;
+            }
+        }
+
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        this.gesturedetector.onTouchEvent(event);
+        // Be sure to call the superclass implementation
+        return super.onTouchEvent(event);
+    }
+
+    //Para poder extender la clase abstracta
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public void onLongPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent motionEvent) {
+        return true;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent motionEvent) {
+        return true;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return true;
+    }
+
+
+    //Cuando deslizamos el dedo por la pantalla (derecha e izquierda) -> StackOverflow
+    @Override
+    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+
+        Log.d("---onFling---", motionEvent.toString() + motionEvent1.toString() + "");
+
+        try {
+            if (Math.abs(motionEvent.getY() - motionEvent1.getY()) > SWIPE_MAX_OFF_PATH)
+                return false;
+            // right to left swipe
+            if (motionEvent.getX() - motionEvent1.getX() > SWIPE_MIN_DISTANCE
+                    && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
+                question = question +1;
+                onFragmentInteraction();
+
+            } else if (motionEvent1.getX() - motionEvent.getX() > SWIPE_MIN_DISTANCE
+                    && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
+                    // Igual -> se podría echar para atrás
+            }
+
+        } catch (Exception e) {}
+        return false;
+    }
+
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {

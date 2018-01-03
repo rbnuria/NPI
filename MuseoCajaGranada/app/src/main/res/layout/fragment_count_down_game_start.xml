@@ -2,7 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     tools:context="com.example.jlsuarezdiaz.museocajagranada.CountDownGameStartFragment">
+
+    <TextView
+        android:id="@+id/progressText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="300dp"
+        android:text="progress"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3" />
 
     <ProgressBar
         android:id="@+id/progressBarToday"
@@ -10,17 +22,10 @@
         android:layout_width="250dp"
         android:layout_height="273dp"
         android:layout_centerInParent="true"
+        android:layout_marginStart="150dp"
         android:indeterminate="false"
         android:max="1000"
         android:progress="800"
         android:progressDrawable="@drawable/circular_progress_bar" />
-
-    <TextView
-        android:id="@+id/progressText"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:layout_centerVertical="true"
-    android:text="progress" />
 
 </FrameLayout>

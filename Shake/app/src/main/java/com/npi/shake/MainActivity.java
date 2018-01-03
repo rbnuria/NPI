@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements  GestureDetector.
 
         //Obtenemos el servicio de sensores
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
         //Definimos la funcionalidad de los sensores
         final SensorEventListener mySensorEventListener = new SensorEventListener() {
 
