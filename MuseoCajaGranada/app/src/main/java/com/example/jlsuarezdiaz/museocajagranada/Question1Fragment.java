@@ -4,27 +4,20 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import static java.lang.Thread.sleep;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CountDownGameStartFragment.OnFragmentInteractionListener} interface
+ * {@link Question1Fragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CountDownGameStartFragment#newInstance} factory method to
+ * Use the {@link Question1Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CountDownGameStartFragment extends Fragment {
+public class Question1Fragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,7 +29,7 @@ public class CountDownGameStartFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CountDownGameStartFragment() {
+    public Question1Fragment() {
         // Required empty public constructor
     }
 
@@ -46,11 +39,11 @@ public class CountDownGameStartFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CountDownGameStartFragment.
+     * @return A new instance of fragment Question1Fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CountDownGameStartFragment newInstance(String param1, String param2) {
-        CountDownGameStartFragment fragment = new CountDownGameStartFragment();
+    public static Question1Fragment newInstance(String param1, String param2) {
+        Question1Fragment fragment = new Question1Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,55 +58,19 @@ public class CountDownGameStartFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_count_down_game_start, container, false);
-        final ProgressBar pb = (ProgressBar) v.findViewById(R.id.progressBarToday);
-        final TextView tv = (TextView) v.findViewById(R.id.progressText);
-
-        Animation an = new RotateAnimation(0.0f, 90.0f, 250f, 273f);
-        an.setFillAfter(true);
-        pb.startAnimation(an);
-        final int maxTime = 3000;
-        final int period = pb.getMax();
-        pb.setProgress(maxTime);
-
-        final int interval = 1;
-        new CountDownTimer(maxTime,interval){
-            @Override
-            public void onTick(long millisUntilFinished) {
-                System.out.println(millisUntilFinished);
-                pb.setProgress((int)millisUntilFinished % period);
-                tv.setText(Long.toString(millisUntilFinished/period+1));
-            }
-
-            @Override
-            public void onFinish() {
-                pb.setProgress(0);
-                tv.setText("¡YA!");
-
-                mListener.onFragmentInteraction();
-                try {
-                    sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-
-        }.start();
         // Inflate the layout for this fragment
-        return v;
+        return inflater.inflate(R.layout.fragment_question1, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction();
+            mListener.onFragmentInteraction(uri);
         }
     }
 
@@ -146,6 +103,6 @@ public class CountDownGameStartFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction();
+        void onFragmentInteraction(Uri uri);
     }
 }

@@ -17,7 +17,7 @@ import android.view.View;
 
 public class GameStartActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GameModeFragment.OnFragmentInteractionListener,
-        CountDownGameStartFragment.OnFragmentInteractionListener{
+        CountDownGameStartFragment.OnFragmentInteractionListener, Question1Fragment.OnFragmentInteractionListener{
 
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
@@ -49,6 +49,7 @@ public class GameStartActivity extends AppCompatActivity
 
         Fragment newFragment = new GameModeFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
 
         transaction.replace(R.id.fragment_placeholder,newFragment);
         transaction.addToBackStack(null);
@@ -119,6 +120,7 @@ public class GameStartActivity extends AppCompatActivity
     public void startGame(View view) {
         Fragment newFragment = new CountDownGameStartFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
 
         transaction.replace(R.id.fragment_placeholder,newFragment);
         transaction.addToBackStack(null);
@@ -141,6 +143,18 @@ public class GameStartActivity extends AppCompatActivity
                 playMultiplayer(v);
                 break;
         }
+    }
+
+    @Override
+    public void onFragmentInteraction() {
+        Fragment newFragment = new Question1Fragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
+
+        transaction.replace(R.id.fragment_placeholder,newFragment);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
     }
 
     @Override

@@ -11,8 +11,16 @@
         android:layout_height="273dp"
         android:layout_centerInParent="true"
         android:indeterminate="false"
-        android:max="3000"
-        android:progress="2800"
+        android:max="1000"
+        android:progress="800"
         android:progressDrawable="@drawable/circular_progress_bar" />
+
+    <TextView
+        android:id="@+id/progressText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:text="progress" />
 
 </FrameLayout>

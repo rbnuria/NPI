@@ -19,6 +19,11 @@
             android:title="Mapa del museo" />
 
         <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/ic_menu_info"
+            android:title="Saber más" />
+
+        <item
             android:id="@+id/nav_buy"
             android:icon="@drawable/ic_menu_buy"
             android:title="Entradas" />
