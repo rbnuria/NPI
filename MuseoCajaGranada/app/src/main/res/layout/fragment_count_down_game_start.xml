@@ -1,0 +1,18 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jlsuarezdiaz.museocajagranada.CountDownGameStartFragment">
+
+    <ProgressBar
+        android:id="@+id/progressBarToday"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="250dp"
+        android:layout_height="273dp"
+        android:layout_centerInParent="true"
+        android:indeterminate="false"
+        android:max="3000"
+        android:progress="2800"
+        android:progressDrawable="@drawable/circular_progress_bar" />
+
+</FrameLayout>

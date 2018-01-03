@@ -1,6 +1,9 @@
 package com.example.jlsuarezdiaz.museocajagranada;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,7 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class GameStartActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, GameModeFragment.OnFragmentInteractionListener,
+        CountDownGameStartFragment.OnFragmentInteractionListener{
 
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
@@ -42,6 +46,14 @@ public class GameStartActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Fragment newFragment = new GameModeFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.fragment_placeholder,newFragment);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
     }
 
     @Override
@@ -101,12 +113,38 @@ public class GameStartActivity extends AppCompatActivity
         return true;
     }
 
-    public void startGame(View view) {
 
+
+
+    public void startGame(View view) {
+        Fragment newFragment = new CountDownGameStartFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.fragment_placeholder,newFragment);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
     }
 
     public void playMultiplayer(View view) {
         Intent serverIntent = new Intent(this, DeviceListActivity.class);
         startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
+    }
+
+    @Override
+    public void onFragmentInteraction(String text, View v) {
+        switch(text){
+            case "INDIVIDUAL":
+                startGame(v);
+                break;
+            case "MULTIPLAYER":
+                playMultiplayer(v);
+                break;
+        }
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
