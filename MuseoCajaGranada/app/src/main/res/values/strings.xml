@@ -28,11 +28,23 @@
     <string name="discoverable">Make discoverable</string>
     <string name="title_activity_map">MapActivity</string>
 
+    <string name="error_camara">"Ha ocurrido un error con la cámara"</string>
+
     <string name="question1">Pregunta 1: ¿Cómo de guapa es Nuria?</string>
     <string name="q1_response1">Un poquillo namás</string>
     <string name="q1_response2">Mucho muchísimo, no hay ninguna duda</string>
     <string name="q1_response3">La más del mundo mundial.</string>
-    <string nmae="q1_resposne">3</string>
+    <string name="q1_response">3</string>
+
+
+    <string name="question2">Pregunta 2: ¿De qué color es el caballo blanco de santiago?</string>
+    <string name="q2_response1">Blanco</string>
+    <string name="q2_response2">Negro</string>
+    <string name="q2_response3">Santiago no tiene caballo</string>
+    <string name="q2_response">1</string>
+
+
+
 
 
     <!-- TODO: Remove or change this placeholder text -->

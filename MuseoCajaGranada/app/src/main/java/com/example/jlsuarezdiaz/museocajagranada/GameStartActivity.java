@@ -18,7 +18,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +32,7 @@ public class GameStartActivity extends AppCompatActivity
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
     int question = 1;
+    int correct_answers = 0;
 
 
     //Variables necesarias para el uso de los sensores
@@ -53,6 +53,9 @@ public class GameStartActivity extends AppCompatActivity
     //Variables para controlar el comportamiento del giroscopio.
     boolean right = false;
     boolean left = false;
+
+    // Vamos almacenando las respuestas introducidas para contabilizar al final
+    public static String question1_response, question2_response;
 
 
     @Override
@@ -150,6 +153,8 @@ public class GameStartActivity extends AppCompatActivity
                         if (sensorEvent.values[2] <= - limite_movimiento) {
                             // A la izquierda -> se podría volver a la anterior (permitir?)
                             left = false;
+                            question = question - 1;
+                            onFragmentInteraction();
                         }
                     }
 
@@ -275,6 +280,9 @@ public class GameStartActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction() {
+
+        System.out.println(question);
+
         switch (question){
             case 1: {
                 Fragment newFragment = new Question1Fragment();
@@ -290,6 +298,32 @@ public class GameStartActivity extends AppCompatActivity
             }
             case 2:{
                 Fragment newFragment = new Question2Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
+
+                transaction.replace(R.id.fragment_placeholder,newFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+
+                break;
+            }
+
+            case 3:{
+                Fragment newFragment = new Question3Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
+
+                transaction.replace(R.id.fragment_placeholder,newFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+
+                break;
+            }
+
+            case 4:{
+                Fragment newFragment = new PointCounterFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
 
@@ -342,7 +376,7 @@ public class GameStartActivity extends AppCompatActivity
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
 
-        Log.d("---onFling---", motionEvent.toString() + motionEvent1.toString() + "");
+        System.out.println("FLYINGGGGG!");
 
         try {
             if (Math.abs(motionEvent.getY() - motionEvent1.getY()) > SWIPE_MAX_OFF_PATH)
@@ -351,11 +385,15 @@ public class GameStartActivity extends AppCompatActivity
             if (motionEvent.getX() - motionEvent1.getX() > SWIPE_MIN_DISTANCE
                     && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
                 question = question +1;
+                System.out.println("HOLA!");
                 onFragmentInteraction();
 
             } else if (motionEvent1.getX() - motionEvent.getX() > SWIPE_MIN_DISTANCE
                     && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
                     // Igual -> se podría echar para atrás
+                question = question - 1;
+                onFragmentInteraction();
+
             }
 
         } catch (Exception e) {}

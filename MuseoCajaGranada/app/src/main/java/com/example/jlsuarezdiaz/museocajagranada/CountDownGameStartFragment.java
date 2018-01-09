@@ -86,7 +86,6 @@ public class CountDownGameStartFragment extends Fragment {
         new CountDownTimer(maxTime,interval){
             @Override
             public void onTick(long millisUntilFinished) {
-                System.out.println(millisUntilFinished);
                 pb.setProgress((int)millisUntilFinished % period);
                 tv.setText(Long.toString(millisUntilFinished/period+1));
             }

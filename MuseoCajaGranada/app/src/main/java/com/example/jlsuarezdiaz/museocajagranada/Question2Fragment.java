@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 
 
 /**
@@ -26,6 +27,11 @@ public class Question2Fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
+    private RadioGroup radioGroup;
+
+    public static String q2_response_user = "-1";
 
     private OnFragmentInteractionListener mListener;
 
@@ -58,13 +64,36 @@ public class Question2Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_question2, container, false);
+        View v = inflater.inflate(R.layout.fragment_question2, container, false);
+
+        radioGroup = (RadioGroup) v.findViewById(R.id.response_q2);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // find which radio button is selected
+                if(checkedId != -1){
+                    if(checkedId == R.id.q2_response1) {
+                        q2_response_user = "1";
+                    } else if(checkedId == R.id.q2_response2) {
+                        q2_response_user = "2";
+                    } else if(checkedId == R.id.q2_response3) {
+                        q2_response_user = "3";
+                    }
+
+                    GameStartActivity.question2_response = q2_response_user;
+                }
+
+            }
+        });
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

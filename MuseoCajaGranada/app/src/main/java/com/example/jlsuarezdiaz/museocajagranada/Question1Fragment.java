@@ -24,7 +24,8 @@ public class Question1Fragment extends Fragment{
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private RadioGroup radioGroup;
-    public String q1_response_user = "0";
+
+    public static String q1_response_user = "-1";
 
 
 
@@ -61,8 +62,6 @@ public class Question1Fragment extends Fragment{
         super.onCreate(savedInstanceState);
 
 
-
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -76,22 +75,29 @@ public class Question1Fragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         // Inflate the layout for this fragment
-        /*radioGroup = (RadioGroup) container.findViewById(R.id.response_q1);
+
+        View v = inflater.inflate(R.layout.fragment_question1, container, false);
+
+        radioGroup = (RadioGroup) v.findViewById(R.id.response_q1);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // find which radio button is selected
-                if(checkedId == R.id.q1_response1) {
-                    q1_response_user = "1";
-                } else if(checkedId == R.id.q1_response2) {
-                    q1_response_user = "2";
-                } else if(checkedId == R.id.q1_response2) {
-                    q1_response_user = "3";
+                if(checkedId != -1){
+                    if(checkedId == R.id.q1_response1) {
+                        q1_response_user = "1";
+                    } else if(checkedId == R.id.q1_response2) {
+                        q1_response_user = "2";
+                    } else if(checkedId == R.id.q1_response3) {
+                        q1_response_user = "3";
+                    }
                 }
-            }
-        });*/
 
-        return inflater.inflate(R.layout.fragment_question1, container, false);
+                GameStartActivity.question1_response = q1_response_user;
+            }
+        });
+
+        return v;
 
     }
 
