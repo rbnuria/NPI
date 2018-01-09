@@ -30,12 +30,12 @@ public class PointCounterFragment extends Fragment {
         int count = 0;
 
         // Si hemos acertado la pregunta
-        if(q1.equals(getResources().getString(R.string.q1_response) )){
+        if(q1 != null && q1.equals(getResources().getString(R.string.q1_response) )){
             count++;
         }
 
         //Así con el resto de pregunatas
-        if(q2.equals(getResources().getString(R.string.q2_response) )){
+        if(q2 != null && q2.equals(getResources().getString(R.string.q2_response) )){
             count++;
         }
 

@@ -9,6 +9,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -24,16 +26,20 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.Toast;
 
 public class GameStartActivity extends AppCompatActivity
         implements GestureDetector.OnGestureListener, NavigationView.OnNavigationItemSelectedListener, GameModeFragment.OnFragmentInteractionListener,
-        CountDownGameStartFragment.OnFragmentInteractionListener, Question1Fragment.OnFragmentInteractionListener, Question2Fragment.OnFragmentInteractionListener{
+        CountDownGameStartFragment.OnFragmentInteractionListener, Question1Fragment.OnFragmentInteractionListener, Question2Fragment.OnFragmentInteractionListener,
+        Question3Fragment.OnFragmentInteractionListener{
 
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
     int question = 1;
     int correct_answers = 0;
 
+    //NFC TAGS
+    private NfcAdapter mNfcAdapter;
 
     //Variables necesarias para el uso de los sensores
     private SensorManager sensorManager;
@@ -56,6 +62,9 @@ public class GameStartActivity extends AppCompatActivity
 
     // Vamos almacenando las respuestas introducidas para contabilizar al final
     public static String question1_response, question2_response;
+
+    //Booleano NFCTags
+    public static boolean NFC_activated = false;
 
 
     @Override
@@ -187,6 +196,23 @@ public class GameStartActivity extends AppCompatActivity
                 SensorManager.SENSOR_DELAY_NORMAL);
 
         gesturedetector = new GestureDetectorCompat(this,this);
+
+
+        ///    FUNCIONALIDAD NFCTags
+
+        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+
+        if(mNfcAdapter!=null && mNfcAdapter.isEnabled()){
+            Toast.makeText(this, "NFC aviable", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
+
+        Tag myTag = (Tag) getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        System.out.println(myTag);
     }
 
     @Override
@@ -283,6 +309,8 @@ public class GameStartActivity extends AppCompatActivity
 
         System.out.println(question);
 
+        NFC_activated = false;
+
         switch (question){
             case 1: {
                 Fragment newFragment = new Question1Fragment();
@@ -310,6 +338,7 @@ public class GameStartActivity extends AppCompatActivity
             }
 
             case 3:{
+                NFC_activated = true;
                 Fragment newFragment = new Question3Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
@@ -405,5 +434,42 @@ public class GameStartActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+
+    @Override
+
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent( intent );
+
+
+
+
+        if(NFC_activated == true && intent.hasExtra(mNfcAdapter.EXTRA_ID)){
+            byte[] tagId = intent.getByteArrayExtra( mNfcAdapter.EXTRA_ID );
+            String texto =  ByteArrayToHexString( tagId );
+
+            if(texto.equals(getResources().getString(R.string.tag1))){
+                //Comprobamos que sea la que queremos (esto puede ser controlado con un booleano)
+                question = question +1;
+                onFragmentInteraction();
+            }
+        }
+    }
+
+
+    private String ByteArrayToHexString(byte[] inarray) {
+        int i, j, in;
+        String [] hex = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"};
+        String out= "";
+        for(j = 0 ; j < inarray.length ; ++j)
+        {
+            in = (int) inarray[j] & 0xff;
+            i = (in >> 4) & 0x0f;
+            out += hex[i];
+            i = in & 0x0f;
+            out += hex[i];
+        }
+        return out;
     }
 }

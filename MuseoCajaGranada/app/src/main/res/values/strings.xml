@@ -43,9 +43,13 @@
     <string name="q2_response3">Santiago no tiene caballo</string>
     <string name="q2_response">1</string>
 
+    <string name="nfcquestion">Esta pregunta consiste en encontrar un lugar concreto en el museo siguiendo la siguiente pista: </string>
+
+    <string name="question4">Encuentra la maldita NFC TAG ninio</string>
 
 
-
+    <!-- NFC TAGS ID'S -->
+    <string name="tag1">A90669F4</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

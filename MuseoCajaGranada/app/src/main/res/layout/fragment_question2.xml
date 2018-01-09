@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal|center_vertical"
-    tools:context="com.example.jlsuarezdiaz.museocajagranada.Question1Fragment">
+    tools:context="com.example.jlsuarezdiaz.museocajagranada.Question2Fragment">
 
     <!-- TODO: Update blank fragment layout -->
 
