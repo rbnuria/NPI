@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 
@@ -71,12 +72,14 @@ public class Question2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_question2, container, false);
+        final View v = inflater.inflate(R.layout.fragment_question2, container, false);
 
         radioGroup = (RadioGroup) v.findViewById(R.id.response_q2);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = v.findViewById( checkedId );
+                rb.setChecked(true);
                 // find which radio button is selected
                 if(checkedId != -1){
                     if(checkedId == R.id.q2_response1) {

@@ -76,13 +76,16 @@ public class Question1Fragment extends Fragment{
         // Inflate the layout for this fragment
         // Inflate the layout for this fragment
 
-        View v = inflater.inflate(R.layout.fragment_question1, container, false);
+        final View v = inflater.inflate(R.layout.fragment_question1, container, false);
 
         radioGroup = (RadioGroup) v.findViewById(R.id.response_q1);
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // find which radio button is selected
+
+
                 if(checkedId != -1){
                     if(checkedId == R.id.q1_response1) {
                         q1_response_user = "1";

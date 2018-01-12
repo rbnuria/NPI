@@ -26,7 +26,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.Toast;
 
 public class GameStartActivity extends AppCompatActivity
         implements GestureDetector.OnGestureListener, NavigationView.OnNavigationItemSelectedListener, GameModeFragment.OnFragmentInteractionListener,
@@ -35,7 +34,7 @@ public class GameStartActivity extends AppCompatActivity
 
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
-    int question = 1;
+    public static int question = 1;
     int correct_answers = 0;
 
     //NFC TAGS
@@ -153,8 +152,8 @@ public class GameStartActivity extends AppCompatActivity
                         //Y ahora vamos a la izquierda
                         if (sensorEvent.values[2] >= limite_movimiento) {
                             //A la derecha
+                            question = question + 1;
                             right = false;
-                            question = question +1;
                             onFragmentInteraction();
                         }
                     }else if(left){ //Si habíamos ido a la izquierda
@@ -173,7 +172,7 @@ public class GameStartActivity extends AppCompatActivity
                     /// Si algo está lo suficientemente cerca (en nuestro caso será la mano) -> minusvalías
                     if (sensorEvent.values[0] >= -limite_proximidad && sensorEvent.values[0] <= limite_proximidad) {
                         //Tapao
-                        question = question +1;
+                        question = question + 1;
                         onFragmentInteraction();
                     }
                 }
@@ -195,25 +194,35 @@ public class GameStartActivity extends AppCompatActivity
         sensorManager.registerListener(mySensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
                 SensorManager.SENSOR_DELAY_NORMAL);
 
-        gesturedetector = new GestureDetectorCompat(this,this);
+        //Servicio del dectector de gestos
+        gesturedetector = new GestureDetectorCompat(this, this);
 
 
         ///    FUNCIONALIDAD NFCTags
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
+        //******************** En vez de mostrar este mensaje feo podemos hacer versión B para móviles que no tengan NFC.
         if(mNfcAdapter!=null && mNfcAdapter.isEnabled()){
-            Toast.makeText(this, "NFC aviable", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "NFC aviable", Toast.LENGTH_LONG).show();
         }else{
-            Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
-            finish();
-            return;
+            //Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
+            //finish();
+            //return;
         }
 
 
         Tag myTag = (Tag) getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
         System.out.println(myTag);
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        this.gesturedetector.onTouchEvent(event);
+        // Be sure to call the superclass implementation
+        return super.onTouchEvent(event);
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -307,8 +316,7 @@ public class GameStartActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction() {
 
-        System.out.println(question);
-
+        //Siguiente pregunta
         NFC_activated = false;
 
         switch (question){
@@ -367,12 +375,6 @@ public class GameStartActivity extends AppCompatActivity
 
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        this.gesturedetector.onTouchEvent(event);
-        // Be sure to call the superclass implementation
-        return super.onTouchEvent(event);
-    }
 
     //Para poder extender la clase abstracta
     @Override
@@ -419,7 +421,7 @@ public class GameStartActivity extends AppCompatActivity
 
             } else if (motionEvent1.getX() - motionEvent.getX() > SWIPE_MIN_DISTANCE
                     && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
-                    // Igual -> se podría echar para atrás
+                // Igual -> se podría echar para atrás
                 question = question - 1;
                 onFragmentInteraction();
 
@@ -441,9 +443,6 @@ public class GameStartActivity extends AppCompatActivity
 
     protected void onNewIntent(Intent intent) {
         super.onNewIntent( intent );
-
-
-
 
         if(NFC_activated == true && intent.hasExtra(mNfcAdapter.EXTRA_ID)){
             byte[] tagId = intent.getByteArrayExtra( mNfcAdapter.EXTRA_ID );

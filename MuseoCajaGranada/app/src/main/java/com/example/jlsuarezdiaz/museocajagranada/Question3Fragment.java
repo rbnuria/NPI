@@ -4,7 +4,11 @@ import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.GestureDetectorCompat;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,7 +21,7 @@ import android.view.ViewGroup;
  * Use the {@link Question3Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Question3Fragment extends Fragment {
+public class Question3Fragment extends Fragment implements  GestureDetector.OnGestureListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -27,7 +31,18 @@ public class Question3Fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    // **** DUPLICADO, TENER CUIDAO
+    //CONSTANTES DEL RECONOCIMIENTO DE GESTO -> Stackoverflow
+    private static final int SWIPE_MIN_DISTANCE = 420;
+    private static final int SWIPE_MAX_OFF_PATH = 250;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 100;
+
     private OnFragmentInteractionListener mListener;
+
+    //Referencia al detector de gestos
+    private GestureDetectorCompat gesturedetector = null;
+    private ScaleGestureDetector sgd;
+
 
     public Question3Fragment() {
         // Required empty public constructor
@@ -67,9 +82,22 @@ public class Question3Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_question3, container, false);
+        final View v = inflater.inflate(R.layout.fragment_question3, container, false);
+        v.setLongClickable(true);
+
+        gesturedetector = new GestureDetectorCompat( getActivity(), this);
+
+        v.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("ON TOUCH EVENT");
+                return gesturedetector.onTouchEvent(event);
+            }
+        });
+
         return v;
     }
+
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -110,6 +138,66 @@ public class Question3Fragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+
+    @Override
+    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+
+        System.out.println("FLIINGGGGG!");
+
+        try {
+            if (Math.abs(motionEvent.getY() - motionEvent1.getY()) > SWIPE_MAX_OFF_PATH)
+                return false;
+            // right to left swipe
+            if (motionEvent.getX() - motionEvent1.getX() > SWIPE_MIN_DISTANCE
+                    && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
+                System.out.println("HOLA!");
+
+                GameStartActivity.question = GameStartActivity.question + 1;
+                ((GameStartActivity)getActivity()).onFragmentInteraction();
+                //Llamar al de esta clase
+
+
+            } else if (motionEvent1.getX() - motionEvent.getX() > SWIPE_MIN_DISTANCE
+                    && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
+                // Igual -> se podría echar para atrás
+
+                GameStartActivity.question = GameStartActivity.question - 1;
+                ((GameStartActivity)getActivity()).onFragmentInteraction();
+
+            }
+
+        } catch (Exception e) {}
+        return true;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent motionEvent) {
+        return true;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return true;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent motionEvent) {
+
+    }
+
+
 
 
 }
