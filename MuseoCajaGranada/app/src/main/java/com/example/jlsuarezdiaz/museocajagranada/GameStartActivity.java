@@ -100,6 +100,7 @@ public class GameStartActivity extends AppCompatActivity
         //Obtenemos el servicio de sensores
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
+
         //Definimos la funcionalidad de los sensores
         final SensorEventListener mySensorEventListener = new SensorEventListener() {
 
@@ -216,11 +217,17 @@ public class GameStartActivity extends AppCompatActivity
         System.out.println(myTag);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        this.gesturedetector.onTouchEvent(event);
-        // Be sure to call the superclass implementation
-        return super.onTouchEvent(event);
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        System.out.println("ESTOY AQYU");
+//        this.gesturedetector.onTouchEvent(event);
+//        // Be sure to call the superclass implementation
+//        return super.onTouchEvent(event);
+//    }
+
+    public boolean onTouch(View v, MotionEvent event){
+        System.out.println("ESTOY AQUI");
+        return true;
     }
 
 
@@ -434,8 +441,11 @@ public class GameStartActivity extends AppCompatActivity
 
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onFragmentInteraction(MotionEvent event) {
+        System.out.println("ESTOY AQYU");
+        this.gesturedetector.onTouchEvent(event);
+//        // Be sure to call the superclass implementation
+//        return super.onTouchEvent(event);
     }
 
 
@@ -470,5 +480,10 @@ public class GameStartActivity extends AppCompatActivity
             out += hex[i];
         }
         return out;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
