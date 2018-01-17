@@ -90,7 +90,6 @@ public class Question3Fragment extends Fragment implements  GestureDetector.OnGe
         v.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                System.out.println("ON TOUCH EVENT");
                 return gesturedetector.onTouchEvent(event);
             }
         });
@@ -143,16 +142,12 @@ public class Question3Fragment extends Fragment implements  GestureDetector.OnGe
 
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-
-        System.out.println("FLIINGGGGG!");
-
         try {
             if (Math.abs(motionEvent.getY() - motionEvent1.getY()) > SWIPE_MAX_OFF_PATH)
                 return false;
             // right to left swipe
             if (motionEvent.getX() - motionEvent1.getX() > SWIPE_MIN_DISTANCE
                     && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
-                System.out.println("HOLA!");
 
                 GameStartActivity.question = GameStartActivity.question + 1;
                 ((GameStartActivity)getActivity()).onFragmentInteraction();
@@ -196,9 +191,6 @@ public class Question3Fragment extends Fragment implements  GestureDetector.OnGe
     public void onLongPress(MotionEvent motionEvent) {
 
     }
-
-
-
 
 }
 
