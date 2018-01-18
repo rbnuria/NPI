@@ -4,8 +4,11 @@ import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.GestureDetectorCompat;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
@@ -19,7 +22,7 @@ import android.widget.RadioGroup;
  * Use the {@link Question1Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Question1Fragment extends Fragment{
+public class Question1Fragment extends Fragment implements  GestureDetector.OnGestureListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -27,6 +30,11 @@ public class Question1Fragment extends Fragment{
     private RadioGroup radioGroup;
 
     public static String q1_response_user = "-1";
+
+    //CONSTANTES DEL RECONOCIMIENTO DE GESTO -> Stackoverflow
+    private static final int SWIPE_MIN_DISTANCE = 420;
+    private static final int SWIPE_MAX_OFF_PATH = 250;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 100;
 
 
 
@@ -36,11 +44,15 @@ public class Question1Fragment extends Fragment{
 
     private OnFragmentInteractionListener mListener;
 
+    //Referencia al detector de gestos
+    private GestureDetectorCompat gesturedetector = null;
+    private ScaleGestureDetector sgd;
+
     public Question1Fragment() {
         // Required empty public constructor
     }
 
-    /**
+  /*  /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
@@ -61,8 +73,6 @@ public class Question1Fragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -80,6 +90,8 @@ public class Question1Fragment extends Fragment{
         final View v = inflater.inflate(R.layout.fragment_question1, container, false);
 
         radioGroup = (RadioGroup) v.findViewById(R.id.response_q1);
+
+        v.setLongClickable(true);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -101,13 +113,13 @@ public class Question1Fragment extends Fragment{
             }
         });
 
-        v.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
 
-                if(event.getAction() == MotionEvent.ACTION_MOVE){
-                    mListener.onFragmentInteraction(event);
-                }
-                return true;
+        gesturedetector = new GestureDetectorCompat( getActivity(), this);
+
+        v.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gesturedetector.onTouchEvent(event);
             }
         });
 
@@ -116,11 +128,11 @@ public class Question1Fragment extends Fragment{
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    //public void onButtonPressed(Uri uri) {
-    //    if (mListener != null) {
-    //        mListener.onFragmentInteraction(uri);
-    //    }
-    //}
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -153,7 +165,59 @@ public class Question1Fragment extends Fragment{
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(MotionEvent event);
+        void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        try {
+            if (Math.abs(motionEvent.getY() - motionEvent1.getY()) > SWIPE_MAX_OFF_PATH)
+                return false;
+            // right to left swipe
+            if (motionEvent.getX() - motionEvent1.getX() > SWIPE_MIN_DISTANCE
+                    && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
+
+                GameStartActivity.question = GameStartActivity.question + 1;
+                ((GameStartActivity)getActivity()).onFragmentInteraction();
+                //Llamar al de esta clase
+
+
+            } else if (motionEvent1.getX() - motionEvent.getX() > SWIPE_MIN_DISTANCE
+                    && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
+                // Igual -> se podría echar para atrás
+
+                GameStartActivity.question = GameStartActivity.question - 1;
+                ((GameStartActivity)getActivity()).onFragmentInteraction();
+
+            }
+
+        } catch (Exception e) {}
+        return true;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent motionEvent) {
+        return true;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return true;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent motionEvent) {
+
     }
 
 

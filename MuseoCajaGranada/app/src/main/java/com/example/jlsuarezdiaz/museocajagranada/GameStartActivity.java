@@ -233,6 +233,7 @@ public class GameStartActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        question = question - 1;
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -440,7 +441,6 @@ public class GameStartActivity extends AppCompatActivity
 
 
 
-    @Override
     public void onFragmentInteraction(MotionEvent event) {
         System.out.println("ESTOY AQYU");
         this.gesturedetector.onTouchEvent(event);
@@ -486,4 +486,6 @@ public class GameStartActivity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
 }
