@@ -1,11 +1,14 @@
 package com.example.jlsuarezdiaz.museocajagranada;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -18,6 +21,8 @@ public class PointCounterFragment extends Fragment {
 
     TextView score_text = null;
 
+    private OnFragmentInteractionListener mListener;
+
     public PointCounterFragment() {
         // Required empty public constructor
     }
@@ -27,7 +32,7 @@ public class PointCounterFragment extends Fragment {
         String q1 = GameStartActivity.question1_response;
         String q2 = GameStartActivity.question2_response;
 
-        int count = 0;
+        int count = GameStartActivity.correct_answers;
 
         // Si hemos acertado la pregunta
         if(q1 != null && q1.equals(getResources().getString(R.string.q1_response) )){
@@ -76,6 +81,19 @@ public class PointCounterFragment extends Fragment {
         score_text = (TextView) v.findViewById( R.id.score_tv );
         score_text.setText( "¡ENHORABUENA! Ha conseguido " + total_score + " puntos." );
 
+        final Button exitButton = (Button) v.findViewById(R.id.button_exit);
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(mListener != null){
+
+                    Intent intent = new Intent(getActivity(),HomeActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
         return v;
 
     }
@@ -96,6 +114,25 @@ public class PointCounterFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
 
 
 }

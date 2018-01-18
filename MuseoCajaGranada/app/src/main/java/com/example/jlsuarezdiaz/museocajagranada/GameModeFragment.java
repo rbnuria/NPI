@@ -1,10 +1,9 @@
 package com.example.jlsuarezdiaz.museocajagranada;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,6 +101,8 @@ public class GameModeFragment extends Fragment {
         }
     }*/
 
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -119,8 +120,6 @@ public class GameModeFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-
 
     /**
      * This interface must be implemented by activities that contain this
