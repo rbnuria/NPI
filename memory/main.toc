@@ -1,0 +1,14 @@
+\select@language {spanish}
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {spanish}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n}{2}{section.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2}Interacci\IeC {\'o}n oral}{2}{section.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3}Interacci\IeC {\'o}n sensorial}{4}{section.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4}Interacci\IeC {\'o}n gestual}{5}{section.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5}Resumen}{5}{section.5}

@@ -1,0 +1,107 @@
+\beamer@endinputifotherversion {3.36pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\sectionentry {1}{DFT}{2}{Transformada de Fourier Discreta}{0}}
+\headcommand {\beamer@sectionpages {1}{1}}
+\headcommand {\beamer@subsectionpages {1}{1}}
+\headcommand {\slideentry {1}{0}{1}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\beamer@subsectionentry {0}{1}{1}{3}{Definiciones}}\headcommand {\beamer@subsectionpages {2}{2}}
+\headcommand {\slideentry {1}{1}{1}{3/4}{Definiciones}{0}}
+\headcommand {\beamer@framepages {3}{4}}
+\headcommand {\slideentry {1}{1}{2}{5/5}{Definiciones}{0}}
+\headcommand {\beamer@framepages {5}{5}}
+\headcommand {\slideentry {1}{1}{3}{6/7}{Definiciones}{0}}
+\headcommand {\beamer@framepages {6}{7}}
+\headcommand {\slideentry {1}{1}{4}{8/9}{Definiciones}{0}}
+\headcommand {\beamer@framepages {8}{9}}
+\headcommand {\beamer@subsectionentry {0}{1}{2}{10}{Expresi\IeC {\'o}n Matricial}}\headcommand {\beamer@subsectionpages {3}{9}}
+\headcommand {\slideentry {1}{2}{1}{10/10}{Expresi\IeC {\'o}n Matricial}{0}}
+\headcommand {\beamer@framepages {10}{10}}
+\headcommand {\slideentry {1}{2}{2}{11/11}{Expresi\IeC {\'o}n Matricial}{0}}
+\headcommand {\beamer@framepages {11}{11}}
+\headcommand {\slideentry {1}{2}{3}{12/12}{Expresi\IeC {\'o}n Matricial}{0}}
+\headcommand {\beamer@framepages {12}{12}}
+\headcommand {\slideentry {1}{2}{4}{13/14}{Expresi\IeC {\'o}n Matricial}{0}}
+\headcommand {\beamer@framepages {13}{14}}
+\headcommand {\slideentry {1}{2}{5}{15/15}{Expresi\IeC {\'o}n Matricial}{0}}
+\headcommand {\beamer@framepages {15}{15}}
+\headcommand {\slideentry {1}{2}{6}{16/16}{Expresi\IeC {\'o}n Matricial}{0}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\slideentry {1}{2}{7}{17/18}{Expresi\IeC {\'o}n Matricial}{0}}
+\headcommand {\beamer@framepages {17}{18}}
+\headcommand {\slideentry {1}{2}{8}{19/19}{Expresi\IeC {\'o}n Matricial}{0}}
+\headcommand {\beamer@framepages {19}{19}}
+\headcommand {\slideentry {1}{2}{9}{20/20}{Expresi\IeC {\'o}n Matricial}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\slideentry {1}{2}{10}{21/21}{Expresi\IeC {\'o}n Matricial}{0}}
+\headcommand {\beamer@framepages {21}{21}}
+\headcommand {\slideentry {1}{2}{11}{22/22}{Expresi\IeC {\'o}n Matricial}{0}}
+\headcommand {\beamer@framepages {22}{22}}
+\headcommand {\slideentry {1}{2}{12}{23/24}{Expresi\IeC {\'o}n Matricial}{0}}
+\headcommand {\beamer@framepages {23}{24}}
+\headcommand {\sectionentry {2}{Convoluci\IeC {\'o}n}{25}{Convoluci\IeC {\'o}n}{0}}
+\headcommand {\beamer@sectionpages {2}{24}}
+\headcommand {\beamer@subsectionpages {10}{24}}
+\headcommand {\slideentry {2}{0}{1}{25/25}{}{0}}
+\headcommand {\beamer@framepages {25}{25}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{26}{Definici\IeC {\'o}n}}\headcommand {\beamer@subsectionpages {25}{25}}
+\headcommand {\slideentry {2}{1}{1}{26/26}{Definici\IeC {\'o}n}{0}}
+\headcommand {\beamer@framepages {26}{26}}
+\headcommand {\slideentry {2}{1}{2}{27/27}{Definici\IeC {\'o}n}{0}}
+\headcommand {\beamer@framepages {27}{27}}
+\headcommand {\slideentry {2}{1}{3}{28/31}{Definici\IeC {\'o}n}{0}}
+\headcommand {\beamer@framepages {28}{31}}
+\headcommand {\slideentry {2}{1}{4}{32/32}{Definici\IeC {\'o}n}{0}}
+\headcommand {\beamer@framepages {32}{32}}
+\headcommand {\slideentry {2}{1}{5}{33/34}{Definici\IeC {\'o}n}{0}}
+\headcommand {\beamer@framepages {33}{34}}
+\headcommand {\slideentry {2}{1}{6}{35/37}{Definici\IeC {\'o}n}{0}}
+\headcommand {\beamer@framepages {35}{37}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{38}{Ejemplo}}\headcommand {\beamer@subsectionpages {26}{37}}
+\headcommand {\slideentry {2}{2}{1}{38/42}{Ejemplo}{0}}
+\headcommand {\beamer@framepages {38}{42}}
+\headcommand {\beamer@subsectionentry {0}{2}{3}{43}{Transformada Bidimensional}}\headcommand {\beamer@subsectionpages {38}{42}}
+\headcommand {\slideentry {2}{3}{1}{43/45}{Transformada Bidimensional}{0}}
+\headcommand {\beamer@framepages {43}{45}}
+\headcommand {\slideentry {2}{3}{2}{46/46}{Transformada Bidimensional}{0}}
+\headcommand {\beamer@framepages {46}{46}}
+\headcommand {\slideentry {2}{3}{3}{47/47}{Transformada Bidimensional}{0}}
+\headcommand {\beamer@framepages {47}{47}}
+\headcommand {\slideentry {2}{3}{4}{48/48}{Transformada Bidimensional}{0}}
+\headcommand {\beamer@framepages {48}{48}}
+\headcommand {\slideentry {2}{3}{5}{49/49}{Transformada Bidimensional}{0}}
+\headcommand {\beamer@framepages {49}{49}}
+\headcommand {\slideentry {2}{3}{6}{50/50}{Transformada Bidimensional}{0}}
+\headcommand {\beamer@framepages {50}{50}}
+\headcommand {\sectionentry {3}{Quantum Computing}{51}{Quantum Computing}{0}}
+\headcommand {\beamer@sectionpages {25}{50}}
+\headcommand {\beamer@subsectionpages {43}{50}}
+\headcommand {\slideentry {3}{0}{1}{51/51}{}{0}}
+\headcommand {\beamer@framepages {51}{51}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{52}{\IeC {\textquestiondown }Para qu\IeC {\'e} sirve Quantum Computing?}}\headcommand {\beamer@subsectionpages {51}{51}}
+\headcommand {\slideentry {3}{1}{1}{52/52}{\IeC {\textquestiondown }Para qu\IeC {\'e} sirve Quantum Computing?}{0}}
+\headcommand {\beamer@framepages {52}{52}}
+\headcommand {\slideentry {3}{1}{2}{53/53}{\IeC {\textquestiondown }Para qu\IeC {\'e} sirve Quantum Computing?}{0}}
+\headcommand {\beamer@framepages {53}{53}}
+\headcommand {\slideentry {3}{1}{3}{54/54}{\IeC {\textquestiondown }Para qu\IeC {\'e} sirve Quantum Computing?}{0}}
+\headcommand {\beamer@framepages {54}{54}}
+\headcommand {\slideentry {3}{1}{4}{55/55}{\IeC {\textquestiondown }Para qu\IeC {\'e} sirve Quantum Computing?}{0}}
+\headcommand {\beamer@framepages {55}{55}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{56}{\IeC {\textquestiondown }C\IeC {\'o}mo calcula un ordenador cu\IeC {\'a}ntico?}}\headcommand {\beamer@subsectionpages {52}{55}}
+\headcommand {\slideentry {3}{2}{1}{56/56}{\IeC {\textquestiondown }C\IeC {\'o}mo calcula un ordenador cu\IeC {\'a}ntico?}{0}}
+\headcommand {\beamer@framepages {56}{56}}
+\headcommand {\slideentry {3}{2}{2}{57/57}{\IeC {\textquestiondown }C\IeC {\'o}mo calcula un ordenador cu\IeC {\'a}ntico?}{0}}
+\headcommand {\beamer@framepages {57}{57}}
+\headcommand {\beamer@subsectionentry {0}{3}{3}{58}{Transformada de Fourier Cu\IeC {\'a}ntica}}\headcommand {\beamer@subsectionpages {56}{57}}
+\headcommand {\slideentry {3}{3}{1}{58/58}{Transformada de Fourier Cu\IeC {\'a}ntica}{0}}
+\headcommand {\beamer@framepages {58}{58}}
+\headcommand {\slideentry {3}{3}{2}{59/59}{Transformada de Fourier Cu\IeC {\'a}ntica}{0}}
+\headcommand {\beamer@framepages {59}{59}}
+\headcommand {\slideentry {3}{3}{3}{60/60}{Transformada de Fourier Cu\IeC {\'a}ntica}{0}}
+\headcommand {\beamer@framepages {60}{60}}
+\headcommand {\beamer@partpages {1}{60}}
+\headcommand {\beamer@subsectionpages {58}{60}}
+\headcommand {\beamer@sectionpages {51}{60}}
+\headcommand {\beamer@documentpages {60}}
+\headcommand {\def \inserttotalframenumber {42}}

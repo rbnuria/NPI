@@ -1,0 +1,209 @@
+\input{preambuloSimple.tex}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage[usenames]{color}
+\usepackage{subfigure}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	TÍTULO Y DATOS DEL ALUMNO
+%----------------------------------------------------------------------------------------
+
+\title{	
+\normalfont \normalsize 
+\textsc{{\bf NUEVOS PARADIGMAS DE INTERACCIÓN (2017-2018)} \\ Universidad de Granada} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Memoria descriptiva del proyecto \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Antonio R. Moya Martín-Castaño\\
+		Nuria Rodríguez Barroso\\ 
+		Elena Romero Contreras \\
+		Juan Luis Suárez Díaz
+		} % Nombre y apellidos
+
+\date{\normalsize\today} % Incluye la fecha actual
+
+
+%----------------------------------------------------------------------------------------
+%	MATEMÁTICAS
+%----------------------------------------------------------------------------------------
+
+% Paquetes para matemáticas:                     
+\usepackage{amsmath, amsthm, amssymb, amsfonts, amscd} % Teoremas, fuentes y símbolos.
+
+% Nuevo estilo para definiciones
+\newtheoremstyle{definition-style} % Nombre del estilo
+{5pt}                % Espacio por encima
+{0pt}                % Espacio por debajo
+{}                   % Fuente del cuerpo
+{}                   % Identación: vacío= sin identación, \parindent = identación del parráfo
+{\bf}                % Fuente para la cabecera
+{.}                  % Puntuación tras la cabecera
+{.5em}               % Espacio tras la cabecera: { } = espacio usal entre palabras, \newline = nueva línea
+{}                   % Especificación de la cabecera (si se deja vaía implica 'normal')
+
+% Nuevo estilo para teoremas
+\newtheoremstyle{theorem-style} % Nombre del estilo
+{5pt}                % Espacio por encima
+{0pt}                % Espacio por debajo
+{\itshape}           % Fuente del cuerpo
+{}                   % Identación: vacío= sin identación, \parindent = identación del parráfo
+{\bf}                % Fuente para la cabecera
+{.}                  % Puntuación tras la cabecera
+{.5em}               % Espacio tras la cabecera: { } = espacio usal entre palabras, \newline = nueva línea
+{}                   % Especificación de la cabecera (si se deja vaía implica 'normal')
+
+% Nuevo estilo para ejemplos y ejercicios
+\newtheoremstyle{example-style} % Nombre del estilo
+{5pt}                % Espacio por encima
+{0pt}                % Espacio por debajo
+{}                   % Fuente del cuerpo
+{}                   % Identación: vacío= sin identación, \parindent = identación del parráfo
+{\scshape}                % Fuente para la cabecera
+{:}                  % Puntuación tras la cabecera
+{.5em}               % Espacio tras la cabecera: { } = espacio usal entre palabras, \newline = nueva línea
+{}                   % Especificación de la cabecera (si se deja vaía implica 'normal')
+
+% Teoremas:
+\theoremstyle{theorem-style}  % Otras posibilidades: plain (por defecto), definition, remark
+\newtheorem{theorem}{Teorema}[section]  % [section] indica que el contador se reinicia cada sección
+\newtheorem{corollary}[theorem]{Corolario} % [theorem] indica que comparte el contador con theorem
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{proposition}[theorem]{Proposición}
+
+% Definiciones, notas, conjeturas
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[section]
+\newtheorem{conjecture}{Conjetura}[section]
+\newtheorem*{note}{Nota} % * indica que no tiene contador
+
+% Ejemplos, ejercicios
+\theoremstyle{example-style}
+\newtheorem{example}{Ejemplo}[section]
+\newtheorem{exercise}{Ejercicio}[section]
+
+
+%----------------------------------------------------------------------------------------
+% DOCUMENTO
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Muestra el Título
+
+\newpage %inserta un salto de página
+
+\tableofcontents % para generar el índice de contenidos
+
+
+\newpage
+
+\section{Introducción}
+
+En nuestro proyecto vamos a desarrollar NUIs enfocadas a su uso en el Museo de Memoria Histórica de Andalucía, de modo que estas, y otras ideas que no se programarán pero que también pueden ser útiles, se puedan extrapolar a museos más grandes. Para ello, se contemplarán tres interfaces: una oral, una sensorial y otra gestual. La finalidad de este proyecto no será otra distinta que la que se tiene al crear interfaces de usuario: que la comunicación del usuario con los dispositivos sea sencilla y fácil de realizar, objetivo que se une al de aportar al usuario la información que desee sobre los contenidos del museo, como puede ser un hecho histórico ocurrido en Andalucía, la descripción de un personaje, etc.
+
+\section{Interacción oral}
+
+Se ofrece una aplicación para Android que permite interactuar con distintos personajes del museo. En nuestro caso solo se trabajará con uno y el personaje con el que se trabaja es con un escultor Íbero del siglo IV antes de Cristo. De este modo, el objetivo es que este personaje cuente cosas sobre su época, su profesión, el lugar en el que vive y otros aspectos relacionados con su historia de manera que se mejore la interacción oral que se tiene con el personaje del museo, el cual simplemente te cuenta todo acerca de su historia. De este modo, la idea inicial fue que tras realizar un saludo al personaje, este te de dos opciones:
+
+\begin{itemize}
+	\item El personaje te da la opción de charlar, presentando una novedad con respecto al museo, permitiendo así que el usuario pueda preguntar sobre exactamente lo que le interesa y no tenga que escuchar toda la historia del personaje. Con esta opción se pretende simular una conversación que se asemeje todo lo que pueda a conversaciones en la vida real, como si no se tratara de un diálogo con una máquina. 
+	
+	\item Tienes la opción de decir que quieres escuchar toda su historia, de modo que el personaje te cuenta algo similar a la historia del museo. 
+\end{itemize}
+
+Dicho esto, para evitar que haya fallos o respuestas inesperadas, también se controla todo de manera global para que el saludo no sea necesario para escoger una de estas dos opciones. Es decir, el usuario puede charlar directamente, preguntando por ejemplo por la época del personaje, o solicitar directamente que el personaje le cuente su historia sin que haya problema con ello. 
+
+
+\subsection*{Opción de hablar con el personaje}
+
+Si elegimos la opción de hablar con el personaje, para evitar dudas y encaminar la conversación, este en un principio te indica algunas opciones de las que te puede hablar tales como su época, su ciudad, su profesión, etc. Acto seguido el usuario indica de qué quiere hablar, de modo que el personaje controla también otros ámbitos, aunque principalmente los relacionados con su historia, con lo que habrá cosas a las que sepa qué contestar y otras a las que no. Cuando no sepa contestar, responde de modo que se deje claro que no sabe nada sobre eso, pero que sí puede hablar sobre otros temas, haciendo que la conversación no termine de manera brusca , aunque todas estas respuestas a situaciones inesperadas o temas que el personaje no controla se explicarán mejor en un subapartado posterior. \\
+
+De vuelta a la conversación que te puede dar el personaje, puede hablar sobre: 
+
+\begin{itemize}
+	\item Su profesión
+	
+	\item Su época
+	
+	\item Su ciudad
+	
+	\item Sus gustos
+	
+	\item Su historia (de nuevo se vuelve a la opción en que te cuenta algo similar a lo que te contaba el personaje del museo)
+	
+	\item Otros
+	
+\end{itemize}
+
+\subsection*{Distintas opciones en función al tema elegido}
+
+Para que la conversación fluya, cuando eliges hablar sobre un tema, en cada uno de estos temas se pueden seguir varios caminos con preguntas que parecen que pueden ser intuitivas (aunque se controlan también otras menos intuitivas, así como respuestas inesperadas). Podemos ver los siguientes ejemplos:
+
+\begin{itemize}
+	\item Tras hablar sobre su profesión, te da la opción de saber más. Si la respuesta es afirmativa, te indica que su taller es de los mejores de la zona en determinados aspectos y te da la opción de seguir charlando.
+	
+	\item Tras hablar sobre su época, te da la opción de saber más sobre su época, explicándote por qué fue importante su siglo para Baza.
+	
+	\item Cuando habla sobre su historia, al terminar puede que al usuario no le hayan quedado claros algunos términos. Se le puede consultar pues sobre distintos aspectos tales como los escultores griegos, quién era algún personaje, etc.
+	
+\end{itemize}
+
+\subsection*{Control de respuestas inesperadas o fuera de contexto}
+
+Algo que se tiene en cuenta es que a lo largo del diálogo no se produzcan incoherencias a pesar de que el usuario no siga un patrón claro en sus preguntas y respuestas. Así, si por ejemplo se te ofrecen dos opciones y el usuario dice algo que no tiene sentido con la aplicación, se controla que el personaje responda, como sería lógico en una conversación real, que no le ha entendido y que si puede repetir la frase, o ponga énfasis en qué cosas son las que controla.\\ 
+
+De este modo, para casos en los que no estamos en ningún contexto en la conversación, como puede ser al comenzar a hablar o al terminar de hablar sobre algún tema en concreto, si se da una pregunta inesperada (o algo sin sentido) por parte del usuario, está todo controlado para que el personaje pida que se el usuario repita lo que ha dicho. \\
+
+Sin embargo, para otras situaciones, en las que estamos en algún contexto (por ejemplo hablando sobre la profesión o sobre el lugar del personaje), se controla que la conversación no se salga de ese contexto en un primer momento, es decir, se indica al usuario que no se ha entendido su pregunta o  frase, insistiendo a lo mejor en que cosas puede contar o repitiendo la pregunta de si quiere saber más sobre el tema. Así, como caso que sirva de ejemplo, cuando el personaje habla de su profesión y le pregunta al usuario si quiere saber más sobre ella, si este responde con una frase que no tiene sentido (ni sí o similares, ni no o similares), se le vuelve a preguntar, tras indicar que no se le ha entendido, si quiere saber algo sobre la profesión.\\
+
+\subsection*{Cosas que se podrían desarrollar}
+
+Por la dificultad que pueden suponer (tanto desde el punto de vista de material necesario, como de programación), hay cosas que no se han llevado a cabo, aunque quizás nos parecen buenas ideas para un museo. Se puede notar la que hemos visto la más importante, que está relacionada con conseguir de algún modo que en distintas partes del museo, aunque no se produzca una conversación, se reconozcan las palabras del usuario para realizar ciertas acciones. Por ejemplo, si existiera un mapa de Andalucía, y se dice la siguiente frase: `¿Dónde está Córdoba?'; de algún modo el mapa muestre (por ejemplo mediante iluminación), la ubicación de Córdoba. 
+
+\section{Interacción sensorial}
+
+Para la interacción por sensores el objetivo ha sido realizar un minijuego que de algún modo consiga llevar acabo una visita `guiada' por el museo (en el sentido de que para seguir el minijuego tengas que visitar las salas en cierto orden y persiguiendo distintos intereses que al final te den, por lo menos, la información más importante que te puede aportar el museo), de modo que, al igual que en todo minijuego, se obtengan ciertas puntuaciones según lo bien que hayas realizado las cosas que este pide (en este caso, se podría asociar a lo bien que has realizado la visita). Así, se pueden separar nuestras ideas en cuatro grandes bloques. El primero se puede ver como la necesidad de que al pasar la aplicación por lectores se reconozca el lugar u objeto asociado a ese lector. El segundo, con una función táctil de forma que puedas moverte hacia derecha o izquierda con el empleo de los dedos. El tercero, con vistas a gente que pueda tener dificultades para hacer este hecho anterior, que se pueda avanzar en el minijuego tapando la parte frontal del teléfono. Por último, y como adicional a todo esto, conseguir avanzar o retroceder mediante una simple agitación del móvil.
+
+\subsection*{Identificar lugar u objeto ante el que nos encontramos}
+
+El primer bloque nombrado anteriormente se relaciona con controlar en qué sala estamos o ante que objeto nos encontramos. Se puede pedir así al usuario por parte del minijuego que identifique esta sala o este objeto pasando la aplicación por un determinado lector asociado a ellos. En el otro sentido de la interacción, el usuario puede solicitar a la aplicación saber en qué sala está (puede haber en cada sala lectores para controlarlo), de modo que al pasar por el  lector esta aplicación le muestre al usuario información sobre dicha sala y su ubicación en el museo. Además, se puede ubicar al usuario en el museo de modo que al ir girando tu disposición va cambiando (se puede ver como el giro de una brújula).
+
+\subsection*{Función táctil}
+
+El segundo bloque puede estar relacionado con una función táctil, de modo que se puede cambiar la pregunta simplemente deslizando los dedos. Así, deslizando hacia la derecha se puede pasar a la siguiente pregunta y lo mismo ocurriría deslizando hacia la izquierda pero para retroceder y volver a la pregunta anterior. 
+
+\subsection*{Control de acciones tapando la parte frontal del móvil}
+
+De nuevo, en este bloque buscamos cambiar de pregunta pero ahora de un modo distinto, como puede ser tapando la parte frontal del móvil. De este modo, por ejemplo, si alguien tiene dificultades para usar los dedos o las manos en general, con tapar la parte frontal ya puedes cambiar de pregunta, controlando así la diversidad funcional en este aspecto.
+
+\subsection*{Control mediante agitación}
+
+Por último, se muestra una nueva forma de cambiar de pregunta o de avanzar y retroceder en el minijuego. Para este caso, lo que se realiza para cambiar avanzar es agitar el móvil hacia la derecha, mientras que para retroceder se puede agitar hacia la izquierda, dando así más comodidades al usuario.
+
+
+******* HABLAR SOBRE BLUTUÙUUUU*****
+
+\subsection*{Explicación del minijuego}
+
+El objetivo del empleo de los sensores es crear un minijuego. De este modo, el usuario tiene que intentar sacar la máxima puntuación posible, puntuación que será proporcional a la información que se obtenga del museo o las distintas partes que se visiten. Así, se podrán obtener puntos de dos maneras distintas, mediante la respuesta a determinadas preguntas, cuyas respuestas están en distintas partes del museo, o identificando que estás frente a un determinado objeto o en alguna sala pasando la aplicación por un lector (así justificas que por ejemplo estás frente a un cuadro importante y por ende, lo has visto). La aplicación tendrá dos botones, pudiendo elegir si quieres empezar el juego o jugar contra un amigo. Por otra parte, una vez comienza el juego tienes un nuevo botón con un mapa que te permita ubicarte en el museo siempre que pases la aplicación por un lector. Mientras estás contestando a las preguntas (que pueden ser cuestiones con posibles respuestas o encontrar un determinado objeto en el museo), puedes avanzar o retroceder deslizando los dedos hacia derecha o izquierda o agitando el móvil hacia la dirección en la que quieres ir (anterior sería la izquierda y siguiente la derecha). Una nueva forma de cambiar las preguntas es tapando la parte frontal del móvil, lo que puede suponer una gran ventaja sobre todo para personas con diversidad funcional. La forma de obtener puntuación a partir de estas preguntas es, seleccionar la respuesta correcta de entre un conjunto de respuestas posibles que da la aplicación para cada pregunta; o en caso de que se solicite que justifiques que has encontrado cualquier objeto, ir a ese objeto y pasar la aplicación por un lector que estará junto a ese objeto.
+
+\subsection*{Cosas que se podrían desarrollar}
+
+
+
+
+\section{Interacción gestual}
+
+
+
+\section{Resumen}
+
+\section{Bibliografía}
+
+\end{document}

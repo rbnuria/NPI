@@ -214,11 +214,11 @@
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
     <string name="app_name">NPI APP</string>
-    <string name="connectionerror_prompt">An error has occurred when trying to connect to Pandorabots</string>
+    <string name="connectionerror_prompt">Ha ocurrido un error intentando conectar a Pandorabots.<!--An error has occurred when trying to connect to Pandorabots--></string>
     <string name="default_aidialog_title">Speak</string>
-    <string name="iderror_prompt">The app id, user key or bot name are invalid</string>
-    <string name="nomatch_prompt">Sorry, I don\'t know how to answer to that</string>
-    <string name="parseerror_prompt">An error has occurred while parsing the bot response</string>
+    <string name="iderror_prompt">El id de la aplicación, la clave de usuario o el nombre del bot son inválidos.<!--The app id, user key or bot name are invalid--></string>
+    <string name="nomatch_prompt">Perdona, no sé cómo contestar a eso.<!--Sorry, I don\'t know how to answer to that--></string>
+    <string name="parseerror_prompt">Ha ocurrido un error mientras se procesaba la respuesta del bot.<!--An error has occurred while parsing the bot response--></string>
     <string name="searching_prompt">Searching for</string>
     <string name="speechbtn_default">Press to speak</string>
     <string name="speechbtn_listening">I am listening!</string>
@@ -252,14 +252,10 @@
 	    <item name="android:scaleType">centerInside</item>
 	</style>
     <style name="AppBaseTheme" parent="android:Theme.Black">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+        
     </style>
     <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        
     </style>
     <style name="Base.AlertDialog.AppCompat" parent="android:Widget">
         <item name="android:layout">@layout/abc_alert_dialog_material</item>

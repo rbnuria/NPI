@@ -1,0 +1,61 @@
+* Quantum Computing
+
+En primer lugar, no os voy a contar todo el contenido del trabajo. He decidido que es imposible explicarlo en 7 minutos. Así que voy a hacer una introducción superficial a la computación cuántica, destacando que es un caso particular de la informática teórica. Mi objetivo es que le perdamos el miedo a este concepto.
+
+Lo primero, ¿algún físico en la sala? No? Mejor, esto siempre hay que preguntarlo...
+
+*Chiste 1:*
+Cuando leemos "computación quántica" pensamos: "qué se apañen los físicos con sus cosas". Cuando un informático lee "computación cuántica" lo primero que hace es preguntar en Stack Overflow si sirve para algo. Para ellos es la primera sección:
+
+- ¿Para qué sirve un ordenador cuántico?
+
+Después explicaremos brevemente cómo calcula un ordenador cuántico, que no cómo funciona. Por último veremos la transformada de Fourier cuántica.
+
+** ¿Para qué sirve Quantum Computing?
+
+*** Quantum Computing no es ciencia ficción
+
+Lo primero que hay que decir es que ya existen ordenadores cuánticos! Empresas como Google o IBM llevan varios años desarrollándolos. También hay centros de investigación trabajando en ello. El problema es que la potencia de cómputo es todavía reducida para ver una aplicación práctica, hablaremos más de ello posteriormente.
+
+En las imágenes vemos dos criogenizadores de Google e IBM, que se utilizan para mantener la temperatura todo lo cercana posible a cero grados Kelvin en los ordenadores cuánticos.
+
+*** Predicción 
+
+En 20 años habrá ordenadores cuánticos universales, es decir,  completamente funcional y reprogramable. No obstante, veremos aplicaciones prácticas de la computación cuántica en tan solo 5 años. Una de estas aplicaciones es la simulación de distribuciones aleatorias, donde los ordenadores cuánticos son en teoría mucho mejores que los clásicos.
+
+Investigación en quantum computing (*chiste 2*):
+- Desarrollo y construcción de ordenadores cuánticos (Física e ingeniería).
+- ¿Qué puede calcular un ordenador cuántico de forma eficiente?  Esta pregunta entra dentro del ámbito de la Informática teórica, que yo veo como un área de las Matemáticas. Tenemos unos axiomas (cómo funciona un ordenador clásico o cuántico) y deducimos qué problemas se pueden resolver con estos y cuántas operaciones necesitan. Esto es lo que ha hecho mi compañero con la transformada de Fourier rápida.
+
+*** ¿Por qué es importante?
+
+*Teorema:* Todo algoritmo clásico puede implementarse en un ordenador cuántico.
+
+Los ordenadores cuánticos son al menos tan poderosos como los clásicos. No obstante, tenemos razones para pensar que la computación cuántica es más potente que la clásica.
+
+*Problema de la factorización de enteros:* Dado $N \in \mathbb{Z}$, calcula la  descomposición en factores primos de $N$. El mejor algoritmo clásico conocido realiza $\theta(\exp(n^{1/3} \log^{2/3} n))$ operaciones, donde $n = \log_2 N$. Estas son muchas operaciones, no podemoms factorizar números de más de 1000 bits con ordenadores clásicos, necesitaríamos muchas vidas. Sin embargo, los ordenadores cuánticos sí podrán:
+
+*Teorema (Algoritmo de Shor):* El algoritmo de Shor utiliza como mucho $\theta(n^4)$ operaciones cuánticas, donde $n = \log_2 N$.
+
+Pongo operaciones cuánticas entre comillas porque todavía no hemos definido lo que es.
+
+*** Teoría de Complejidad Cuántica
+
+La teoría de la complejidad o complexity theory estudia cómo de rápido puede resolver un ordenador un problema dado. Los problemas se clasifican según dificultad. En la diapositiva vemos un diagrama de Venn con varias clases de problemas. Todas las inclusiones del diagrama se han demostrado, pero no sabemos si son o no estrictas. Se cree que sí lo son.
+
+En esté ámbito se enuncia el famoso problema P vs NP, que es uno de los problemas del milenio.  Un problema está en P si es resoluble en tiempo polinómico (como calcular la DFT), esto es, el número de operaciones es un polinomio sobre el tamaño en bits de la entrada. P está contenido en NP. La pregunta es si son distintos. ¡Si la resuelves, ganarías un millón de dólares! Esto demuestra que el campo en el que nos movemos es muy difícil. En NP tenemos problemas muy conocidos como el viajante de comercio. En P están los problemas sencillos, como sumar dos números. Recientemente se demostró que saber si un número es primo está en P. Los autores ganaron el premio Gödel, premio que también ganó Shor por su algoritmo.
+
+La Teoría de Complejidad cuántica es el área de la informática teórica que estudia qué puede calcular un ordenador cuántico y cómo de rápido. BQP s la clase de los problemas resolubles en tiempo polinomial por un ordenador cuántico. Factorizar un número sabemos que está en NP y BQP, pero no sabemos si está o no en P. La criptografía actual se basa en que se cree que no está en P. El mejor algoritmo actual tada 2000 años en factorizar un número de 728 bits. Un ordenador cuántico tardaría segundos...
+
+*** Qubits 1
+
+Chiste 2: El principal problema es que la mayoría de gente que ha trabajado en este tema son físicos. Por tanto, la nomenclatura es horrible.
+
+*** Qubits 2
+
+Chiste : Los ordenadores cuánticos son más complejos que los clásicos.
+
+** La Transformada de Fourier Cuántica
+
+
+

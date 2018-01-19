@@ -80,6 +80,8 @@ public class MainActivity extends VoiceActivity {
 	private static Integer ID_PROMPT_INFO = 1;	//Id chosen to identify the prompts that involve only informing the user
 	private long startListeningTime = 0; // To skip errors (see processAsrError method)
 
+	private String lang = "ES";
+
 	/**
 	 * Sets up the activity initializing the GUI, the ASR and TTS
 	 */
@@ -241,7 +243,7 @@ public class MainActivity extends VoiceActivity {
                 Log.e(LOGTAG, "Error when attempting to listen: " + errorMsg);
 
                 try {
-                    speak(errorMsg, "EN", ID_PROMPT_INFO);
+                    speak(errorMsg, lang, ID_PROMPT_INFO);
                 } catch (Exception e) {
                     Log.e(LOGTAG, "English not available for TTS, default language used instead");
                 }
@@ -294,7 +296,7 @@ public class MainActivity extends VoiceActivity {
 					return response;
 				} catch (AIServiceException e) {
                     try {
-                        speak("Could not retrieve a response from API.AI", "EN", ID_PROMPT_INFO);
+                        speak("Could not retrieve a response from API.AI", lang, ID_PROMPT_INFO);
                         Log.e(LOGTAG,"Problems retrieving a response");
                     } catch (Exception ex) {
                         Log.e(LOGTAG, "English not available for TTS, default language used instead");
@@ -351,7 +353,7 @@ public class MainActivity extends VoiceActivity {
 
 
 					try {
-						speak(response, "ES", ID_PROMPT_INFO);
+						speak(response, lang, ID_PROMPT_INFO);
 					} catch (Exception e) {
 						Log.e(LOGTAG, "TTS not accessible");
 					}

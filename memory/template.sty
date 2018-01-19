@@ -1,0 +1,153 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Package which include a template for writing a report in latex.
+%
+% Autor: Andrés Herrera Poyatos (https://github.com/andreshp)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% You can put this package in the directory ~/texmf/tex/latex/ and use it with \usepackage{template}
+% whenever you want.
+%
+% The template does not provide a title environment. You have to use one of the titlex.sty packages
+% in order to define a title environment.
+% Furthermore, the template requires you to define the following variables:
+
+% Title of the document.
+%\newcommand{\doctitle}{This is the title}
+% Subtitle.
+%\newcommand{\docsubtitle}{A cool subtitle}
+% Date.
+%\newcommand{\docdate}{March 17th, 2017}
+% Subject.
+%\newcommand{\subject}{LaTeX}
+% Author.
+%\newcommand{\docauthor}{Andrés Herrera Poyatos}
+%\newcommand{\docaddress}{University of Granada}
+%\newcommand{\docemail}{andreshp9@gmail.com}
+% Document's abstract. If you leave it empty, then it won't be used.
+%\newcommand{\docabstract}{}
+
+\ProvidesPackage{template}[2017]
+
+%-----------------------------------------------------------------------------------------------------
+%	FONT SELECTION
+%-----------------------------------------------------------------------------------------------------
+
+%\usepackage{courier}
+% Improves the font rendering.
+\usepackage{microtype}
+
+%-----------------------------------------------------------------------------------------------------
+%	LANGUAGE CHOICE
+%-----------------------------------------------------------------------------------------------------
+
+% Chooses the footer words in english or spanish.
+\newcommand{\pageWord}{\iflanguage{english}{Page}{P\'agina}}
+\newcommand{\ofWord}{\iflanguage{english}{of}{de}}
+
+%-----------------------------------------------------------------------------------------------------
+%	PAGE STYLE
+%-----------------------------------------------------------------------------------------------------
+
+% Paquetes para el diseño de página:
+\usepackage{fancyhdr}               % Utilizado para hacer títulos propios.
+\usepackage{lastpage}               % Referencia a la última página. Utilizado para el pie de página.
+\usepackage{calc}
+
+\usepackage{extramarks}             % Marcas extras. Utilizado en pie de página y cabecera.
+\usepackage{geometry}               % Asigna la "geometría" de las páginas.
+
+% Chooses the margins
+\geometry{left=3cm, right=3cm, top=3cm, bottom=3cm, headheight=0.8cm, headsep=0.3cm}
+%\geometry{left=2cm,right=2cm,top=2.5cm,bottom=2.5cm,headheight=0.8cm,headsep=0.3cm}
+
+
+% Chooses the fancy page style.
+\pagestyle{fancy}
+
+% Spaces of the document:
+% Chooses the space between lines.
+\linespread{1.1}
+% Selects the indentation for each paragraph beginning.
+\usepackage[parfill]{parskip}
+\setlength\parindent{0pt}
+
+
+%-----------------------------------------------------------------------------------------------------
+%	HEADER
+%-----------------------------------------------------------------------------------------------------
+
+% Chooses the header style
+\renewcommand\headrule{
+  \begin{minipage}{\textwidth}
+    \hrule width \hsize
+  \end{minipage}
+}
+
+% Computes the right header text.
+% The rheader contains the subject, title and subtitle
+% of the document. If any of those is not specified, then
+% it is omitted.
+\newcommand{\rheadtext}{
+  \ifthenelse{\equal{\subject}{}}{}{\subject \ -}
+  \doctitle \ifthenelse{\equal{\docsubtitle}{}}{}{\ - \docsubtitle}
+}
+
+% Left part of the header.
+% If the user has specified an specific lhead by defining the command,
+% then this header is used. Otherwise, the lhead is the author.
+\fancyhead[L]{
+  \ifthenelse{\equal{\doclhead}{}}{\docauthor}{\doclhead}
+}
+% Right part of the header.
+% If the user has specified an specific lhead by defining the command,
+% then this header is used. Otherwise, the lhead is the author.
+\fancyhead[R]{
+    \ifthenelse{\equal{\docrhead}{}}{\rheadtext}{\docrhead}
+}
+
+%-----------------------------------------------------------------------------------------------------
+%	FOOTER
+%-----------------------------------------------------------------------------------------------------
+
+% Chooses the footer style
+\renewcommand\footrule{
+  \begin{minipage}{\textwidth}
+    \hrule width \hsize
+  \end{minipage}\par
+}
+
+% Left part of the footer
+\fancyfoot[L]{}
+% Center part of the footer
+\fancyfoot[C]{}
+% Right part of the footer
+\fancyfoot[R]{\pageWord\ \thepage\ \ofWord\ \protect\pageref{LastPage}}
+
+%-----------------------------------------------------------------------------------------------------
+%	IMAGES
+%-----------------------------------------------------------------------------------------------------
+
+% Allows the H placement in images.
+\usepackage{float}
+
+%-----------------------------------------------------------------------------------------------------
+%	HYPERREF SET UP
+%-----------------------------------------------------------------------------------------------------
+
+\usepackage{hyperref}
+
+\hypersetup{
+    % Removes the boxes and puts the links with color:
+    colorlinks   = true,                    
+    % Color selection:
+    linkcolor    = [rgb]{0,0.2,0.5},
+    anchorcolor  = gray,
+    citecolor    = magenta,
+    filecolor    = red,
+    menucolor    = green,
+    runcolor     = red,
+    urlcolor     = cyan
+}
+
+
