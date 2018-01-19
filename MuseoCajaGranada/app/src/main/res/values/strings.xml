@@ -30,26 +30,26 @@
 
     <string name="error_camara">"Ha ocurrido un error con la cámara"</string>
 
-    <string name="question1">Pregunta 1: ¿Cómo de guapa es Nuria?</string>
-    <string name="q1_response1">Un poquillo namás</string>
-    <string name="q1_response2">Mucho muchísimo, no hay ninguna duda</string>
-    <string name="q1_response3">La más del mundo mundial.</string>
+    <string name="question1">Pregunta 1: ¿En qué año se produjo la invasión musulmana de la Península Ibérica?</string>
+    <string name="q1_response1">A finales del año 611.</string>
+    <string name="q1_response2">En la primera década del siglo VIII.</string>
+    <string name="q1_response3">En el año 711.</string>
     <string name="q1_response">3</string>
 
 
-    <string name="question2">Pregunta 2: ¿De qué color es el caballo blanco de santiago?</string>
-    <string name="q2_response1">Blanco</string>
-    <string name="q2_response2">Negro</string>
-    <string name="q2_response3">Santiago no tiene caballo</string>
+    <string name="question2">Pregunta 2: ¿En qué capital andaluza fue promulgada la Constitución española de 1812?</string>
+    <string name="q2_response1">Cádiz.</string>
+    <string name="q2_response2">Sevilla.</string>
+    <string name="q2_response3">Córdoba.</string>
     <string name="q2_response">1</string>
 
-    <string name="nfcquestion">Esta pregunta consiste en encontrar un lugar concreto en el museo siguiendo la siguiente pista: </string>
 
-    <string name="question4">Encuentra la maldita NFC TAG ninio</string>
+    <string name="question3">Encuentra el lugar donde se encuentra la biografía del autor de este cuadro. Pista: es un pintor del siglo XX. </string>
 
 
     <!-- NFC TAGS ID'S -->
-    <string name="tag1">A90669F4</string>
+    <string name="tag_nuria">A90669F4</string>
+    <string name="tag_moya">3FA6B209</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

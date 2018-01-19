@@ -9,7 +9,7 @@
 
 
     <LinearLayout
-        android:id="@+id/lfquestion1_1"
+        android:id="@+id/lfquestion4_1"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
         android:background="@android:color/holo_blue_dark"
@@ -28,7 +28,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/lfquestion1_2"
+        android:id="@+id/lfquestion4_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="300dp"
@@ -38,7 +38,7 @@
         <TextView
             android:id="@+id/score_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:text="texto"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -48,7 +48,32 @@
             tools:layout_editor_absoluteX="122dp"
             tools:layout_editor_absoluteY="447dp" />
 
+
+
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lfquestion4_3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="450dp"
+        android:background="@android:color/holo_blue_dark"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_exit"
+            style="@style/AppTheme.AppBarOverlay"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_weight="1"
+            android:foregroundGravity="fill"
+            android:text="SALIR" />
+
+    </LinearLayout>
+
+
+
 
 
 </android.support.constraint.ConstraintLayout>

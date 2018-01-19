@@ -13,6 +13,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.GravityCompat;
@@ -30,12 +31,12 @@ import android.view.View;
 public class GameStartActivity extends AppCompatActivity
         implements GestureDetector.OnGestureListener, NavigationView.OnNavigationItemSelectedListener, GameModeFragment.OnFragmentInteractionListener,
         CountDownGameStartFragment.OnFragmentInteractionListener, Question1Fragment.OnFragmentInteractionListener, Question2Fragment.OnFragmentInteractionListener,
-        Question3Fragment.OnFragmentInteractionListener{
+        Question3Fragment.OnFragmentInteractionListener, PointCounterFragment.OnFragmentInteractionListener{
 
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
     public static int question = 1;
-    int correct_answers = 0;
+    public static int correct_answers = 0;
 
     //NFC TAGS
     private NfcAdapter mNfcAdapter;
@@ -200,45 +201,48 @@ public class GameStartActivity extends AppCompatActivity
 
 
         ///    FUNCIONALIDAD NFCTags
-
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
-
-        //******************** En vez de mostrar este mensaje feo podemos hacer versión B para móviles que no tengan NFC.
-        if(mNfcAdapter!=null && mNfcAdapter.isEnabled()){
-            //Toast.makeText(this, "NFC aviable", Toast.LENGTH_LONG).show();
-        }else{
-            //Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
-            //finish();
-            //return;
-        }
 
 
         Tag myTag = (Tag) getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
         System.out.println(myTag);
+
+
+
+        //FLoating Buttooon!!!!!!
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton_game);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GameStartActivity.this , MapActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        System.out.println("ESTOY AQYU");
-//        this.gesturedetector.onTouchEvent(event);
-//        // Be sure to call the superclass implementation
-//        return super.onTouchEvent(event);
-//    }
 
     public boolean onTouch(View v, MotionEvent event){
-        System.out.println("ESTOY AQUI");
         return true;
     }
 
 
     @Override
     public void onBackPressed() {
-        question = question - 1;
+        if(question > 1){
+            question = question - 1;
+        }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            /*if (getFragmentManager().getBackStackEntryCount() > 0 ){
+                getFragmentManager().popBackStack();
+                }else{
+                    super.onBackPressed();
+                }
+            }*/
+            onFragmentInteraction();
         }
     }
 
@@ -298,7 +302,7 @@ public class GameStartActivity extends AppCompatActivity
         transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
 
         transaction.replace(R.id.fragment_placeholder,newFragment);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
 
         transaction.commit();
     }
@@ -334,7 +338,7 @@ public class GameStartActivity extends AppCompatActivity
                 transaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
 
                 transaction.replace(R.id.fragment_placeholder, newFragment);
-                transaction.addToBackStack(null);
+                //transaction.addToBackStack(null);
 
                 transaction.commit();
 
@@ -346,7 +350,7 @@ public class GameStartActivity extends AppCompatActivity
                 transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
 
                 transaction.replace(R.id.fragment_placeholder,newFragment);
-                transaction.addToBackStack(null);
+                //transaction.addToBackStack(null);
 
                 transaction.commit();
 
@@ -360,7 +364,7 @@ public class GameStartActivity extends AppCompatActivity
                 transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
 
                 transaction.replace(R.id.fragment_placeholder,newFragment);
-                transaction.addToBackStack(null);
+                //transaction.addToBackStack(null);
 
                 transaction.commit();
 
@@ -373,7 +377,7 @@ public class GameStartActivity extends AppCompatActivity
                 transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
 
                 transaction.replace(R.id.fragment_placeholder,newFragment);
-                transaction.addToBackStack(null);
+                //transaction.addToBackStack(null);
 
                 transaction.commit();
 
@@ -414,9 +418,6 @@ public class GameStartActivity extends AppCompatActivity
     //Cuando deslizamos el dedo por la pantalla (derecha e izquierda) -> StackOverflow
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-
-        System.out.println("FLYINGGGGG!");
-
         try {
             if (Math.abs(motionEvent.getY() - motionEvent1.getY()) > SWIPE_MAX_OFF_PATH)
                 return false;
@@ -458,11 +459,16 @@ public class GameStartActivity extends AppCompatActivity
             byte[] tagId = intent.getByteArrayExtra( mNfcAdapter.EXTRA_ID );
             String texto =  ByteArrayToHexString( tagId );
 
-            if(texto.equals(getResources().getString(R.string.tag1))){
+            if(texto.equals(getResources().getString(R.string.tag_nuria))){
                 //Comprobamos que sea la que queremos (esto puede ser controlado con un booleano)
-                question = question +1;
+                question = question + 1;
+                correct_answers = correct_answers + 1;
                 onFragmentInteraction();
             }
+
+
+
+
         }
     }
 

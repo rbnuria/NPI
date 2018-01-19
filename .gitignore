@@ -5,7 +5,13 @@
 /.idea/libraries
 /.idea/app.xml
 /.idea
+*/.idea/workspace.xml
+*/.idea/libraries
+*/.idea/app.xml
+*/.idea
 .DS_Store
 /build
+*/build
 /captures
+*/captures
 .externalNativeBuild
