@@ -44,6 +44,58 @@
     <string name="q2_response">1</string>
 
 
+    <string-array name="question11_keys">
+            <item>611</item>
+            <item>1</item>
+            <item>primer</item>
+    </string-array>
+
+    <string-array name="question12_keys">
+                <item>siglo 8</item>
+                <item>2</item>
+                <item>segund</item>
+    </string-array>
+
+    <string-array name="question13_keys">
+                <item>711</item>
+                <item>3</item>
+                <item>tercer</item>
+    </string-array>
+
+    <string-array name="question21_keys">
+                <item>Cádiz</item>
+                <item>1</item>
+                <item>primer</item>
+    </string-array>
+
+    <string-array name="question22_keys">
+                <item>Sevilla</item>
+                <item>2</item>
+                <item>segund</item>
+    </string-array>
+
+    <string-array name="question23_keys">
+                <item>Córdoba</item>
+                <item>3</item>
+                <item>tercer</item>
+    </string-array>
+
+    <string-array name="question_back_key">
+        <item>Atrás</item>
+        <item>Volver</item>
+        <item>Vuelve</item>
+    </string-array>
+
+    <string-array name="question_next_key">
+        <item>Siguiente</item>
+        <item>Paso</item>
+        <item>Seguir</item>
+        <item>Pasar</item>
+    </string-array>
+
+
+
+
     <string name="question3">Encuentra el lugar donde se encuentra la biografía del autor de este cuadro. Pista: es un pintor del siglo XX. </string>
 
 

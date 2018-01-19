@@ -8,11 +8,15 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GestureDetectorCompat;
@@ -21,14 +25,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.Toast;
 
-public class GameStartActivity extends AppCompatActivity
+import java.util.ArrayList;
+import java.util.Locale;
+
+public class GameStartActivity extends VoiceActivity
         implements GestureDetector.OnGestureListener, NavigationView.OnNavigationItemSelectedListener, GameModeFragment.OnFragmentInteractionListener,
         CountDownGameStartFragment.OnFragmentInteractionListener, Question1Fragment.OnFragmentInteractionListener, Question2Fragment.OnFragmentInteractionListener,
         Question3Fragment.OnFragmentInteractionListener, PointCounterFragment.OnFragmentInteractionListener{
@@ -37,6 +46,8 @@ public class GameStartActivity extends AppCompatActivity
     private static final int REQUEST_ENABLE_BT = 2;
     public static int question = 1;
     public static int correct_answers = 0;
+
+    private static final String LOGTAG = "GAMESTART";
 
     //NFC TAGS
     private NfcAdapter mNfcAdapter;
@@ -65,6 +76,8 @@ public class GameStartActivity extends AppCompatActivity
 
     //Booleano NFCTags
     public static boolean NFC_activated = false;
+
+    private SensorEventListener mySensorEventListener;
 
 
     @Override
@@ -103,7 +116,7 @@ public class GameStartActivity extends AppCompatActivity
 
 
         //Definimos la funcionalidad de los sensores
-        final SensorEventListener mySensorEventListener = new SensorEventListener() {
+        mySensorEventListener = new SensorEventListener() {
 
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
@@ -170,12 +183,15 @@ public class GameStartActivity extends AppCompatActivity
 
                     //////////// SENSOR DE PROXIMIDAD
                 }else if(sensorEvent.sensor.getType() == Sensor.TYPE_PROXIMITY ) {
-
-                    /// Si algo está lo suficientemente cerca (en nuestro caso será la mano) -> minusvalías
-                    if (sensorEvent.values[0] >= -limite_proximidad && sensorEvent.values[0] <= limite_proximidad) {
-                        //Tapao
-                        question = question + 1;
-                        onFragmentInteraction();
+                    if(question >= 1 && question <= 2) {
+                        /// Si algo está lo suficientemente cerca (en nuestro caso será la mano) -> minusvalías
+                        if (sensorEvent.values[0] >= -limite_proximidad && sensorEvent.values[0] <= limite_proximidad) {
+                            //Tapao
+                            //question = question + 1;
+                            //onFragmentInteraction();
+                            indicateListening();
+                            startListening();
+                        }
                     }
                 }
 
@@ -189,12 +205,6 @@ public class GameStartActivity extends AppCompatActivity
 
         };
 
-
-        //Registramos el listener para los 2 sensores
-        sensorManager.registerListener(mySensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
-                sensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(mySensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
-                SensorManager.SENSOR_DELAY_NORMAL);
 
         //Servicio del dectector de gestos
         gesturedetector = new GestureDetectorCompat(this, this);
@@ -218,8 +228,25 @@ public class GameStartActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
+        initSpeechInputOutput(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Registramos el listener para los 2 sensores
+        sensorManager.registerListener(mySensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
+                sensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(mySensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
+                SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(mySensorEventListener);
+    }
 
     public boolean onTouch(View v, MotionEvent event){
         return true;
@@ -443,7 +470,6 @@ public class GameStartActivity extends AppCompatActivity
 
 
     public void onFragmentInteraction(MotionEvent event) {
-        System.out.println("ESTOY AQYU");
         this.gesturedetector.onTouchEvent(event);
 //        // Be sure to call the superclass implementation
 //        return super.onTouchEvent(event);
@@ -494,4 +520,182 @@ public class GameStartActivity extends AppCompatActivity
     }
 
 
+
+    /* ---------- LISTENING METHODS ---------------- */
+    private static Integer ID_PROMPT_QUERY = 0;	//Id chosen to identify the prompts that involve posing questions to the user
+    private static Integer ID_PROMPT_INFO = 1;	//Id chosen to identify the prompts that involve only informing the user
+    private long startListeningTime = 0; // To skip errors (see processAsrError method)
+
+    private String lang = "ES";
+
+    private void indicateListening(){
+
+    }
+    public boolean deviceConnectedToInternet() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return (activeNetwork != null && activeNetwork.isConnectedOrConnecting());
+    }
+
+    private void startListening(){
+
+        if(deviceConnectedToInternet()){
+            try {
+
+				/*Start listening, with the following default parameters:
+					* Recognition model = Free form,
+					* Number of results = 1 (we will use the best result to perform the search)
+					*/
+                startListeningTime = System.currentTimeMillis();
+                listen(Locale.ENGLISH, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM, 1); //Start listening
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e(LOGTAG, e.getMessage());
+            }
+        } else {
+            Log.e(LOGTAG, "Device not connected to Internet");
+        }
+    }
+
+    @Override
+    public void showRecordPermissionExplanation() {
+        Toast.makeText(getApplicationContext(), "Usando el sensor de proximidad puedes hablar para elegir la respuesta. La aplicación necesita acceso al micrófono.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRecordAudioPermissionDenied() {
+        Toast.makeText(getApplicationContext(), "Lo sentimos. Para usar esta funcionalidad debes utilizar el micrófono.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void processAsrResults(ArrayList<String> nBestList, float[] nBestConfidences) {
+        if (nBestList != null) {
+            if (nBestList.size() > 0) {
+                boolean matched = false;
+                String userQuery = nBestList.get(0).toLowerCase(); //We will use the best result
+                String[] back_keys = getResources().getStringArray(R.array.question_back_key);
+
+                for(String s : back_keys){
+                    System.out.println(s+" || "+userQuery);
+                    if(userQuery.contains(s.toLowerCase())){
+                        // Volver a la pregunta anterior.
+                        Toast.makeText(getApplicationContext(), "Has vuelto a la pregunta anterior.", Toast.LENGTH_SHORT).show();
+                        matched = true;
+                    }
+                }
+
+                String[] next_keys = getResources().getStringArray(R.array.question_next_key);
+                for(String s : next_keys){
+                    System.out.println(s.toLowerCase()+" || "+userQuery);
+                    if(userQuery.contains(s.toLowerCase())){
+                        System.out.println("OK");
+                        // Volver a la pregunta anterior.
+                        Toast.makeText(getApplicationContext(), "Has pasado de pregunta.", Toast.LENGTH_SHORT).show();
+                        matched = true;
+                    }
+                }
+
+                if(question == 1 || question == 2) {
+                    for(int i = 1; i <= 3; i++) {
+                        String keyname = "question"+Integer.toString(question)+Integer.toString(i)+"_keys";
+                        System.out.println(keyname);
+                        String[] question_keys = getResources().getStringArray(getResources().getIdentifier(keyname,"array",this.getPackageName()));
+                        for(String s : question_keys){
+                            System.out.println(s.toLowerCase()+" || "+userQuery);
+                            if(userQuery.contains(s.toLowerCase())){
+                                // Seleccionar opción `i` en el fragment `question`
+                                Toast.makeText(getApplicationContext(), "Has seleccionado la opción "+Integer.toString(i), Toast.LENGTH_SHORT).show();
+                                matched = true;
+                            }
+                        }
+                    }
+                }
+
+                //changeButtonAppearanceToDefault();
+                if(!matched) {
+                    Toast.makeText(getApplicationContext(), "No he entendido la respuesta.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void processAsrReadyForSpeech() {
+
+    }
+
+    @Override
+    public void processAsrError(int errorCode) {
+        //changeButtonAppearanceToDefault();
+
+        //Possible bug in Android SpeechRecognizer: NO_MATCH errors even before the the ASR
+        // has even tried to recognized. We have adopted the solution proposed in:
+        // http://stackoverflow.com/questions/31071650/speechrecognizer-throws-onerror-on-the-first-listening
+        long duration = System.currentTimeMillis() - startListeningTime;
+        if (duration < 500 && errorCode == SpeechRecognizer.ERROR_NO_MATCH) {
+            Log.e(LOGTAG, "Doesn't seem like the system tried to listen at all. duration = " + duration + "ms. Going to ignore the error");
+            stopListening();
+        }
+        else {
+            String errorMsg = "";
+            switch (errorCode) {
+                case SpeechRecognizer.ERROR_AUDIO:
+                    errorMsg = "Error grabando audio";//"Audio recording error";
+                    break;
+                case SpeechRecognizer.ERROR_CLIENT:
+                    errorMsg = "Error desconocido en el lado del cliente";//"Unknown client side error";
+                    break;
+                case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
+                    errorMsg = "Permisos insuficientes";//"Insufficient permissions";
+                    break;
+                case SpeechRecognizer.ERROR_NETWORK:
+                    errorMsg = "Error de red.";//"Network related error";
+                    break;
+                case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
+                    errorMsg = "Tiempo de conexión agotado.";//"Network operation timed out";
+                    break;
+                case SpeechRecognizer.ERROR_NO_MATCH:
+                    errorMsg = "No hay coincidencias ";//"No recognition result matched";
+                    break;
+                case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
+                    errorMsg = "Servicio de reconocimiento ocupado";//"RecognitionService busy";
+                    break;
+                case SpeechRecognizer.ERROR_SERVER:
+                    errorMsg = "Error del sevidor";//"Server sends error status";
+                    break;
+                case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
+                    errorMsg = "No se detectó ninguna entrada";//"No speech input";
+                    break;
+                default:
+                    errorMsg = ""; //Another frequent error that is not really due to the ASR, we will ignore it
+            }
+            if (errorMsg != "") {
+                Log.e(LOGTAG, "Error when attempting to listen: " + errorMsg);
+                Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_SHORT).show();
+                try {
+                    //speak(errorMsg, lang, ID_PROMPT_INFO);
+                } catch (Exception e) {
+                    Log.e(LOGTAG, "English not available for TTS, default language used instead");
+                }
+            }
+        }
+
+
+    }
+
+    @Override
+    public void onTTSDone(String uttId) {
+        if(uttId.equals(ID_PROMPT_QUERY.toString()))
+            startListening();
+    }
+
+    @Override
+    public void onTTSError(String uttId) {
+        Log.e(LOGTAG, "TTS error");
+    }
+
+    @Override
+    public void onTTSStart(String uttId) {
+        Log.e(LOGTAG, "TTS starts speaking");
+    }
 }

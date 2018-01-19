@@ -130,6 +130,12 @@ public class MainActivity extends VoiceActivity {
 		});
 	}
 
+	public boolean deviceConnectedToInternet() {
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		return (activeNetwork != null && activeNetwork.isConnectedOrConnecting());
+	}
+
 	/**
 	 * Explain to the user why we need their permission to record audio on the device
 	 * See the checkASRPermission in the VoiceActivity class
@@ -368,11 +374,8 @@ public class MainActivity extends VoiceActivity {
 	 *
 	 * @author http://developer.android.com/training/monitoring-device-state/connectivity-monitoring.html
 	 */
-	public boolean deviceConnectedToInternet() {
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-		return (activeNetwork != null && activeNetwork.isConnectedOrConnecting());
-	}
+
+
 
 	/**
 	 * Shuts down the TTS engine when finished

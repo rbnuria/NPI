@@ -1,5 +1,8 @@
 package com.example.jlsuarezdiaz.museocajagranada;
 
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -37,6 +40,10 @@ public class MapActivity extends AppCompatActivity
     private SensorManager mSensorManager;
 
     TextView tvHeading;
+
+    Sensor accelerometer;
+    Sensor magnetometer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +85,10 @@ public class MapActivity extends AppCompatActivity
         super.onResume();
 
         // for the system's orientation sensor registered listeners
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
-                SensorManager.SENSOR_DELAY_GAME);
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_GAME);
+        //mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),SensorManager.SENSOR_DELAY_UI);
+        //mSensorManager.registerListener(this,accelerometer,SensorManager.SENSOR_DELAY_UI);
+        //mSensorManager.registerListener(this,magnetometer,SensorManager.SENSOR_DELAY_UI);
     }
 
     @Override
@@ -147,12 +156,14 @@ public class MapActivity extends AppCompatActivity
         return true;
     }
 
+    private float[] mGravity;
+    private float[] mGeomagnetic;
     @Override
     public void onSensorChanged(SensorEvent event) {
 
         // get the angle around the z-axis rotated
         float degree = Math.round(event.values[0]);
-
+        System.out.println(degree);
         tvHeading.setText("Heading: " + Float.toString(degree) + " degrees");
 
         // create a rotation animation (reverse turn degree degrees)
@@ -172,6 +183,7 @@ public class MapActivity extends AppCompatActivity
         // Start the animation
         image.startAnimation(ra);
         currentDegree = -degree;
+
 
     }
 

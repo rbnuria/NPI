@@ -19,7 +19,6 @@
         android:debuggable="true"
         android:icon="@drawable/fondo"
         android:label="@string/app_name"
-        android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity
             android:name="conversandroid.MainActivity"
