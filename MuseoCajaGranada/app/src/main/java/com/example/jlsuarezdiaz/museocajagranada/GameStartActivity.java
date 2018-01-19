@@ -12,7 +12,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
@@ -23,7 +22,6 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -32,6 +30,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -58,6 +57,8 @@ public class GameStartActivity extends VoiceActivity
     //Referencia al detector de gestos
     private GestureDetectorCompat gesturedetector = null;
     private ScaleGestureDetector sgd;
+
+    ImageView image = null;
 
     //CONSTANTES DEL RECONOCIMIENTO DE GESTO -> Stackoverflow
     private static final int SWIPE_MIN_DISTANCE = 420;
@@ -86,6 +87,8 @@ public class GameStartActivity extends VoiceActivity
         setContentView(R.layout.activity_game_start);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ImageView image = (ImageView) findViewById(R.id.map);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -210,12 +213,9 @@ public class GameStartActivity extends VoiceActivity
         gesturedetector = new GestureDetectorCompat(this, this);
 
 
-        ///    FUNCIONALIDAD NFCTags
-        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
-
-        Tag myTag = (Tag) getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        System.out.println(myTag);
+        //Tag myTag = (Tag) getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        //System.out.println(myTag);
 
 
 
@@ -240,11 +240,17 @@ public class GameStartActivity extends VoiceActivity
                 sensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(mySensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
                 SensorManager.SENSOR_DELAY_NORMAL);
+
+        ///    FUNCIONALIDAD NFCTags
+        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        System.out.println("DESHABILITADO");
+        mNfcAdapter.disableForegroundDispatch( this );
         sensorManager.unregisterListener(mySensorEventListener);
     }
 
@@ -263,12 +269,6 @@ public class GameStartActivity extends VoiceActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            /*if (getFragmentManager().getBackStackEntryCount() > 0 ){
-                getFragmentManager().popBackStack();
-                }else{
-                    super.onBackPressed();
-                }
-            }*/
             onFragmentInteraction();
         }
     }
@@ -476,8 +476,7 @@ public class GameStartActivity extends VoiceActivity
     }
 
 
-    @Override
-
+    //@Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent( intent );
 
@@ -489,12 +488,33 @@ public class GameStartActivity extends VoiceActivity
                 //Comprobamos que sea la que queremos (esto puede ser controlado con un booleano)
                 question = question + 1;
                 correct_answers = correct_answers + 1;
+                NFC_activated = false;
                 onFragmentInteraction();
             }
+        }else{
+            if(intent.hasExtra(mNfcAdapter.EXTRA_ID)){
+                byte[] tagId = intent.getByteArrayExtra( mNfcAdapter.EXTRA_ID );
+                String texto =  ByteArrayToHexString( tagId );
+                int imagen = 0;
+
+                if(texto.equals(getResources().getString(R.string.tag_nuria))){
+                    imagen = 1;
+                }else if(texto.equals(getResources().getString(R.string.tag_moya))){
+                    imagen = 2;
+                }else if(texto.equals(getResources().getString(R.string.tag_juanlu))){
+                    imagen = 3;
+                }
+
+                if(imagen > 0){
+                    Intent intent2 = new Intent(GameStartActivity.this , MapActivity.class);
+                    Bundle bundle = new Bundle(  );
+                    bundle.putInt("imagen", imagen);
+                    intent2.putExtras(bundle);
+                    startActivity(intent2);
+                }
 
 
-
-
+            }
         }
     }
 
@@ -580,6 +600,13 @@ public class GameStartActivity extends VoiceActivity
                     if(userQuery.contains(s.toLowerCase())){
                         // Volver a la pregunta anterior.
                         Toast.makeText(getApplicationContext(), "Has vuelto a la pregunta anterior.", Toast.LENGTH_SHORT).show();
+
+                        if(question > 1){
+                            question = question - 1;
+                        }
+
+                        onFragmentInteraction();
+
                         matched = true;
                     }
                 }
@@ -591,6 +618,10 @@ public class GameStartActivity extends VoiceActivity
                         System.out.println("OK");
                         // Volver a la pregunta anterior.
                         Toast.makeText(getApplicationContext(), "Has pasado de pregunta.", Toast.LENGTH_SHORT).show();
+
+                        question = question + 1;
+                        onFragmentInteraction();
+
                         matched = true;
                     }
                 }
@@ -605,9 +636,27 @@ public class GameStartActivity extends VoiceActivity
                             if(userQuery.contains(s.toLowerCase())){
                                 // Seleccionar opción `i` en el fragment `question`
                                 Toast.makeText(getApplicationContext(), "Has seleccionado la opción "+Integer.toString(i), Toast.LENGTH_SHORT).show();
+
+                                if(question == 1){
+                                    GameStartActivity.question1_response = Integer.toString(i);
+                                }else{
+                                    GameStartActivity.question2_response = Integer.toString(i);
+                                }
+
+                                question = question + 1;
+                                onFragmentInteraction();
+
                                 matched = true;
+
+                                break;
                             }
+
                         }
+
+                        if (matched) {
+                            break;
+                        }
+
                     }
                 }
 

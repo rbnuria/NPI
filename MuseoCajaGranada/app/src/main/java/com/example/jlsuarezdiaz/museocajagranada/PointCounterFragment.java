@@ -87,7 +87,7 @@ public class PointCounterFragment extends Fragment {
             public void onClick(View v) {
 
                 if(mListener != null){
-
+                    GameStartActivity.question = 0;
                     Intent intent = new Intent(getActivity(),HomeActivity.class);
                     startActivity(intent);
                 }

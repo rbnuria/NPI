@@ -24,7 +24,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleInstance">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,19 +34,19 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GameStartActivity"
             android:label="@string/title_activity_game_start"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar">
 
 
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
-                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
 
         </activity>
@@ -58,8 +58,11 @@
         <activity
             android:name=".MapActivity"
             android:label="@string/title_activity_map"
-            android:launchMode="singleInstance"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
     </application>
 
 </manifest>

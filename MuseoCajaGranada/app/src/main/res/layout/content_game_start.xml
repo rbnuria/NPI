@@ -15,4 +15,17 @@
         android:layout_width="match_parent">
     </FrameLayout>
 
+    <ImageView
+        android:id="@+id/map"
+        android:layout_width="367dp"
+        android:layout_height="361dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/completo_circular"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

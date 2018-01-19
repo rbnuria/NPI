@@ -98,7 +98,6 @@ public class Question1Fragment extends Fragment implements  GestureDetector.OnGe
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // find which radio button is selected
 
-
                 if(checkedId != -1){
                     if(checkedId == R.id.q1_response1) {
                         q1_response_user = "1";

@@ -8,23 +8,14 @@
     tools:context="com.example.jlsuarezdiaz.museocajagranada.MapActivity"
     tools:showIn="@layout/app_bar_map">
 
-    <TextView
-        android:id="@+id/tvHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="20dp"
-        android:text="Heading: 0.0" />
 
     <ImageView
-        android:id="@+id/imageViewCompass"
+        android:id="@+id/map"
         android:layout_width="367dp"
         android:layout_height="361dp"
-        android:layout_below="@+id/tvHeading"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:src="@drawable/img_compass"
+        android:src="@drawable/completo_circular"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
