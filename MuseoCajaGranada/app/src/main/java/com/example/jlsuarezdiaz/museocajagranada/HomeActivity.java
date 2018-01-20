@@ -95,15 +95,6 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_game) {
             Intent intent = new Intent(this, GameStartActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_map) {
-            Intent intent = new Intent(this, MapActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

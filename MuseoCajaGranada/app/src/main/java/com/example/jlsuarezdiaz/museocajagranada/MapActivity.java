@@ -5,7 +5,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -36,10 +35,6 @@ public class MapActivity extends AppCompatActivity
     private SensorManager mSensorManager;
 
 
-    //NFC TAGS
-    private NfcAdapter mNfcAdapter;
-
-
     Sensor accelerometer;
     Sensor magnetometer;
 
@@ -60,16 +55,10 @@ public class MapActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         image = (ImageView) findViewById(R.id.map);
-
 
         // initialize your android device sensor capabilities
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
-
-        ///    FUNCIONALIDAD NFCTags
-        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -87,7 +76,6 @@ public class MapActivity extends AppCompatActivity
         }else{
             Toast.makeText(this, "Encuentre la NFC Tag de la sala para situarse.", Toast.LENGTH_LONG ).show();
         }
-
 
     }
 
@@ -110,6 +98,7 @@ public class MapActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -146,18 +135,16 @@ public class MapActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home) {
+            Intent intent = new Intent(this,HomeActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_game) {
+            Intent intent = new Intent(this, GameStartActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_map) {
+            Intent intent = new Intent(this, MapActivity.class);
+            startActivity(intent);
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
