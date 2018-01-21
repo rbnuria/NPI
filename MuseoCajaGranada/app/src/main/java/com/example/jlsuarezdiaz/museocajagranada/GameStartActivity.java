@@ -341,6 +341,9 @@ public class GameStartActivity extends VoiceActivity
         startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
     }
 
+    /*
+        Función que controla el modo de juego (individual o multiplayer) elegido al iniciarse el juego.
+     */
     @Override
     public void onFragmentInteraction(String text, View v) {
         switch(text){
@@ -354,6 +357,12 @@ public class GameStartActivity extends VoiceActivity
     }
 
 
+    /*
+        Método que controla el cambio entre fragments que representan a cada una de las 3 preguntas del juego
+        y la pantalla con la puntuación final.
+
+        La funcionalidad depende del valor de la variable question en el momento de la llamada.
+     */
     @Override
     public void onFragmentInteraction() {
 
@@ -361,6 +370,7 @@ public class GameStartActivity extends VoiceActivity
 
         //Definimos según el valor de la pregunta actual el cambio de fragments
         switch (question){
+            //Pregunta 1
             case 1: {
                 Fragment newFragment = new Question1Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -372,6 +382,7 @@ public class GameStartActivity extends VoiceActivity
 
                 break;
             }
+            //Pregunta 2
             case 2:{
                 Fragment newFragment = new Question2Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -384,6 +395,7 @@ public class GameStartActivity extends VoiceActivity
                 break;
             }
 
+            //Pregunta 3
             case 3:{
                 NFC_activated = true;
                 Fragment newFragment = new Question3Fragment();
@@ -397,6 +409,7 @@ public class GameStartActivity extends VoiceActivity
                 break;
             }
 
+            //Fin del juego
             case 4:{
                 Fragment newFragment = new PointCounterFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -416,12 +429,10 @@ public class GameStartActivity extends VoiceActivity
     //Para poder extender la clase abstracta
     @Override
     public void onShowPress(MotionEvent motionEvent) {
-
     }
 
     @Override
     public void onLongPress(MotionEvent motionEvent) {
-
     }
 
     @Override
@@ -440,7 +451,16 @@ public class GameStartActivity extends VoiceActivity
     }
 
 
-    //Cuando deslizamos el dedo por la pantalla  -> StackOverflow
+    /*
+        Función basada en un código de Stackoverflow.
+
+        Función que implementa la funcionalidad que de los gestos en pantalla.
+        Implementamos swipe en las dos direcciones (derecha - izquierda / izquierda - derecha)
+        utilizándolos respectivamente para pasar a la siguiente pregunta y volver a la anterior.
+
+        Para ello utilizamos variables que representan los rangos mínimos para considerar que se ha producido el movimiento.
+        Controlando una distancia recorrida mínima y una velocidad mínima al recorrerla.
+     */
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
         try {
@@ -475,12 +495,30 @@ public class GameStartActivity extends VoiceActivity
     }
 
 
-    //@Override
+
+    /*
+        Función utilizada para implementar la funcionalidad de las tarjetas NFC.
+
+        Cuando se encuentra un nuevo "intent" cuya acción sea TAG_DISCOVERED (que se ha acercado una tarjeta al sensor)
+        En ese momento, si la NFC obtenida tiene ID, diferenciamos dos casos en función del valor del booleano NFC_activated
+        para diferenciar entre las dos funcionalidades para las que usamos las tarjetas.
+
+        1. NFC_activated == true -> Para conseguir puntos de una pregunta de localización de objetos
+
+            Para ello aumentamos en 1 el número de la pregunta actual, y el número de preguntas correctas hasta el momento
+            y llamamos siguiente fragment
+
+        2. NFC_activated == false -> Para decir dónde estás a la hora de mostrar el mapa con tu localización
+
+            Comprueba en cuál de las 3 posiciones te encuentras, manda la imagen en cuestión a la activity
+            MapActivity y te la muestra.
+
+        Para comprobar en ambos casos que la tarjeta NFC es la requerida, obtenemos el ID (hexadecimal), lo convertimos
+        a decimal con una función auxiliar y comprobamos si es el ID que tenemos almacenado en los Strings.
+     */
+    @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent( intent );
-
-        //Recupera
-        NfcAdapter mNfcAdapter = MainActivity.mNfcAdapter;
 
         if(intent.getAction().equals(mNfcAdapter.ACTION_TAG_DISCOVERED)){
             if(NFC_activated == true && intent.hasExtra(mNfcAdapter.EXTRA_ID)){
@@ -517,15 +555,15 @@ public class GameStartActivity extends VoiceActivity
                         intent2.putExtras(bundle);
                         startActivity(intent2);
                     }
-
-
                 }
             }
         }
-
     }
 
 
+    /*
+        Función obtenida en StackOverflow para convertir de hexadecimal a entero para convertir las IDs de las tarjetas
+     */
     private String ByteArrayToHexString(byte[] inarray) {
         int i, j, in;
         String [] hex = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"};

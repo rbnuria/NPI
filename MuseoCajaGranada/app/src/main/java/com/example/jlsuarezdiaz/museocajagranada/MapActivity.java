@@ -55,17 +55,24 @@ public class MapActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Referencia a la imagen del mapa
         image = (ImageView) findViewById(R.id.map);
 
-        // initialize your android device sensor capabilities
+        //Inicializamos el sensor
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        //Obtenemos los extras del intent con lo que hemos llamado, no será vacío cuando vengamos de GameStartActivity
+        //pues contendrá el número de la imagen a mostrar
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
 
+        //Si no es nulo
         if(extras != null){
+            //Obtenemos la imagen
             int entero = extras.getInt( "imagen" );
 
+            //En función de cual haya sido la elegida (mediante NFC tag) mostramos una imagen u otra
             if(entero == 1){
                 image.setImageResource(R.drawable.artistas_andaluces);
             }else if(entero == 2){
@@ -74,6 +81,8 @@ public class MapActivity extends AppCompatActivity
                 image.setImageResource(R.drawable.sigo_xix);
             }
         }else{
+            //Si no hay imagen elegida (es la general) mostramos mensaje de que puede decir en qué sala se encuentra
+            //si se acerca a una NFC Tag.
             Toast.makeText(this, "Encuentre la NFC Tag de la sala para situarse.", Toast.LENGTH_LONG ).show();
         }
 
