@@ -27,23 +27,27 @@ public class PointCounterFragment extends Fragment {
         // Required empty public constructor
     }
 
-    //Método que realiza el recuento de los puntos obtenidos
+    /*
+        Método que realiza el recuento de los puntos obtenidos al finalizar el juego.
+     */
     private void Checkpoints(){
+        //Obtenemos variables de la activity del juego.
         String q1 = GameStartActivity.question1_response;
         String q2 = GameStartActivity.question2_response;
 
         int count = GameStartActivity.correct_answers;
 
-        // Si hemos acertado la pregunta
+        // Si hemos acertado la pregunta aumentamos en 1
         if(q1 != null && q1.equals(getResources().getString(R.string.q1_response) )){
             count++;
         }
 
-        //Así con el resto de pregunatas
+        //Si hemos acertado la pregunta aumentamos en 1
         if(q2 != null && q2.equals(getResources().getString(R.string.q2_response) )){
             count++;
         }
 
+        //Variable con el total de puntos conseguidos
         total_score = count;
     }
 
@@ -66,6 +70,8 @@ public class PointCounterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Llamámos al método de recuento de puntos.
         Checkpoints();
 
 
@@ -81,13 +87,19 @@ public class PointCounterFragment extends Fragment {
         score_text = (TextView) v.findViewById( R.id.score_tv );
         score_text.setText( "¡ENHORABUENA! Ha conseguido " + total_score + " puntos." );
 
+        //Botón para salir del juego.
         final Button exitButton = (Button) v.findViewById(R.id.button_exit);
+
+        //Definimos la funcionalidad del click en el botón
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                //Cuando realizamos click en el botón
+                //Ponemos el número de pregunta a 0
+                //Volvemos a HomeActivity (inicio de la app)
                 if(mListener != null){
-
+                    GameStartActivity.question = 0;
                     Intent intent = new Intent(getActivity(),HomeActivity.class);
                     startActivity(intent);
                 }

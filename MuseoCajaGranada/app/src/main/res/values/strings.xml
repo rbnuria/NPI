@@ -102,6 +102,7 @@
     <!-- NFC TAGS ID'S -->
     <string name="tag_nuria">A90669F4</string>
     <string name="tag_moya">3FA6B209</string>
+    <string name="tag_juanlu">DFFD64EE</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

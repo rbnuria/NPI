@@ -12,7 +12,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
@@ -23,14 +22,12 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.Toast;
 
@@ -44,26 +41,26 @@ public class GameStartActivity extends VoiceActivity
 
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
-    public static int question = 1;
+
+    //Variables que controlan la pregunta actual y el número de preguntas correctas
+    public static int question = 0;
     public static int correct_answers = 0;
 
     private static final String LOGTAG = "GAMESTART";
 
-    //NFC TAGS
-    private NfcAdapter mNfcAdapter;
-
-    //Variables necesarias para el uso de los sensores
+    //Variable necesaria para el uso de sensores
     private SensorManager sensorManager;
 
     //Referencia al detector de gestos
     private GestureDetectorCompat gesturedetector = null;
-    private ScaleGestureDetector sgd;
 
-    //CONSTANTES DEL RECONOCIMIENTO DE GESTO -> Stackoverflow
+
+    //Constantes para el reconocimiento de gestos (Stackoverflow)
     private static final int SWIPE_MIN_DISTANCE = 420;
     private static final int SWIPE_MAX_OFF_PATH = 250;
     private static final int SWIPE_THRESHOLD_VELOCITY = 100;
 
+    //Variables para establecer límites de movimiento y proximidad (gestos)
     private int limite_movimiento = 2;
     private double limite_proximidad = 0.01;
 
@@ -71,12 +68,17 @@ public class GameStartActivity extends VoiceActivity
     boolean right = false;
     boolean left = false;
 
-    // Vamos almacenando las respuestas introducidas para contabilizar al final
+
+    //Adaptador para la implementación de NFC
+    public static NfcAdapter mNfcAdapter = null;
+
+    //Respuesta dada por el usuario para cada una de las preguntas tipo test
     public static String question1_response, question2_response;
 
-    //Booleano NFCTags
+    //Booleano NFC Tag (juego)
     public static boolean NFC_activated = false;
 
+    //Listener de eventos para el sensor
     private SensorEventListener mySensorEventListener;
 
 
@@ -87,16 +89,18 @@ public class GameStartActivity extends VoiceActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        //Para el uso del navigationView
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        //Uso de navigationView
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Código de lanzamiento de un fragment (cuenta atrás para el inicio del juego).
         Fragment newFragment = new GameModeFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
@@ -109,11 +113,11 @@ public class GameStartActivity extends VoiceActivity
         //Servicio del dectector de gestos
         gesturedetector = new GestureDetectorCompat(this, this);
 
+
         //////////////// FUNCIONALIDAD DE LOS SENSORES
 
         //Obtenemos el servicio de sensores
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
 
         //Definimos la funcionalidad de los sensores
         mySensorEventListener = new SensorEventListener() {
@@ -121,18 +125,21 @@ public class GameStartActivity extends VoiceActivity
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
 
-                //////////////////////// GIROSCOPIO
+                //GIROSCOPIO
                 if (sensorEvent.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-                    //right nos indicará si el primer movimiento ha sido a la derecha
-                    //left nos indicará lo mismo pero a la izquierda
-                    //Si aun no hemos hecho un primer movimiento
-                    if(!right && !left){
-                        if (sensorEvent.values[2] <= - limite_movimiento) { // Podemos establecer límite en una v
-                            right = true;
-                            //hebra que se ejecutará en 0.5s. Esta hebra
-                            //hace que si en 0.5s no hemos hecho el movimiento
-                            //hacia la izquierda, right volverá a ser false
+                    //Las variables rigth y left nos indican si no son el primer movimiento
+                    //right nos indica si este primer movimiento fue hacia la derecha
+                    //left de forma análoga para la izquierda
 
+                    //En caso de ser el primer movimiento
+                    if(!right && !left){
+                        //Si ha superado el movimiento definido
+                        if (sensorEvent.values[2] <= - limite_movimiento) {
+                            right = true;
+
+                            //Definimos una hebra auxiliar que se ejecutará en 0.5s.
+                            //Su funcionalidad será volver a poner la variable rigth a false
+                            //si al pasar el tiempo no se ha realizado el movimiento complementario.
                             Runnable isElapsed = new Runnable() {
                                 @Override
                                 public void run() {
@@ -145,12 +152,9 @@ public class GameStartActivity extends VoiceActivity
                         }
 
 
-                        //Mismo procedimiento para la izquierda
+                        //Procedimiento análogo para la izquierda
                         if (sensorEvent.values[2] >= limite_movimiento) {
                             left = true;
-                            //hebra que se ejecutará en 0.5s. Esta hebra
-                            //hace que si en 0.5s no hemos hecho el movimiento
-                            //hacia la izquierda, right volverá a ser false
 
                             Runnable isElapsed = new Runnable() {
                                 @Override
@@ -163,32 +167,33 @@ public class GameStartActivity extends VoiceActivity
                             h.postDelayed(isElapsed, 500);
                         }
 
-                    }else if(right) { //Si habíamos ido a la derecha
-                        //Y ahora vamos a la izquierda
+                        //Si el primer movimiento había sido a la derecha
+                    }else if(right) {
+                        //Y ahora realizamos un movimiento hacia la izquierda (antes de 0.5s)
                         if (sensorEvent.values[2] >= limite_movimiento) {
-                            //A la derecha
+                            //Aumentamos pregunta actual en 1 y cambiamos al siguiente fragment (siguiente pregunta)
                             question = question + 1;
                             right = false;
                             onFragmentInteraction();
                         }
-                    }else if(left){ //Si habíamos ido a la izquierda
-                        //Y ahora vamos a la derecha
+
+                        //Si el primer movimiento había sido a la izquierda
+                    }else if(left){
+                        //Y ahora realizamos un movimiento hacia la derecha (antes de 0.5s)
                         if (sensorEvent.values[2] <= - limite_movimiento) {
-                            // A la izquierda -> se podría volver a la anterior (permitir?)
                             left = false;
+                            //Disminuímos pregunta actual en 1 y cambiamos al siguiente fragment (pregunta anterior)
                             question = question - 1;
                             onFragmentInteraction();
                         }
                     }
 
-                    //////////// SENSOR DE PROXIMIDAD
+                    // SENSOR DE PROXIMIDAD
                 }else if(sensorEvent.sensor.getType() == Sensor.TYPE_PROXIMITY ) {
                     if(question >= 1 && question <= 2) {
-                        /// Si algo está lo suficientemente cerca (en nuestro caso será la mano) -> minusvalías
+                        /// Si algo está lo suficientemente cerca (en nuestro caso será la mano)
                         if (sensorEvent.values[0] >= -limite_proximidad && sensorEvent.values[0] <= limite_proximidad) {
-                            //Tapao
-                            //question = question + 1;
-                            //onFragmentInteraction();
+                            //Llamamos al método que nos maneja el método por voz
                             indicateListening();
                             startListening();
                         }
@@ -210,16 +215,10 @@ public class GameStartActivity extends VoiceActivity
         gesturedetector = new GestureDetectorCompat(this, this);
 
 
-        ///    FUNCIONALIDAD NFCTags
+        //Inicialización adaptador NFC
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
-
-        Tag myTag = (Tag) getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        System.out.println(myTag);
-
-
-
-        //FLoating Buttooon!!!!!!
+        //Floating Buttoon
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton_game);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,6 +229,8 @@ public class GameStartActivity extends VoiceActivity
         });
 
         initSpeechInputOutput(this);
+
+
     }
 
     @Override
@@ -240,11 +241,14 @@ public class GameStartActivity extends VoiceActivity
                 sensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(mySensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
                 SensorManager.SENSOR_DELAY_NORMAL);
+
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        //Deshacemos registro del listener para el sensor
         sensorManager.unregisterListener(mySensorEventListener);
     }
 
@@ -255,23 +259,25 @@ public class GameStartActivity extends VoiceActivity
 
     @Override
     public void onBackPressed() {
-        if(question > 1){
-            question = question - 1;
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            /*if (getFragmentManager().getBackStackEntryCount() > 0 ){
-                getFragmentManager().popBackStack();
-                }else{
-                    super.onBackPressed();
-                }
-            }*/
-            onFragmentInteraction();
+            // Si la pregunta es mayor que 1, disminuímos en 1 el número de pregunta actual y cambiamos a esa pregunta.
+            if(question > 1) {
+                question = question - 1;
+                onFragmentInteraction();
+            }else{
+                //Si no estamos en las preguntas si no en el inicio, volvemos a HomeActivity
+                Intent intent = new Intent(GameStartActivity.this,HomeActivity.class);
+                startActivity(intent);
+            }
+
+
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -301,18 +307,12 @@ public class GameStartActivity extends VoiceActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_home) {
+            Intent intent = new Intent(GameStartActivity.this,HomeActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_game) {
+            Intent intent = new Intent(GameStartActivity.this, GameStartActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -322,14 +322,16 @@ public class GameStartActivity extends VoiceActivity
 
 
 
-
+    //Método que lanza el fragment de CountDown antes de comenzar el juego
     public void startGame(View view) {
         Fragment newFragment = new CountDownGameStartFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
 
         transaction.replace(R.id.fragment_placeholder,newFragment);
-        //transaction.addToBackStack(null);
+
+        //Ponemos el número de pregunta actual a 1
+        question = 1;
 
         transaction.commit();
     }
@@ -339,6 +341,9 @@ public class GameStartActivity extends VoiceActivity
         startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
     }
 
+    /*
+        Función que controla el modo de juego (individual o multiplayer) elegido al iniciarse el juego.
+     */
     @Override
     public void onFragmentInteraction(String text, View v) {
         switch(text){
@@ -352,38 +357,45 @@ public class GameStartActivity extends VoiceActivity
     }
 
 
+    /*
+        Método que controla el cambio entre fragments que representan a cada una de las 3 preguntas del juego
+        y la pantalla con la puntuación final.
+
+        La funcionalidad depende del valor de la variable question en el momento de la llamada.
+     */
     @Override
     public void onFragmentInteraction() {
 
-        //Siguiente pregunta
         NFC_activated = false;
 
+        //Definimos según el valor de la pregunta actual el cambio de fragments
         switch (question){
+            //Pregunta 1
             case 1: {
                 Fragment newFragment = new Question1Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
 
                 transaction.replace(R.id.fragment_placeholder, newFragment);
-                //transaction.addToBackStack(null);
 
                 transaction.commit();
 
                 break;
             }
+            //Pregunta 2
             case 2:{
                 Fragment newFragment = new Question2Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
 
                 transaction.replace(R.id.fragment_placeholder,newFragment);
-                //transaction.addToBackStack(null);
 
                 transaction.commit();
 
                 break;
             }
 
+            //Pregunta 3
             case 3:{
                 NFC_activated = true;
                 Fragment newFragment = new Question3Fragment();
@@ -391,20 +403,19 @@ public class GameStartActivity extends VoiceActivity
                 transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
 
                 transaction.replace(R.id.fragment_placeholder,newFragment);
-                //transaction.addToBackStack(null);
 
                 transaction.commit();
 
                 break;
             }
 
+            //Fin del juego
             case 4:{
                 Fragment newFragment = new PointCounterFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
 
                 transaction.replace(R.id.fragment_placeholder,newFragment);
-                //transaction.addToBackStack(null);
 
                 transaction.commit();
 
@@ -418,12 +429,10 @@ public class GameStartActivity extends VoiceActivity
     //Para poder extender la clase abstracta
     @Override
     public void onShowPress(MotionEvent motionEvent) {
-
     }
 
     @Override
     public void onLongPress(MotionEvent motionEvent) {
-
     }
 
     @Override
@@ -442,7 +451,16 @@ public class GameStartActivity extends VoiceActivity
     }
 
 
-    //Cuando deslizamos el dedo por la pantalla (derecha e izquierda) -> StackOverflow
+    /*
+        Función basada en un código de Stackoverflow.
+
+        Función que implementa la funcionalidad que de los gestos en pantalla.
+        Implementamos swipe en las dos direcciones (derecha - izquierda / izquierda - derecha)
+        utilizándolos respectivamente para pasar a la siguiente pregunta y volver a la anterior.
+
+        Para ello utilizamos variables que representan los rangos mínimos para considerar que se ha producido el movimiento.
+        Controlando una distancia recorrida mínima y una velocidad mínima al recorrerla.
+     */
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
         try {
@@ -451,13 +469,14 @@ public class GameStartActivity extends VoiceActivity
             // right to left swipe
             if (motionEvent.getX() - motionEvent1.getX() > SWIPE_MIN_DISTANCE
                     && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
+                //Pasamos a la siguiente pregunta
                 question = question +1;
-                System.out.println("HOLA!");
                 onFragmentInteraction();
 
+                // left to rigth swipe
             } else if (motionEvent1.getX() - motionEvent.getX() > SWIPE_MIN_DISTANCE
                     && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
-                // Igual -> se podría echar para atrás
+                //Pregunta anterior
                 question = question - 1;
                 onFragmentInteraction();
 
@@ -476,29 +495,75 @@ public class GameStartActivity extends VoiceActivity
     }
 
 
-    @Override
 
+    /*
+        Función utilizada para implementar la funcionalidad de las tarjetas NFC.
+
+        Cuando se encuentra un nuevo "intent" cuya acción sea TAG_DISCOVERED (que se ha acercado una tarjeta al sensor)
+        En ese momento, si la NFC obtenida tiene ID, diferenciamos dos casos en función del valor del booleano NFC_activated
+        para diferenciar entre las dos funcionalidades para las que usamos las tarjetas.
+
+        1. NFC_activated == true -> Para conseguir puntos de una pregunta de localización de objetos
+
+            Para ello aumentamos en 1 el número de la pregunta actual, y el número de preguntas correctas hasta el momento
+            y llamamos siguiente fragment
+
+        2. NFC_activated == false -> Para decir dónde estás a la hora de mostrar el mapa con tu localización
+
+            Comprueba en cuál de las 3 posiciones te encuentras, manda la imagen en cuestión a la activity
+            MapActivity y te la muestra.
+
+        Para comprobar en ambos casos que la tarjeta NFC es la requerida, obtenemos el ID (hexadecimal), lo convertimos
+        a decimal con una función auxiliar y comprobamos si es el ID que tenemos almacenado en los Strings.
+     */
+    @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent( intent );
 
-        if(NFC_activated == true && intent.hasExtra(mNfcAdapter.EXTRA_ID)){
-            byte[] tagId = intent.getByteArrayExtra( mNfcAdapter.EXTRA_ID );
-            String texto =  ByteArrayToHexString( tagId );
+        if(intent.getAction().equals(mNfcAdapter.ACTION_TAG_DISCOVERED)){
+            if(NFC_activated == true && intent.hasExtra(mNfcAdapter.EXTRA_ID)){
+                byte[] tagId = intent.getByteArrayExtra( mNfcAdapter.EXTRA_ID );
+                String texto =  ByteArrayToHexString( tagId );
 
-            if(texto.equals(getResources().getString(R.string.tag_nuria))){
-                //Comprobamos que sea la que queremos (esto puede ser controlado con un booleano)
-                question = question + 1;
-                correct_answers = correct_answers + 1;
-                onFragmentInteraction();
+                if(texto.equals(getResources().getString(R.string.tag_nuria))){
+                    //Comprobamos que sea la que queremos (esto puede ser controlado con un booleano)
+                    question = question + 1;
+                    correct_answers = correct_answers + 1;
+                    NFC_activated = false;
+                    onFragmentInteraction();
+                }
+            }else{
+
+                if(intent.hasExtra(mNfcAdapter.EXTRA_ID)){
+
+                    byte[] tagId = intent.getByteArrayExtra( mNfcAdapter.EXTRA_ID );
+                    String texto =  ByteArrayToHexString( tagId );
+                    int imagen = 0;
+
+                    if(texto.equals(getResources().getString(R.string.tag_nuria))){
+                        imagen = 1;
+                    }else if(texto.equals(getResources().getString(R.string.tag_moya))){
+                        imagen = 2;
+                    }else if(texto.equals(getResources().getString(R.string.tag_juanlu))){
+                        imagen = 3;
+                    }
+
+                    if(imagen > 0){
+                        Intent intent2 = new Intent(GameStartActivity.this , MapActivity.class);
+                        Bundle bundle = new Bundle(  );
+                        bundle.putInt("imagen", imagen);
+                        intent2.putExtras(bundle);
+                        startActivity(intent2);
+                    }
+                }
             }
-
-
-
-
         }
     }
 
 
+    /*
+        Función obtenida en StackOverflow para convertir de hexadecimal a entero para convertir las IDs de las tarjetas
+     */
     private String ByteArrayToHexString(byte[] inarray) {
         int i, j, in;
         String [] hex = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"};
@@ -580,6 +645,13 @@ public class GameStartActivity extends VoiceActivity
                     if(userQuery.contains(s.toLowerCase())){
                         // Volver a la pregunta anterior.
                         Toast.makeText(getApplicationContext(), "Has vuelto a la pregunta anterior.", Toast.LENGTH_SHORT).show();
+
+                        if(question > 1){
+                            question = question - 1;
+                        }
+
+                        onFragmentInteraction();
+
                         matched = true;
                     }
                 }
@@ -591,6 +663,10 @@ public class GameStartActivity extends VoiceActivity
                         System.out.println("OK");
                         // Volver a la pregunta anterior.
                         Toast.makeText(getApplicationContext(), "Has pasado de pregunta.", Toast.LENGTH_SHORT).show();
+
+                        question = question + 1;
+                        onFragmentInteraction();
+
                         matched = true;
                     }
                 }
@@ -605,9 +681,27 @@ public class GameStartActivity extends VoiceActivity
                             if(userQuery.contains(s.toLowerCase())){
                                 // Seleccionar opción `i` en el fragment `question`
                                 Toast.makeText(getApplicationContext(), "Has seleccionado la opción "+Integer.toString(i), Toast.LENGTH_SHORT).show();
+
+                                if(question == 1){
+                                    GameStartActivity.question1_response = Integer.toString(i);
+                                }else{
+                                    GameStartActivity.question2_response = Integer.toString(i);
+                                }
+
+                                question = question + 1;
+                                onFragmentInteraction();
+
                                 matched = true;
+
+                                break;
                             }
+
                         }
+
+                        if (matched) {
+                            break;
+                        }
+
                     }
                 }
 

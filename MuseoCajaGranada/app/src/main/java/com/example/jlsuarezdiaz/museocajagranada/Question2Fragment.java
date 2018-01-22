@@ -33,11 +33,10 @@ public class Question2Fragment extends Fragment  implements  GestureDetector.OnG
     private String mParam1;
     private String mParam2;
 
-    //CONSTANTES DEL RECONOCIMIENTO DE GESTO -> Stackoverflow
+    //Explicado en GameStartActivity
     private static final int SWIPE_MIN_DISTANCE = 420;
     private static final int SWIPE_MAX_OFF_PATH = 250;
     private static final int SWIPE_THRESHOLD_VELOCITY = 100;
-
 
     private RadioGroup radioGroup;
 
@@ -87,13 +86,17 @@ public class Question2Fragment extends Fragment  implements  GestureDetector.OnG
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_question2, container, false);
 
+        //RadioGroup utilizado para las opciones de las preguntas.
         radioGroup = (RadioGroup) v.findViewById(R.id.response_q2);
+
+        //Funcionalidad cuando pulsamos una de las opciones de radioGroup
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rb = v.findViewById( checkedId );
                 rb.setChecked(true);
-                // find which radio button is selected
+
+                //Almacenamos en una variable cual hemos seleccionado
                 if(checkedId != -1){
                     if(checkedId == R.id.q2_response1) {
                         q2_response_user = "1";
@@ -103,16 +106,20 @@ public class Question2Fragment extends Fragment  implements  GestureDetector.OnG
                         q2_response_user = "3";
                     }
 
+                    //Asignamos el valor a la variable de GameStartActivity
                     GameStartActivity.question2_response = q2_response_user;
                 }
 
             }
         });
 
+        //Para que reconozca el gesto
         v.setLongClickable(true);
 
+        //Detector de gestos
         gesturedetector = new GestureDetectorCompat( getActivity(), this);
 
+        //Listener del gesture detector
         v.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -163,6 +170,18 @@ public class Question2Fragment extends Fragment  implements  GestureDetector.OnG
     }
 
 
+    //Para poder extender la clase abstracta
+
+     /*
+        Función basada en un código de Stackoverflow.
+
+        Función que implementa la funcionalidad que de los gestos en pantalla.
+        Implementamos swipe en las dos direcciones (derecha - izquierda / izquierda - derecha)
+        utilizándolos respectivamente para pasar a la siguiente pregunta y volver a la anterior.
+
+        Para ello utilizamos variables que representan los rangos mínimos para considerar que se ha producido el movimiento.
+        Controlando una distancia recorrida mínima y una velocidad mínima al recorrerla.
+     */
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
         try {

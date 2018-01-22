@@ -31,8 +31,7 @@ public class Question3Fragment extends Fragment implements  GestureDetector.OnGe
     private String mParam1;
     private String mParam2;
 
-    // **** DUPLICADO, TENER CUIDAO
-    //CONSTANTES DEL RECONOCIMIENTO DE GESTO -> Stackoverflow
+    //Explicado en GameStartActivity
     private static final int SWIPE_MIN_DISTANCE = 420;
     private static final int SWIPE_MAX_OFF_PATH = 250;
     private static final int SWIPE_THRESHOLD_VELOCITY = 100;
@@ -59,7 +58,7 @@ public class Question3Fragment extends Fragment implements  GestureDetector.OnGe
      * @return A new instance of fragment Question2Fragment.
      */
     // TODO: Rename and change types and number of parameters
-   /* public static Question3Fragment newInstance(String param1, String param2) {
+    public static Question3Fragment newInstance(String param1, String param2) {
         Question3Fragment fragment = new Question3Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -67,7 +66,7 @@ public class Question3Fragment extends Fragment implements  GestureDetector.OnGe
         fragment.setArguments(args);
         return fragment;
     }
-*/
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,10 +82,14 @@ public class Question3Fragment extends Fragment implements  GestureDetector.OnGe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_question3, container, false);
+
+        //Para que reconozca el gesto
         v.setLongClickable(true);
 
+        //Detector de gestos
         gesturedetector = new GestureDetectorCompat( getActivity(), this);
 
+        //Listener del gesture detector
         v.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -139,7 +142,18 @@ public class Question3Fragment extends Fragment implements  GestureDetector.OnGe
     }
 
 
+    //Para poder extender la clase abstracta
 
+    /*
+        Función basada en un código de Stackoverflow.
+
+        Función que implementa la funcionalidad que de los gestos en pantalla.
+        Implementamos swipe en las dos direcciones (derecha - izquierda / izquierda - derecha)
+        utilizándolos respectivamente para pasar a la siguiente pregunta y volver a la anterior.
+
+        Para ello utilizamos variables que representan los rangos mínimos para considerar que se ha producido el movimiento.
+        Controlando una distancia recorrida mínima y una velocidad mínima al recorrerla.
+     */
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
         try {
