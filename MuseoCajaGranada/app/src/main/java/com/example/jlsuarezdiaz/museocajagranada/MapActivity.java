@@ -108,12 +108,13 @@ public class MapActivity extends AppCompatActivity
         super.onPause();
         // to stop the listener and save battery
         mSensorManager.unregisterListener(this);
+
     }
 
     // Evento 'Pulsar atrás'
     @Override
     public void onBackPressed() {
-
+        GameStartActivity.isOnMap = false;
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);

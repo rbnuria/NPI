@@ -82,6 +82,9 @@ public class GameStartActivity extends VoiceActivity
     //Listener de eventos para el sensor
     private SensorEventListener mySensorEventListener;
 
+
+    public static boolean isOnMap = false;
+
     /**
      * Creación de la actividad.
      */
@@ -226,6 +229,7 @@ public class GameStartActivity extends VoiceActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isOnMap = true;
                 Intent intent = new Intent(GameStartActivity.this , MapActivity.class);
                 startActivity(intent);
             }
@@ -247,7 +251,6 @@ public class GameStartActivity extends VoiceActivity
                 sensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(mySensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
                 SensorManager.SENSOR_DELAY_NORMAL);
-
 
     }
 
@@ -277,7 +280,7 @@ public class GameStartActivity extends VoiceActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             // Si la pregunta es mayor que 1, disminuímos en 1 el número de pregunta actual y cambiamos a esa pregunta.
-            if(question > 1) {
+            if(question > 1 && question < 4) {
                 question = question - 1;
                 onFragmentInteraction();
             }else{
@@ -543,7 +546,7 @@ public class GameStartActivity extends VoiceActivity
                     }
                 } else {
 
-                    if (intent.hasExtra(mNfcAdapter.EXTRA_ID)) {
+                    if (intent.hasExtra(mNfcAdapter.EXTRA_ID) && isOnMap) {
 
                         byte[] tagId = intent.getByteArrayExtra(mNfcAdapter.EXTRA_ID);
                         String texto = ByteArrayToHexString(tagId);
@@ -565,6 +568,7 @@ public class GameStartActivity extends VoiceActivity
                             startActivity(intent2);
                         }
                     }
+
                 }
             }
         }
