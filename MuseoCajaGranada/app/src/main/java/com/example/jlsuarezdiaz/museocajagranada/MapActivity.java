@@ -94,6 +94,7 @@ public class MapActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+
         // for the system's orientation sensor registered listeners
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_GAME);
         //mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),SensorManager.SENSOR_DELAY_UI);
@@ -148,12 +149,7 @@ public class MapActivity extends AppCompatActivity
         } else if (id == R.id.nav_game) {
             Intent intent = new Intent(this, GameStartActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_map) {
-            Intent intent = new Intent(this, MapActivity.class);
-            startActivity(intent);
-            // Handle the camera action
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -165,28 +161,27 @@ public class MapActivity extends AppCompatActivity
      */
     @Override
     public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
+            // Obtención del grado de rotación.
+            float degree = Math.round(event.values[0]);
 
-        // get the angle around the z-axis rotated
-        float degree = Math.round(event.values[0]);
+            // Creación de animación
+            RotateAnimation ra = new RotateAnimation(
+                    currentDegree,
+                    -degree,
+                    Animation.RELATIVE_TO_SELF, 0.5f,
+                    Animation.RELATIVE_TO_SELF,
+                    0.5f);
 
-        // create a rotation animation (reverse turn degree degrees)
-        RotateAnimation ra = new RotateAnimation(
-                currentDegree,
-                -degree,
-                Animation.RELATIVE_TO_SELF, 0.5f,
-                Animation.RELATIVE_TO_SELF,
-                0.5f);
+            // Duración de la animación
+            ra.setDuration(210);
 
-        // how long the animation will take place
-        ra.setDuration(210);
+            ra.setFillAfter(true);
 
-        // set the animation after the end of the reservation status
-        ra.setFillAfter(true);
-
-        // Start the animation
-        image.startAnimation(ra);
-        currentDegree = -degree;
-
+            // Iniciar rotación
+            image.startAnimation(ra);
+            currentDegree = -degree;
+        }
 
     }
 
