@@ -451,8 +451,9 @@ int drawable ic_mic_none_black_24dp 0x7f060041
 int drawable megamandelbrot 0x7f060042
 int drawable mic 0x7f060043
 int drawable mic_control 0x7f060044
-int drawable microphone_control 0x7f060045
-int drawable notification_template_icon_bg 0x7f060046
+int drawable mic_listening 0x7f060045
+int drawable microphone_control 0x7f060046
+int drawable notification_template_icon_bg 0x7f060047
 int id action0 0x7f070000
 int id action_bar 0x7f070001
 int id action_bar_activity_content 0x7f070002

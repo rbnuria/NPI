@@ -1826,8 +1826,9 @@ public final class R {
     public static final int megamandelbrot=0x7f060042;
     public static final int mic=0x7f060043;
     public static final int mic_control=0x7f060044;
-    public static final int microphone_control=0x7f060045;
-    public static final int notification_template_icon_bg=0x7f060046;
+    public static final int mic_listening=0x7f060045;
+    public static final int microphone_control=0x7f060046;
+    public static final int notification_template_icon_bg=0x7f060047;
   }
   public static final class id {
     public static final int action0=0x7f070000;

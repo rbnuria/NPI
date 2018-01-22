@@ -1,5 +1,10 @@
 package conversandroid;
 
+/**
+ * Adaptación del código en
+ * https://github.com/zoraidacallejas/ConversationalInterface
+ */
+
 /*
  *  Copyright 2016 Zoraida Callejas, Michael McTear and David Griol
  *
@@ -57,17 +62,14 @@ import ai.api.model.Result;
 
 
 /**
- * Receives a spoken input and shows its corresponding semantic parsing using
- * the technology of API.AI
- *
- * @author Michael McTear, Zoraida Callejas and David Griol
- * @version 4.1, 05/14/16
- *
+ * Clase MainActivity.
+ * Actividad principal de la interfaz oral. Extiende la funcionalidad de la clase VoiceActivity
+ * para reconocimiento y síntesis de voz, incluyendo la interfaz que interacciona con el usuario.
  */
 
 public class MainActivity extends VoiceActivity {
 
-	private static final String LOGTAG = "UNDERSTAND";
+	private static final String LOGTAG = "NPI_APP";
 	private TextView resultTextView;
 	private ImageView dialogImageView;
 	private AIDataService aiDataService=null;
@@ -83,7 +85,7 @@ public class MainActivity extends VoiceActivity {
 	private String lang = "ES";
 
 	/**
-	 * Sets up the activity initializing the GUI, the ASR and TTS
+	 * Inicialización de la actividad.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -93,15 +95,13 @@ public class MainActivity extends VoiceActivity {
 		//Set layout
 		setContentView(R.layout.main);
 
-		//Initialize the speech recognizer and synthesizer
+		//Inicialización del reconocimiento y síntesis de voz
 		initSpeechInputOutput(this);
 
 		//Set up the speech button
 		setSpeakButton();
 
-		//Set up text view to display results
-		resultTextView = (TextView) findViewById(R.id.resultTextView);
-		//dialogImageView = (ImageView) findViewById(R.id.dialogImageView);
+
 
 		//Api.ai configuration parameters (the subscriptionkey is not longer mandatory, so you
 		//can use the new constructor without that parameter or keep this one which accepts any
@@ -113,8 +113,7 @@ public class MainActivity extends VoiceActivity {
 	}
 
 	/**
-	 * Initializes the search button and its listener. When the button is pressed, a feedback is shown to the user
-	 * and the recognition starts
+	 * Inicialización del botón de búsqueda.
 	 */
 	private void setSpeakButton() {
 
@@ -130,6 +129,10 @@ public class MainActivity extends VoiceActivity {
 		});
 	}
 
+	/**
+	 * Comprobación de la conexión a internet.
+	 * @return True, si y solo si se ha podido establecer la conexión a internet.
+	 */
 	public boolean deviceConnectedToInternet() {
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -137,25 +140,24 @@ public class MainActivity extends VoiceActivity {
 	}
 
 	/**
-	 * Explain to the user why we need their permission to record audio on the device
-	 * See the checkASRPermission in the VoiceActivity class
+	 * Mensaje indicando la necesidad del permiso de acceso al micrófono.
 	 */
 	public void showRecordPermissionExplanation(){
-		Toast.makeText(getApplicationContext(), "UNDERSTAND must access the microphone in order to perform speech recognition", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "La aplicación necesita acceso al micrófono para poder realizar la comunicación.", Toast.LENGTH_SHORT).show();
 	}
 
 	/**
-	 * If the user does not grant permission to record audio on the device, a message is shown and the app finishes
+	 * Mensaje de rechazo y cierre de la aplicación, si no se permite acceder al micrófono.
 	 */
 	public void onRecordAudioPermissionDenied(){
-		Toast.makeText(getApplicationContext(), "Sorry, UNDERSTAND cannot work without accessing the microphone", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "Lo sentimos. La aplicación no puede trabajar sin acceso al micrófono.", Toast.LENGTH_SHORT).show();
 		System.exit(0);
 	}
 
 	/**
-	 * Starts listening for any user input.
-	 * When it recognizes something, the <code>processAsrResult</code> method is invoked. 
-	 * If there is any error, the <code>processAsrError</code> method is invoked.
+	 * Inicia la escucha de la voz del usuario.
+	 * El mensaje reconocido se procesa en <code>processAsrResult</code>.
+	 * Los errores se procesan en <code>processAsrError</code>.
 	 */
 	private void startListening(){
 
@@ -177,28 +179,27 @@ public class MainActivity extends VoiceActivity {
 	}
 
 	/**
-	 * Provides feedback to the user to show that the app is listening:
-	 * 		* It changes the color and the message of the speech button
-	 *      * It synthesizes a voice message
+	 * Cambios en la interfaz de usuario indicando que la aplicación está escuchando.
 	 */
 	private void indicateListening() {
 		ImageButton button = (ImageButton) findViewById(R.id.speech_btn); //Obtains a reference to the button
+		button.setImageResource(R.drawable.mic_listening);
 		//button.setText(getResources().getString(R.string.speechbtn_listening)); //Changes the button's message to the text obtained from the resources folder
         //button.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.speechbtn_listening),PorterDuff.Mode.MULTIPLY);  //Changes the button's background to the color obtained from the resources folder
 	}
 
 	/**
-	 * Provides feedback to the user to show that the app is idle:
-	 * 		* It changes the color and the message of the speech button
+	 * Cambios en la interfaz de usuario cuando la aplicación deja de escuchar.
 	 */
 	private void changeButtonAppearanceToDefault(){
 		ImageButton button = (ImageButton) findViewById(R.id.speech_btn); //Obtains a reference to the button
-		//button.setText(getResources().getString(R.string.speechbtn_default)); //Changes the button's message to the text obtained from the resources folder
+		button.setImageResource(R.drawable.mic);
+		//Changes the button's message to the text obtained from the resources folder
         //button.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.speechbtn_default),PorterDuff.Mode.MULTIPLY); 	//Changes the button's background to the color obtained from the resources folder
 	}
 
 	/**
-	 * Provides feedback to the user when the ASR encounters an error
+	 * Procesamiento de errores durante la escucha.
 	 */
 	@Override
 	public void processAsrError(int errorCode) {
@@ -258,11 +259,12 @@ public class MainActivity extends VoiceActivity {
 
 	}
 
+
 	@Override
 	public void processAsrReadyForSpeech() { }
 
 	/**
-	 * Sends the best recognition result to api.ai
+	 * Procesamiento de los resultados escuchados. Se envía el resultado de más confianza a Dialogflow.
 	 */
 	@Override
 	public void processAsrResults(ArrayList<String> nBestList, float[] nBestConfidences) {
@@ -277,8 +279,8 @@ public class MainActivity extends VoiceActivity {
 	}
 
 	/**
-	 * Connects to api.ai and indicates how to process the response with the semantic parsing
-	 * @param userQuery recognized utterance
+	 * Conexión con DialogFlow.
+	 * @param userQuery Consulta a enviar.
      */
 	private void apiSLU(String userQuery) {
 
@@ -302,7 +304,7 @@ public class MainActivity extends VoiceActivity {
 					return response;
 				} catch (AIServiceException e) {
                     try {
-                        speak("Could not retrieve a response from API.AI", lang, ID_PROMPT_INFO);
+                        speak("No se ha podido obtener una respuesta de DialogFlow", lang, ID_PROMPT_INFO);
                         Log.e(LOGTAG,"Problems retrieving a response");
                     } catch (Exception ex) {
                         Log.e(LOGTAG, "English not available for TTS, default language used instead");
@@ -370,15 +372,7 @@ public class MainActivity extends VoiceActivity {
 	}
 
 	/**
-	 * Checks whether the device is connected to Internet (returns true) or not (returns false)
-	 *
-	 * @author http://developer.android.com/training/monitoring-device-state/connectivity-monitoring.html
-	 */
-
-
-
-	/**
-	 * Shuts down the TTS engine when finished
+	 * Finalización de los mecanismos de reconocimiento y síntesis al finalizar la actividad.
 	 */
 	@Override
 	public void onDestroy() {
@@ -387,13 +381,7 @@ public class MainActivity extends VoiceActivity {
 	}
 
 	/**
-	 * Invoked when the TTS has finished synthesizing.
-	 *
-	 * In this case, it starts recognizing if the message that has just been synthesized corresponds to a question (its id is ID_PROMPT_QUERY),
-	 * and does nothing otherwise.
-	 *
-	 * @param uttId identifier of the prompt that has just been synthesized (the id is indicated in the speak method when the text is sent
-	 * to the TTS engine)
+	 * Procesamiento de la finalización en TTS.
 	 */
 	@Override
 	public void onTTSDone(String uttId) {
@@ -403,9 +391,7 @@ public class MainActivity extends VoiceActivity {
 	}
 
 	/**
-	 * Invoked when the TTS encounters an error.
-	 *
-	 * In this case it just writes in the log.
+	 * Procesamiento de errores en TTS
 	 */
 	@Override
 	public void onTTSError(String uttId) {
@@ -413,9 +399,7 @@ public class MainActivity extends VoiceActivity {
 	}
 
 	/**
-	 * Invoked when the TTS starts synthesizing
-	 *
-	 * In this case it just writes in the log.
+	 * Procesamiento del comienzo en TTS..
 	 */
 	@Override
 	public void onTTSStart(String uttId) {

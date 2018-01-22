@@ -39,6 +39,7 @@ public class GameStartActivity extends VoiceActivity
         CountDownGameStartFragment.OnFragmentInteractionListener, Question1Fragment.OnFragmentInteractionListener, Question2Fragment.OnFragmentInteractionListener,
         Question3Fragment.OnFragmentInteractionListener, PointCounterFragment.OnFragmentInteractionListener{
 
+    // Definiciones para la conexión bluetooth.
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
 
@@ -81,7 +82,9 @@ public class GameStartActivity extends VoiceActivity
     //Listener de eventos para el sensor
     private SensorEventListener mySensorEventListener;
 
-
+    /**
+     * Creación de la actividad.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -233,6 +236,9 @@ public class GameStartActivity extends VoiceActivity
 
     }
 
+    /**
+     * Reanudación de la actividad.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -245,6 +251,9 @@ public class GameStartActivity extends VoiceActivity
 
     }
 
+    /**
+     * Pausa de la actividad.
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -257,6 +266,9 @@ public class GameStartActivity extends VoiceActivity
     }
 
 
+    /**
+     * Evento 'Pulsar atrás'.
+     */
     @Override
     public void onBackPressed() {
 
@@ -278,7 +290,9 @@ public class GameStartActivity extends VoiceActivity
         }
     }
 
-
+    /**
+     * Configuración de menús.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -293,10 +307,6 @@ public class GameStartActivity extends VoiceActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -342,7 +352,7 @@ public class GameStartActivity extends VoiceActivity
     }
 
     /*
-        Función que controla el modo de juego (individual o multiplayer) elegido al iniciarse el juego.
+     *  Función que controla el modo de juego (individual o multiplayer) elegido al iniciarse el juego.
      */
     @Override
     public void onFragmentInteraction(String text, View v) {
@@ -466,14 +476,14 @@ public class GameStartActivity extends VoiceActivity
         try {
             if (Math.abs(motionEvent.getY() - motionEvent1.getY()) > SWIPE_MAX_OFF_PATH)
                 return false;
-            // right to left swipe
+            // Derecha a izquierda
             if (motionEvent.getX() - motionEvent1.getX() > SWIPE_MIN_DISTANCE
                     && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
                 //Pasamos a la siguiente pregunta
                 question = question +1;
                 onFragmentInteraction();
 
-                // left to rigth swipe
+                // Izquierda a derecha
             } else if (motionEvent1.getX() - motionEvent.getX() > SWIPE_MIN_DISTANCE
                     && Math.abs(v) > SWIPE_THRESHOLD_VELOCITY) {
                 //Pregunta anterior
@@ -487,11 +497,9 @@ public class GameStartActivity extends VoiceActivity
     }
 
 
-
+    //Interacción con los fragmentos tras un evento de movimiento.
     public void onFragmentInteraction(MotionEvent event) {
         this.gesturedetector.onTouchEvent(event);
-//        // Be sure to call the superclass implementation
-//        return super.onTouchEvent(event);
     }
 
 
@@ -520,40 +528,42 @@ public class GameStartActivity extends VoiceActivity
     protected void onNewIntent(Intent intent) {
         super.onNewIntent( intent );
 
-        if(intent.getAction().equals(mNfcAdapter.ACTION_TAG_DISCOVERED)){
-            if(NFC_activated == true && intent.hasExtra(mNfcAdapter.EXTRA_ID)){
-                byte[] tagId = intent.getByteArrayExtra( mNfcAdapter.EXTRA_ID );
-                String texto =  ByteArrayToHexString( tagId );
+        if(intent.getAction() != null) {
+            if (intent.getAction().equals(mNfcAdapter.ACTION_TAG_DISCOVERED)) {
+                if (NFC_activated == true && intent.hasExtra(mNfcAdapter.EXTRA_ID)) {
+                    byte[] tagId = intent.getByteArrayExtra(mNfcAdapter.EXTRA_ID);
+                    String texto = ByteArrayToHexString(tagId);
 
-                if(texto.equals(getResources().getString(R.string.tag_nuria))){
-                    //Comprobamos que sea la que queremos (esto puede ser controlado con un booleano)
-                    question = question + 1;
-                    correct_answers = correct_answers + 1;
-                    NFC_activated = false;
-                    onFragmentInteraction();
-                }
-            }else{
-
-                if(intent.hasExtra(mNfcAdapter.EXTRA_ID)){
-
-                    byte[] tagId = intent.getByteArrayExtra( mNfcAdapter.EXTRA_ID );
-                    String texto =  ByteArrayToHexString( tagId );
-                    int imagen = 0;
-
-                    if(texto.equals(getResources().getString(R.string.tag_nuria))){
-                        imagen = 1;
-                    }else if(texto.equals(getResources().getString(R.string.tag_moya))){
-                        imagen = 2;
-                    }else if(texto.equals(getResources().getString(R.string.tag_juanlu))){
-                        imagen = 3;
+                    if (texto.equals(getResources().getString(R.string.tag_nuria))) {
+                        //Comprobamos que sea la que queremos (esto puede ser controlado con un booleano)
+                        question = question + 1;
+                        correct_answers = correct_answers + 1;
+                        NFC_activated = false;
+                        onFragmentInteraction();
                     }
+                } else {
 
-                    if(imagen > 0){
-                        Intent intent2 = new Intent(GameStartActivity.this , MapActivity.class);
-                        Bundle bundle = new Bundle(  );
-                        bundle.putInt("imagen", imagen);
-                        intent2.putExtras(bundle);
-                        startActivity(intent2);
+                    if (intent.hasExtra(mNfcAdapter.EXTRA_ID)) {
+
+                        byte[] tagId = intent.getByteArrayExtra(mNfcAdapter.EXTRA_ID);
+                        String texto = ByteArrayToHexString(tagId);
+                        int imagen = 0;
+
+                        if (texto.equals(getResources().getString(R.string.tag_nuria))) {
+                            imagen = 1;
+                        } else if (texto.equals(getResources().getString(R.string.tag_moya))) {
+                            imagen = 2;
+                        } else if (texto.equals(getResources().getString(R.string.tag_juanlu))) {
+                            imagen = 3;
+                        }
+
+                        if (imagen > 0) {
+                            Intent intent2 = new Intent(GameStartActivity.this, MapActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("imagen", imagen);
+                            intent2.putExtras(bundle);
+                            startActivity(intent2);
+                        }
                     }
                 }
             }
@@ -587,21 +597,27 @@ public class GameStartActivity extends VoiceActivity
 
 
     /* ---------- LISTENING METHODS ---------------- */
-    private static Integer ID_PROMPT_QUERY = 0;	//Id chosen to identify the prompts that involve posing questions to the user
-    private static Integer ID_PROMPT_INFO = 1;	//Id chosen to identify the prompts that involve only informing the user
-    private long startListeningTime = 0; // To skip errors (see processAsrError method)
 
+    // Constantes y variables para la escucha.
+    private static Integer ID_PROMPT_QUERY = 0;
+    private static Integer ID_PROMPT_INFO = 1;
+    private long startListeningTime = 0;
+    //Código de idioma.
     private String lang = "ES";
 
+    //Cambios en la interfaz de usuario al iniciar escucha.
     private void indicateListening(){
 
     }
+
+    // Comprobación de conexión a internet.
     public boolean deviceConnectedToInternet() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return (activeNetwork != null && activeNetwork.isConnectedOrConnecting());
     }
 
+    // Función que comienza a escuchar la voz del usuario.
     private void startListening(){
 
         if(deviceConnectedToInternet()){
@@ -622,16 +638,19 @@ public class GameStartActivity extends VoiceActivity
         }
     }
 
+    // Mensaje informativo para pedir permiso para utilizar el micrófono.
     @Override
     public void showRecordPermissionExplanation() {
         Toast.makeText(getApplicationContext(), "Usando el sensor de proximidad puedes hablar para elegir la respuesta. La aplicación necesita acceso al micrófono.", Toast.LENGTH_SHORT).show();
     }
 
+    // Mensaje de rechazo si no se dan permisos de micrófono.
     @Override
     public void onRecordAudioPermissionDenied() {
         Toast.makeText(getApplicationContext(), "Lo sentimos. Para usar esta funcionalidad debes utilizar el micrófono.", Toast.LENGTH_SHORT).show();
     }
 
+    // Procesamiento de los resultados escuchados.
     @Override
     public void processAsrResults(ArrayList<String> nBestList, float[] nBestConfidences) {
         if (nBestList != null) {
@@ -661,7 +680,7 @@ public class GameStartActivity extends VoiceActivity
                     System.out.println(s.toLowerCase()+" || "+userQuery);
                     if(userQuery.contains(s.toLowerCase())){
                         System.out.println("OK");
-                        // Volver a la pregunta anterior.
+                        // Pasar de pregunta.
                         Toast.makeText(getApplicationContext(), "Has pasado de pregunta.", Toast.LENGTH_SHORT).show();
 
                         question = question + 1;
@@ -670,7 +689,7 @@ public class GameStartActivity extends VoiceActivity
                         matched = true;
                     }
                 }
-
+                // Contestación de preguntas. Detectamos si se ha dicho alguna palabra clave por el usuario que identifique la respuesta.
                 if(question == 1 || question == 2) {
                     for(int i = 1; i <= 3; i++) {
                         String keyname = "question"+Integer.toString(question)+Integer.toString(i)+"_keys";
@@ -704,8 +723,7 @@ public class GameStartActivity extends VoiceActivity
 
                     }
                 }
-
-                //changeButtonAppearanceToDefault();
+                // Respuesta desconocida.
                 if(!matched) {
                     Toast.makeText(getApplicationContext(), "No he entendido la respuesta.", Toast.LENGTH_SHORT).show();
                 }
@@ -718,6 +736,7 @@ public class GameStartActivity extends VoiceActivity
 
     }
 
+    //Manejo de errores en la escucha.
     @Override
     public void processAsrError(int errorCode) {
         //changeButtonAppearanceToDefault();

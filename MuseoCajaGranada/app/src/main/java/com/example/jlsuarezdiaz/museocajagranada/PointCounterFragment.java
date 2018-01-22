@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 /**
  * Created by nuria on 9/1/18.
+ * Class PointCounterFragment.
+ * Fragmento encargado de realizar recuento de puntos y finalizar el juego.
  */
 
 public class PointCounterFragment extends Fragment {
@@ -28,7 +30,7 @@ public class PointCounterFragment extends Fragment {
     }
 
     /*
-        Método que realiza el recuento de los puntos obtenidos al finalizar el juego.
+     *  Método que realiza el recuento de los puntos obtenidos al finalizar el juego.
      */
     private void Checkpoints(){
         //Obtenemos variables de la activity del juego.
@@ -51,21 +53,6 @@ public class PointCounterFragment extends Fragment {
         total_score = count;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Question1Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PointCounterFragment newInstance(String param1, String param2) {
-        PointCounterFragment fragment = new PointCounterFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -110,20 +97,10 @@ public class PointCounterFragment extends Fragment {
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * Interfaz de interacción con actividades.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 

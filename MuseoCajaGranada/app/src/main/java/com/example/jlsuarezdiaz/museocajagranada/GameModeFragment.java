@@ -11,60 +11,38 @@ import android.widget.Button;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link GameModeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link GameModeFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Clase GameModeFragment.
+ * Fragmento para escoger el modo de juego.
  */
 public class GameModeFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
 
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
 
     private OnFragmentInteractionListener mListener;
 
+    /**
+     * Constructor.
+     */
     public GameModeFragment() {
-        // Required empty public constructor
+
     }
+
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment GameModeFragment.
+     * Creación del fragmento.
      */
-    // TODO: Rename and change types and number of parameters
-    public static GameModeFragment newInstance(String param1, String param2) {
-        GameModeFragment fragment = new GameModeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
     }
 
+    /**
+     * Creación de la vista.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -93,16 +71,9 @@ public class GameModeFragment extends Fragment {
         return v;
     }
 
-/*    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri){
-
-        if (mListener != null) {
-            mListener.onFragmentInteraction("");
-        }
-    }*/
-
-
-
+    /**
+     * Asociación con actividad.
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -115,6 +86,9 @@ public class GameModeFragment extends Fragment {
         }
     }
 
+    /**
+     * Desasociación.
+     */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -122,24 +96,16 @@ public class GameModeFragment extends Fragment {
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * Interfaz para la activación de eventos en la actividad.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(String text, View v);
     }
 
-    public void startGame(View view) {
 
-    }
-
+    /**
+     * Activación de la actividad de selección de dispositivos Bluetooth.
+     */
     public void playMultiplayer(View view) {
         Intent serverIntent = new Intent(this.getContext(), DeviceListActivity.class);
         startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);

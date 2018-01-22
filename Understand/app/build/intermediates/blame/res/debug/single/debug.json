@@ -264,6 +264,10 @@
         "source": "/home/jlsuarezdiaz/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.0.1.aar/0cb9a19129b22a0e1cfbe7492505548d/res/drawable/abc_btn_radio_material.xml"
     },
     {
+        "merged": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/debug/drawable-hdpi_mic_listening.jpg.flat",
+        "source": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/src/main/res/drawable-hdpi/mic_listening.jpg"
+    },
+    {
         "merged": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/debug/color-v23_abc_color_highlight_material.xml.flat",
         "source": "/home/jlsuarezdiaz/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.0.1.aar/0cb9a19129b22a0e1cfbe7492505548d/res/color-v23/abc_color_highlight_material.xml"
     },

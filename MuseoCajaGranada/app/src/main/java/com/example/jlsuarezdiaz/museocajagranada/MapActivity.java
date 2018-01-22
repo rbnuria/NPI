@@ -19,26 +19,28 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-
+/**
+ * Clase MapActivity.
+ * Representa un mapa orientable mediante los sensores del dispositivo.
+ *
+ * Clase basada en el ejemplo https://www.javacodegeeks.com/2013/09/android-compass-code-example.html.
+ */
 public class MapActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
 
 
 
-    // define the display assembly compass picture
+    // Imagen del mapa
     private ImageView image;
 
-    // record the compass picture angle turned
+    // Ángulo de giro.
     private float currentDegree = 0f;
 
-    // device sensor manager
+    // Sensor manager.
     private SensorManager mSensorManager;
 
 
-    Sensor accelerometer;
-    Sensor magnetometer;
-
-
+    //Creación de la actividad.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +90,7 @@ public class MapActivity extends AppCompatActivity
 
     }
 
+    // Reanudación de la actividad
     @Override
     protected void onResume() {
         super.onResume();
@@ -98,6 +101,7 @@ public class MapActivity extends AppCompatActivity
         //mSensorManager.registerListener(this,magnetometer,SensorManager.SENSOR_DELAY_UI);
     }
 
+    // Pausa de la actividad
     @Override
     protected void onPause() {
         super.onPause();
@@ -105,6 +109,7 @@ public class MapActivity extends AppCompatActivity
         mSensorManager.unregisterListener(this);
     }
 
+    // Evento 'Pulsar atrás'
     @Override
     public void onBackPressed() {
 
@@ -116,24 +121,17 @@ public class MapActivity extends AppCompatActivity
         }
     }
 
+    // Manejo de menús.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.map, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -161,8 +159,10 @@ public class MapActivity extends AppCompatActivity
         return true;
     }
 
-    private float[] mGravity;
-    private float[] mGeomagnetic;
+    /**
+     * Manejo del giro del mapa. Detecta la orientación del dispositivo y gira el mapa dependiendo de esa orientación.
+     * @param event Evento que ha producido el cambio en el sensor.
+     */
     @Override
     public void onSensorChanged(SensorEvent event) {
 
@@ -190,9 +190,9 @@ public class MapActivity extends AppCompatActivity
 
     }
 
+    // Eventos no usados.
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // not in use
     }
 
     //@Override

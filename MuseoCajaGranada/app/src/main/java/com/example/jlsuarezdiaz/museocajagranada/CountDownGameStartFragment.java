@@ -17,57 +17,33 @@ import static java.lang.Thread.sleep;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CountDownGameStartFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CountDownGameStartFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragmento que muestra una cuenta atrás para el comienzo del juego en GameStartActivity.
  */
 public class CountDownGameStartFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    /**
+     * Listener para la interacción con actividades.
+     */
     private OnFragmentInteractionListener mListener;
 
+    /**
+     * Constructor por defecto.
+     */
     public CountDownGameStartFragment() {
-        // Required empty public constructor
     }
+
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CountDownGameStartFragment.
+     * Creación del fragmento.
      */
-    // TODO: Rename and change types and number of parameters
-    public static CountDownGameStartFragment newInstance(String param1, String param2) {
-        CountDownGameStartFragment fragment = new CountDownGameStartFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
     }
 
+    /**
+     * Creación de la vista.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,15 +59,18 @@ public class CountDownGameStartFragment extends Fragment {
         pb.setProgress(maxTime);
 
         final int interval = 1;
+        //Temporizador.
         new CountDownTimer(maxTime,interval){
             @Override
             public void onTick(long millisUntilFinished) {
+                // Se cambia el progreso en la cuenta atrás.
                 pb.setProgress((int)millisUntilFinished % period);
                 tv.setText(Long.toString(millisUntilFinished/period+1));
             }
 
             @Override
             public void onFinish() {
+                // Se activa la interacción con la activity al finalizar la cuenta atrás.
                 pb.setProgress(0);
                 tv.setText("¡YA!");
 
@@ -109,13 +88,10 @@ public class CountDownGameStartFragment extends Fragment {
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction();
-        }
-    }
 
+    /**
+     * Asociación de fragmento a actividad.
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -127,6 +103,9 @@ public class CountDownGameStartFragment extends Fragment {
         }
     }
 
+    /**
+     * Desasociación del fragmento.
+     */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -134,17 +113,9 @@ public class CountDownGameStartFragment extends Fragment {
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * Interfaz de interacción, para implementar en las actividades que utilicen este fragmento.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction();
     }
 }

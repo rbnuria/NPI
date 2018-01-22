@@ -14,9 +14,14 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+/**
+ * Clase HomeActivity.
+ * Representa la página principal de la aplicación.
+ */
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    // Creación de la actividad.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +48,7 @@ public class HomeActivity extends AppCompatActivity
         myWebView.loadUrl("http://www.cajagranadafundacion.es/");
     }
 
+    // Evento 'Pulsar atrás'.
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -53,6 +59,9 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Funciones de manejo de menús.s
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -68,9 +77,9 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        //if (id == R.id.action_settings) {
+         //   return true;
+        //}
 
         return super.onOptionsItemSelected(item);
     }

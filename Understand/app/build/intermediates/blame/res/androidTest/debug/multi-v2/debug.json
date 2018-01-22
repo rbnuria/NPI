@@ -597,28 +597,6 @@
             ]
         },
         {
-            "outputFile": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/androidTest/debug/values-ja_values-ja.arsc.flat",
-            "map": [
-                {
-                    "source": "/home/jlsuarezdiaz/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.0.1.aar/0cb9a19129b22a0e1cfbe7492505548d/res/values-ja/values-ja.xml",
-                    "from": {
-                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "280,377,484,605,698,803,885,983,1091,1169,1271,1370,1465,1568,1663,1759,1870,1967",
-                        "endColumns": "96,106,120,92,104,81,97,107,77,101,98,94,102,94,95,110,96,100",
-                        "endOffsets": "372,479,600,693,798,880,978,1086,1164,1266,1365,1460,1563,1658,1754,1865,1962,2063"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,152,259,380,473,578,660,758,866,944,1046,1145,1240,1343,1438,1534,1645,1742",
-                        "endColumns": "96,106,120,92,104,81,97,107,77,101,98,94,102,94,95,110,96,100",
-                        "endOffsets": "147,254,375,468,573,655,753,861,939,1041,1140,1235,1338,1433,1529,1640,1737,1838"
-                    }
-                }
-            ]
-        },
-        {
             "outputFile": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/androidTest/debug/values-nb_values-nb.arsc.flat",
             "map": [
                 {
@@ -641,23 +619,23 @@
             ]
         },
         {
-            "outputFile": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/androidTest/debug/values-iw_values-iw.arsc.flat",
+            "outputFile": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/androidTest/debug/values-ja_values-ja.arsc.flat",
             "map": [
                 {
-                    "source": "/home/jlsuarezdiaz/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.0.1.aar/0cb9a19129b22a0e1cfbe7492505548d/res/values-iw/values-iw.xml",
+                    "source": "/home/jlsuarezdiaz/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.0.1.aar/0cb9a19129b22a0e1cfbe7492505548d/res/values-ja/values-ja.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "280,384,494,620,719,827,911,1011,1125,1204,1306,1410,1506,1609,1710,1810,1926,2022",
-                        "endColumns": "103,109,125,98,107,83,99,113,78,101,103,95,102,100,99,115,95,102",
-                        "endOffsets": "379,489,615,714,822,906,1006,1120,1199,1301,1405,1501,1604,1705,1805,1921,2017,2120"
+                        "startOffsets": "280,377,484,605,698,803,885,983,1091,1169,1271,1370,1465,1568,1663,1759,1870,1967",
+                        "endColumns": "96,106,120,92,104,81,97,107,77,101,98,94,102,94,95,110,96,100",
+                        "endOffsets": "372,479,600,693,798,880,978,1086,1164,1266,1365,1460,1563,1658,1754,1865,1962,2063"
                     },
                     "to": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,159,269,395,494,602,686,786,900,979,1081,1185,1281,1384,1485,1585,1701,1797",
-                        "endColumns": "103,109,125,98,107,83,99,113,78,101,103,95,102,100,99,115,95,102",
-                        "endOffsets": "154,264,390,489,597,681,781,895,974,1076,1180,1276,1379,1480,1580,1696,1792,1895"
+                        "startOffsets": "55,152,259,380,473,578,660,758,866,944,1046,1145,1240,1343,1438,1534,1645,1742",
+                        "endColumns": "96,106,120,92,104,81,97,107,77,101,98,94,102,94,95,110,96,100",
+                        "endOffsets": "147,254,375,468,573,655,753,861,939,1041,1140,1235,1338,1433,1529,1640,1737,1838"
                     }
                 }
             ]
@@ -680,6 +658,28 @@
                         "startOffsets": "55,155,263,386,483,595,680,781,895,976,1086,1194,1292,1401,1500,1603,1721,1819",
                         "endColumns": "99,107,122,96,111,84,100,113,80,109,107,97,108,98,102,117,97,100",
                         "endOffsets": "150,258,381,478,590,675,776,890,971,1081,1189,1287,1396,1495,1598,1716,1814,1915"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/home/jlsuarezdiaz/Documentos/Github/NPI/Understand/app/build/intermediates/res/merged/androidTest/debug/values-iw_values-iw.arsc.flat",
+            "map": [
+                {
+                    "source": "/home/jlsuarezdiaz/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.0.1.aar/0cb9a19129b22a0e1cfbe7492505548d/res/values-iw/values-iw.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "280,384,494,620,719,827,911,1011,1125,1204,1306,1410,1506,1609,1710,1810,1926,2022",
+                        "endColumns": "103,109,125,98,107,83,99,113,78,101,103,95,102,100,99,115,95,102",
+                        "endOffsets": "379,489,615,714,822,906,1006,1120,1199,1301,1405,1501,1604,1705,1805,1921,2017,2120"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,159,269,395,494,602,686,786,900,979,1081,1185,1281,1384,1485,1585,1701,1797",
+                        "endColumns": "103,109,125,98,107,83,99,113,78,101,103,95,102,100,99,115,95,102",
+                        "endOffsets": "154,264,390,489,597,681,781,895,974,1076,1180,1276,1379,1480,1580,1696,1792,1895"
                     }
                 }
             ]
