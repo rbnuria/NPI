@@ -68,6 +68,15 @@ public class GameModeFragment extends Fragment {
                 }
             }
         });
+        final Button btMultiplayerSt = (Button) v.findViewById(R.id.btMultiplayerSt);
+        btMultiplayerSt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null){
+                    mListener.onFragmentInteraction("MULTIPLAYER_ST",v);
+                }
+            }
+        });
         return v;
     }
 

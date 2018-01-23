@@ -5,27 +5,27 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Poner aquí otra opción o quitarlo incluso.</string>
+    <string name="action_settings">.</string>
     <string name="title_activity_game_start">Nueva partida</string>
 
     <!--  BluetoothChat -->
     <string name="send">Send</string>
-    <string name="not_connected">You are not connected to a device</string>
-    <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Bluetooth Chat.</string>
-    <string name="title_connecting">connecting...</string>
-    <string name="title_connected_to">connected: </string>
-    <string name="title_not_connected">not connected</string>
+    <string name="not_connected">No estás conectado.</string>
+    <string name="bt_not_enabled_leaving">Bluetooth no permitido. No se puede utilizar este modo de juego.</string>
+    <string name="title_connecting">Conectando...</string>
+    <string name="title_connected_to">Conectado: </string>
+    <string name="title_not_connected">No contectado.</string>
     <!--  DeviceListActivity -->
-    <string name="scanning">scanning for devices...</string>
-    <string name="select_device">select a device to connect</string>
-    <string name="none_paired">No devices have been paired</string>
-    <string name="none_found">No devices found</string>
-    <string name="title_paired_devices">Paired Devices</string>
-    <string name="title_other_devices">Other Available Devices</string>
-    <string name="button_scan">Scan for devices</string>
+    <string name="scanning">Buscando dispositivos...</string>
+    <string name="select_device">Selecciona un dispositivo para conectar.</string>
+    <string name="none_paired">No hay dispositivos vinculados.</string>
+    <string name="none_found">No se han encontrado dispositivos.</string>
+    <string name="title_paired_devices">Dispositivos vinculados</string>
+    <string name="title_other_devices">Otros dispositivos disponibles</string>
+    <string name="button_scan">Buscar dispositivos</string>
     <!-- Options Menu -->
-    <string name="connect">Connect a device</string>
-    <string name="discoverable">Make discoverable</string>
+    <string name="connect">Conectar dispositivo</string>
+    <string name="discoverable">Hacer visible</string>
     <string name="title_activity_map">MapActivity</string>
 
     <string name="error_camara">"Ha ocurrido un error con la cámara"</string>
@@ -45,39 +45,39 @@
 
 
     <string-array name="question11_keys">
-            <item>611</item>
-            <item>1</item>
-            <item>primer</item>
+        <item>611</item>
+        <item>1</item>
+        <item>primer</item>
     </string-array>
 
     <string-array name="question12_keys">
-                <item>siglo 8</item>
-                <item>2</item>
-                <item>segund</item>
+        <item>siglo 8</item>
+        <item>2</item>
+        <item>segund</item>
     </string-array>
 
     <string-array name="question13_keys">
-                <item>711</item>
-                <item>3</item>
-                <item>tercer</item>
+        <item>711</item>
+        <item>3</item>
+        <item>tercer</item>
     </string-array>
 
     <string-array name="question21_keys">
-                <item>Cádiz</item>
-                <item>1</item>
-                <item>primer</item>
+        <item>Cádiz</item>
+        <item>1</item>
+        <item>primer</item>
     </string-array>
 
     <string-array name="question22_keys">
-                <item>Sevilla</item>
-                <item>2</item>
-                <item>segund</item>
+        <item>Sevilla</item>
+        <item>2</item>
+        <item>segund</item>
     </string-array>
 
     <string-array name="question23_keys">
-                <item>Córdoba</item>
-                <item>3</item>
-                <item>tercer</item>
+        <item>Córdoba</item>
+        <item>3</item>
+        <item>tercer</item>
     </string-array>
 
     <string-array name="question_back_key">
@@ -92,8 +92,6 @@
         <item>Seguir</item>
         <item>Pasar</item>
     </string-array>
-
-
 
 
     <string name="question3">Encuentra el lugar donde se encuentra la biografía del autor de este cuadro. Pista: es un pintor del siglo XX. </string>

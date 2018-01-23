@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <uses-feature
         android:name="android.hardware.nfc"
@@ -41,16 +41,13 @@
             android:label="@string/title_activity_game_start"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar">
-
-
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".DeviceListActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -59,10 +56,11 @@
             android:name=".MapActivity"
             android:label="@string/title_activity_map"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MultiplayerStartActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".MultiplayerGameActivity"></activity>
     </application>
 
 </manifest>

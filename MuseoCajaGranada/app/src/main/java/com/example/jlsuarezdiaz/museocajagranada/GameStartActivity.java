@@ -349,9 +349,13 @@ public class GameStartActivity extends VoiceActivity
         transaction.commit();
     }
 
-    public void playMultiplayer(View view) {
-        Intent serverIntent = new Intent(this, DeviceListActivity.class);
-        startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
+    public void playMultiplayer(View view, boolean start) {
+        //Intent serverIntent = new Intent(this, DeviceListActivity.class);
+        //startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
+        Intent multiplayerIntent = new Intent(this,MultiplayerStartActivity.class);
+        System.out.println(start);
+        multiplayerIntent.putExtra("START",start);
+        startActivity(multiplayerIntent);
     }
 
     /*
@@ -359,12 +363,16 @@ public class GameStartActivity extends VoiceActivity
      */
     @Override
     public void onFragmentInteraction(String text, View v) {
+        System.out.println(text);
         switch(text){
             case "INDIVIDUAL":
                 startGame(v);
                 break;
             case "MULTIPLAYER":
-                playMultiplayer(v);
+                playMultiplayer(v,false);
+                break;
+            case "MULTIPLAYER_ST":
+                playMultiplayer(v,true);
                 break;
         }
     }
