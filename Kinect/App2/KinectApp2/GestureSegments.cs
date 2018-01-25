@@ -125,13 +125,14 @@ namespace KinectSimpleGesture
         public GesturePartResult Update(Skeleton skeleton)
         {
             // Manos por debajo del hombro y distancia entre manos sobre cada eje superior a un umbral. 
-            if (skeleton.Joints[JointType.HandRight].Position.Y < skeleton.Joints[JointType.ShoulderRight].Position.Y && 
-                skeleton.Joints[JointType.HandLeft].Position.Y < skeleton.Joints[JointType.ShoulderLeft].Position.Y && 
-                Math.Abs(skeleton.Joints[JointType.HandLeft].Position.X - skeleton.Joints[JointType.HandRight].Position.X) > 0.2 &&
-                Math.Abs(skeleton.Joints[JointType.HandLeft].Position.Y - skeleton.Joints[JointType.HandRight].Position.Y) > 0.2 &&
-                Math.Abs(skeleton.Joints[JointType.HandLeft].Position.Z - skeleton.Joints[JointType.HandRight].Position.Z) > 0.2
+            if (//skeleton.Joints[JointType.HandRight].Position.Y < skeleton.Joints[JointType.ShoulderRight].Position.Y && 
+                //skeleton.Joints[JointType.HandLeft].Position.Y < skeleton.Joints[JointType.ShoulderLeft].Position.Y && 
+                Math.Abs(skeleton.Joints[JointType.HandLeft].Position.X - skeleton.Joints[JointType.HandRight].Position.X) > 0.2 
+                //Math.Abs(skeleton.Joints[JointType.HandLeft].Position.Y - skeleton.Joints[JointType.HandRight].Position.Y) > 0.2 
+                //Math.Abs(skeleton.Joints[JointType.HandLeft].Position.Z - skeleton.Joints[JointType.HandRight].Position.Z) > 0.2
                 )
             {
+                Console.WriteLine("!!!");
                 return GesturePartResult.Succeeded;
             }
             return GesturePartResult.Failed;
@@ -150,10 +151,12 @@ namespace KinectSimpleGesture
             if (skeleton.Joints[JointType.HandRight].Position.Y < skeleton.Joints[JointType.ShoulderRight].Position.Y &&
                 skeleton.Joints[JointType.HandLeft].Position.Y < skeleton.Joints[JointType.ShoulderLeft].Position.Y &&
                 Math.Abs(skeleton.Joints[JointType.HandLeft].Position.X - skeleton.Joints[JointType.HandRight].Position.X) < 0.1 &&
-                Math.Abs(skeleton.Joints[JointType.HandLeft].Position.Y - skeleton.Joints[JointType.HandRight].Position.Y) < 0.1 &&
-                Math.Abs(skeleton.Joints[JointType.HandLeft].Position.Z - skeleton.Joints[JointType.HandRight].Position.Z) < 0.1
+                Math.Abs(skeleton.Joints[JointType.HandLeft].Position.Y - skeleton.Joints[JointType.HandRight].Position.Y) < 0.1
+                //Math.Abs(skeleton.Joints[JointType.HandLeft].Position.Z - skeleton.Joints[JointType.HandRight].Position.Z) < 0.3
                 )
+
             {
+                Console.WriteLine("!!!!!!");
                 return GesturePartResult.Succeeded;    
             }
             return GesturePartResult.Failed;

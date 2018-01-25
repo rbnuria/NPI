@@ -180,7 +180,7 @@ namespace KinectSimpleGesture
 
         public void Update(Skeleton skeleton)
         {
-
+            Console.WriteLine(_currentSegment);
             GesturePartResult result = _segments[_currentSegment].Update(skeleton);
 
             if (result == GesturePartResult.Succeeded)
@@ -248,7 +248,7 @@ namespace KinectSimpleGesture
 
         public void Update(Skeleton skeleton)
         {
-
+           
             GesturePartResult result = _segments[_currentSegment].Update(skeleton);
 
             if (result == GesturePartResult.Succeeded)
